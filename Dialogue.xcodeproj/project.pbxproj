@@ -3,7 +3,7 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 50;
+	objectVersion = 51;
 	objects = {
 
 /* Begin PBXBuildFile section */
@@ -111,6 +111,7 @@
 		3DF0B00123413F4D00F99848 = {
 			isa = PBXGroup;
 			children = (
+				3DBDA37B23464E2C00CD8291 /* GoogleService-Info.plist */,
 				3DF0B00C23413F4D00F99848 /* Dialogue */,
 				3DF0B02123413F4E00F99848 /* DialogueTests */,
 				3DF0B02C23413F4E00F99848 /* DialogueUITests */,
@@ -133,7 +134,6 @@
 		3DF0B00C23413F4D00F99848 /* Dialogue */ = {
 			isa = PBXGroup;
 			children = (
-				3DBDA37B23464E2C00CD8291 /* GoogleService-Info.plist */,
 				3DF0B00D23413F4D00F99848 /* AppDelegate.swift */,
 				3DF0B00F23413F4D00F99848 /* ViewController.swift */,
 				3DF0B01123413F4D00F99848 /* Main.storyboard */,

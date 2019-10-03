@@ -1,0 +1,6 @@
+framework module Pods_DialogueTests {
+  umbrella header "Pods-DialogueTests-umbrella.h"
+
+  export *
+  module * { export * }
+}

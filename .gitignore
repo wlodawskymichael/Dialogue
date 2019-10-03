@@ -2,6 +2,10 @@
 #
 # gitignore contributors: remember to update Global/Xcode.gitignore, Objective-C.gitignore & Swift.gitignore
 
+# For Firebase Security
+Dialogue/GoogleService-Info.plist
+
+
 ## Build generated
 build/
 DerivedData/

@@ -41,6 +41,9 @@ PODS:
   - GoogleUtilities/Reachability (6.3.1):
     - GoogleUtilities/Logger
   - GTMSessionFetcher/Core (1.2.2)
+  - InputBarAccessoryView (4.2.2)
+  - MessageKit (3.0.0):
+    - InputBarAccessoryView (~> 4.2.2)
   - nanopb (0.3.901):
     - nanopb/decode (= 0.3.901)
     - nanopb/encode (= 0.3.901)
@@ -49,6 +52,7 @@ PODS:
 
 DEPENDENCIES:
   - Firebase/Auth
+  - MessageKit
 
 SPEC REPOS:
   trunk:
@@ -62,6 +66,8 @@ SPEC REPOS:
     - GoogleDataTransportCCTSupport
     - GoogleUtilities
     - GTMSessionFetcher
+    - InputBarAccessoryView
+    - MessageKit
     - nanopb
 
 SPEC CHECKSUMS:
@@ -75,8 +81,10 @@ SPEC CHECKSUMS:
   GoogleDataTransportCCTSupport: 9f352523e8785a71f6754f51eeff09f49ec19268
   GoogleUtilities: f895fde57977df4e0233edda0dbeac490e3703b6
   GTMSessionFetcher: 61bb0f61a4cb560030f1222021178008a5727a23
+  InputBarAccessoryView: 2b937602598e2fab3149f37f51dd7ad795653812
+  MessageKit: e892a9ca49ebe6d82684d3a93ad84021fa23e2c6
   nanopb: 2901f78ea1b7b4015c860c2fdd1ea2fee1a18d48
 
-PODFILE CHECKSUM: 921aa523f5ac3962e76ecdadf2ff6cad9a37a133
+PODFILE CHECKSUM: 937d1cf8ffcdcd936e49aad6154979f2d2f06e36
 
-COCOAPODS: 1.8.1
+COCOAPODS: 1.8.3

@@ -7,6 +7,7 @@ target 'Dialogue' do
 
   # Pods for Dialogue
   pod 'Firebase/Auth'
+  pod 'MessageKit'
 
   target 'DialogueTests' do
     inherit! :search_paths

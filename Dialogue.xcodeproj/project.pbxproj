@@ -45,8 +45,8 @@
 /* Begin PBXFileReference section */
 		0CF7A63BC25F8ACA4180408D /* Pods-Dialogue.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Dialogue.release.xcconfig"; path = "Target Support Files/Pods-Dialogue/Pods-Dialogue.release.xcconfig"; sourceTree = "<group>"; };
 		32370A963BE9CABC7C3D9456 /* Pods-Dialogue.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Dialogue.debug.xcconfig"; path = "Target Support Files/Pods-Dialogue/Pods-Dialogue.debug.xcconfig"; sourceTree = "<group>"; };
-		3DBDA37B23464E2C00CD8291 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
-		3DBDA37F234650EF00CD8291 /* Podfile */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = Podfile; sourceTree = "<group>"; };
+		3DBDA37B23464E2C00CD8291 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist; name = "GoogleService-Info.plist"; path = "../GoogleService-Info.plist"; sourceTree = "<group>"; };
+		3DBDA37F234650EF00CD8291 /* Podfile */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = Podfile; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.ruby; };
 		3DF0B00A23413F4D00F99848 /* Dialogue.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Dialogue.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		3DF0B00D23413F4D00F99848 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		3DF0B00F23413F4D00F99848 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -111,7 +111,6 @@
 		3DF0B00123413F4D00F99848 = {
 			isa = PBXGroup;
 			children = (
-				3DBDA37B23464E2C00CD8291 /* GoogleService-Info.plist */,
 				3DF0B00C23413F4D00F99848 /* Dialogue */,
 				3DF0B02123413F4E00F99848 /* DialogueTests */,
 				3DF0B02C23413F4E00F99848 /* DialogueUITests */,
@@ -139,6 +138,7 @@
 				3DF0B01123413F4D00F99848 /* Main.storyboard */,
 				3DF0B01423413F4E00F99848 /* Assets.xcassets */,
 				3DF0B01623413F4E00F99848 /* LaunchScreen.storyboard */,
+				3DBDA37B23464E2C00CD8291 /* GoogleService-Info.plist */,
 				3DF0B01923413F4E00F99848 /* Info.plist */,
 			);
 			path = Dialogue;

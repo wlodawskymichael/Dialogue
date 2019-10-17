@@ -10,10 +10,10 @@
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
-        <!--View Controller-->
+        <!--Signin View Controller-->
         <scene sceneID="tne-QT-ifu">
             <objects>
-                <viewController id="BYZ-38-t0r" customClass="ViewController" customModule="Dialogue" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="BYZ-38-t0r" customClass="SigninViewController" customModule="Dialogue" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="8bC-Xf-vdC">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="736"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -30,7 +30,7 @@
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <state key="normal" title="Login"/>
                                 <connections>
-                                    <segue destination="c2B-Ga-MF3" kind="show" id="Qc8-uk-zg9"/>
+                                    <action selector="onSignin:" destination="BYZ-38-t0r" eventType="touchUpInside" id="q5W-uX-e6z"/>
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ve8-ZR-kNo">
@@ -60,26 +60,33 @@
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <nil key="textColor"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                <textInputTraits key="textInputTraits" secureTextEntry="YES"/>
+                                <textInputTraits key="textInputTraits" secureTextEntry="YES" textContentType="password"/>
                             </textField>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="A5z-sp-233">
                                 <rect key="frame" x="172" y="553" width="54" height="30"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <state key="normal" title="Sign Up"/>
+                                <connections>
+                                    <segue destination="JjL-gu-cqE" kind="presentation" id="qkR-Aj-Ld4"/>
+                                </connections>
                             </button>
                         </subviews>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                     </view>
+                    <connections>
+                        <outlet property="EmailTextField" destination="Bk5-zH-UFZ" id="Amh-5S-3cu"/>
+                        <outlet property="PasswordTextField" destination="r0S-BI-aXc" id="MSx-0n-arp"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="137.68115942028987" y="120.53571428571428"/>
         </scene>
-        <!--View Controller-->
+        <!--Signup View Controller-->
         <scene sceneID="qmi-xd-Sem">
             <objects>
-                <viewController id="JjL-gu-cqE" sceneMemberID="viewController">
+                <viewController id="JjL-gu-cqE" customClass="SignupViewController" customModule="Dialogue" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="0NF-G5-7Ao">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="736"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -116,6 +123,9 @@
                                 <rect key="frame" x="180" y="433" width="54" height="30"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <state key="normal" title="Sign Up"/>
+                                <connections>
+                                    <action selector="onSignup:" destination="JjL-gu-cqE" eventType="touchUpInside" id="oem-du-pg3"/>
+                                </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Jhb-uh-vWw">
                                 <rect key="frame" x="128" y="479" width="158" height="30"/>
@@ -138,6 +148,11 @@
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <viewLayoutGuide key="safeArea" id="43o-oc-haP"/>
                     </view>
+                    <connections>
+                        <outlet property="ConfirmPasswordTextField" destination="54E-mo-Jxo" id="qFs-hC-d96"/>
+                        <outlet property="EmailTextField" destination="jSS-Zs-x9z" id="a3b-j4-opY"/>
+                        <outlet property="PasswordTextField" destination="Gfs-wM-0nx" id="gg5-iY-Frw"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="9Rm-6j-Ifk" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
@@ -184,7 +199,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="8Du-sj-CoN" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1994.2028985507247" y="359.51086956521743"/>
+            <point key="canvasLocation" x="2812" y="562"/>
         </scene>
         <!--My Dialogues-->
         <scene sceneID="i9B-Wo-4vM">
@@ -227,7 +242,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="q4P-Fd-eV8" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1992.753623188406" y="-288.58695652173913"/>
+            <point key="canvasLocation" x="2786" y="-358"/>
         </scene>
         <!--Tab Bar Controller-->
         <scene sceneID="LhT-v1-cDj">
@@ -245,7 +260,7 @@
                 </tabBarController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="YBg-lh-js5" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1251" y="-73"/>
+            <point key="canvasLocation" x="1854" y="120"/>
         </scene>
     </scenes>
 </document>

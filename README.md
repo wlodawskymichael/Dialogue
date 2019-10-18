@@ -19,3 +19,14 @@ pod install
 ...
 pod 'Example/Pod'
 ```
+
+### For error saying "Could not build Objective-C module 'Firebase'"
+Run these commands to alleviate this error:
+```
+1. rm -rf ~/Library/Developer/Xcode/DerivedData
+2. rm -rf Dialogue.xcworkspace/
+3. rm -f Podfile.lock
+4. rm -rf Pods/
+5. pod install
+```
+Reopen the project.

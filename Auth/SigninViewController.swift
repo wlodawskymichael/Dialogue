@@ -21,7 +21,6 @@ class SigninViewController: UIViewController {
     }
     
     @IBAction func onSignin(_ sender: Any) {
-        print("HERE????")
         if !(EmailTextField.text?.isEmpty ?? true || PasswordTextField.text?.isEmpty ?? true) {
             Auth.auth().signIn(withEmail: EmailTextField.text!, password: PasswordTextField.text!) { (result, error) in
                 if error != nil {

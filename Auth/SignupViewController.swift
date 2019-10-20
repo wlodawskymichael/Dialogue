@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import FirebaseAuth
 
 class SignupViewController: UIViewController {
 
@@ -24,8 +25,35 @@ class SignupViewController: UIViewController {
         
         if EmailTextField.text?.isEmpty ?? true || PasswordTextField.text?.isEmpty ?? true || ConfirmPasswordTextField.text?.isEmpty ?? true {
             Alerts.singleChoiceAlert(title: "Error", message: "One or more required fields is empty.", vc: self)
+            return
         }
+        if ConfirmPasswordTextField.text! != PasswordTextField.text! {
+            Alerts.singleChoiceAlert(title: "Error", message: "Passwords do not match.", vc: self)
+            return
+        }
+        if PasswordTextField.text?.count ?? 0 < 6 {
+            Alerts.singleChoiceAlert(title: "Error", message: "Password must be at least 6 characters long.", vc: self)
+            return
+        }
+        // TODO: Check for email format on client side
+        //let emailRegEx = try! NSRegularExpression( pattern:"[A-Z0-9a-z._%+-]+@[A-Za-z0-9.-]+\\.[A-Za-z]{2,64}")
+        //if emailRegEx.firstMatch(in: EmailTextField.text!, options: [], range: NSRange(location: 0, length: EmailTextField.text!.count)) != nil {
+        //    Alerts.singleChoiceAlert(title: "Error", message: "Invalid email.", vc: self)
+        //}
+        
+            
+        Auth.auth().createUser(withEmail: EmailTextField.text!, password: PasswordTextField.text!) { (result, error) in
+            if error != nil {
+                Alerts.singleChoiceAlert(title: "Error", message: "Error signing up.", vc: self)
+                return
+            }
+        }
+        
+        
     }
 
-
+    @IBAction func onCancel(_ sender: Any) {
+        self.dismiss(animated: true, completion: nil)
+    }
+    
 }

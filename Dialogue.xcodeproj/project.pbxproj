@@ -17,6 +17,7 @@
 		3DBDA380234650EF00CD8291 /* Podfile in Resources */ = {isa = PBXBuildFile; fileRef = 3DBDA37F234650EF00CD8291 /* Podfile */; };
 		3DBDA381234650EF00CD8291 /* Podfile in Resources */ = {isa = PBXBuildFile; fileRef = 3DBDA37F234650EF00CD8291 /* Podfile */; };
 		3DBDA382234650EF00CD8291 /* Podfile in Resources */ = {isa = PBXBuildFile; fileRef = 3DBDA37F234650EF00CD8291 /* Podfile */; };
+		3DCA9F0A235F80600078FD21 /* MyDialogueViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DCA9F09235F80600078FD21 /* MyDialogueViewController.swift */; };
 		3DF0B00E23413F4D00F99848 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DF0B00D23413F4D00F99848 /* AppDelegate.swift */; };
 		3DF0B01023413F4D00F99848 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DF0B00F23413F4D00F99848 /* ViewController.swift */; };
 		3DF0B01323413F4D00F99848 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 3DF0B01123413F4D00F99848 /* Main.storyboard */; };
@@ -53,6 +54,7 @@
 		3DB9DBCA2358E9530045F25C /* Alerts.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Alerts.swift; sourceTree = "<group>"; };
 		3DBDA37B23464E2C00CD8291 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist; name = "GoogleService-Info.plist"; path = "../GoogleService-Info.plist"; sourceTree = "<group>"; };
 		3DBDA37F234650EF00CD8291 /* Podfile */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = Podfile; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.ruby; };
+		3DCA9F09235F80600078FD21 /* MyDialogueViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyDialogueViewController.swift; sourceTree = "<group>"; };
 		3DF0B00A23413F4D00F99848 /* Dialogue.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Dialogue.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		3DF0B00D23413F4D00F99848 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		3DF0B00F23413F4D00F99848 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -167,6 +169,7 @@
 				3DF0B01423413F4E00F99848 /* Assets.xcassets */,
 				3DBDA37B23464E2C00CD8291 /* GoogleService-Info.plist */,
 				3DF0B01923413F4E00F99848 /* Info.plist */,
+				3DCA9F09235F80600078FD21 /* MyDialogueViewController.swift */,
 			);
 			path = Dialogue;
 			sourceTree = "<group>";
@@ -461,6 +464,7 @@
 				3DF0B00E23413F4D00F99848 /* AppDelegate.swift in Sources */,
 				576193CB235E2DCC009E18AD /* LoginListener.swift in Sources */,
 				3DB9DBC92358E8A30045F25C /* SignupViewController.swift in Sources */,
+				3DCA9F0A235F80600078FD21 /* MyDialogueViewController.swift in Sources */,
 				3DF163F32358E27E00A49BAC /* SigninViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

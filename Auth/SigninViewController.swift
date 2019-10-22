@@ -21,11 +21,15 @@ class SigninViewController: UIViewController {
     }
     
     @IBAction func onSignin(_ sender: Any) {
+        let vc = self
         if !(EmailTextField.text?.isEmpty ?? true || PasswordTextField.text?.isEmpty ?? true) {
             Auth.auth().signIn(withEmail: EmailTextField.text!, password: PasswordTextField.text!) { (result, error) in
                 if error != nil {
-                    Alerts.singleChoiceAlert(title: "Error", message: "Email or Password was invalid.", vc: self)
+                    Alerts.singleChoiceAlert(title: "Error", message: "Email or Password was invalid.", vc: vc)
+                } else {
+                    vc.performSegue(withIdentifier: "signinToDialogue", sender: nil)
                 }
+                
             }
         } else {
             Alerts.singleChoiceAlert(title: "Error", message: "Email or Password field is empty.", vc: self)

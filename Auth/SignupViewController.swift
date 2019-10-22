@@ -22,7 +22,7 @@ class SignupViewController: UIViewController {
     }
     
     @IBAction func onSignup(_ sender: Any) {
-        
+        let vc = self
         if EmailTextField.text?.isEmpty ?? true || PasswordTextField.text?.isEmpty ?? true || ConfirmPasswordTextField.text?.isEmpty ?? true {
             Alerts.singleChoiceAlert(title: "Error", message: "One or more required fields is empty.", vc: self)
             return
@@ -44,12 +44,12 @@ class SignupViewController: UIViewController {
             
         Auth.auth().createUser(withEmail: EmailTextField.text!, password: PasswordTextField.text!) { (result, error) in
             if error != nil {
-                Alerts.singleChoiceAlert(title: "Error", message: "Error signing up.", vc: self)
+                Alerts.singleChoiceAlert(title: "Error", message: "Error signing up.", vc: vc)
                 return
+            } else {
+                vc.performSegue(withIdentifier: "signupToDialogue", sender: nil)
             }
         }
-        
-        
     }
 
     @IBAction func onCancel(_ sender: Any) {

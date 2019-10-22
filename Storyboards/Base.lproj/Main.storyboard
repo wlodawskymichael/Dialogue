@@ -1,9 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="15400" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="BYZ-38-t0r">
-    <device id="retina5_5" orientation="portrait" appearance="light"/>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14490.70" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="BYZ-38-t0r">
+    <device id="retina5_5" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="15404"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14490.49"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -29,7 +31,6 @@
                                 <state key="normal" title="Login"/>
                                 <connections>
                                     <action selector="onSignin:" destination="BYZ-38-t0r" eventType="touchUpInside" id="q5W-uX-e6z"/>
-                                    <segue destination="c2B-Ga-MF3" kind="show" id="sXX-Nj-OGQ"/>
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ve8-ZR-kNo">
@@ -74,6 +75,7 @@
                     <connections>
                         <outlet property="EmailTextField" destination="Bk5-zH-UFZ" id="Amh-5S-3cu"/>
                         <outlet property="PasswordTextField" destination="r0S-BI-aXc" id="MSx-0n-arp"/>
+                        <segue destination="c2B-Ga-MF3" kind="show" identifier="signinToDialogue" id="U3F-ba-VJP"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
@@ -83,7 +85,7 @@
         <!--Signup View Controller-->
         <scene sceneID="qmi-xd-Sem">
             <objects>
-                <viewController modalPresentationStyle="fullScreen" id="JjL-gu-cqE" customClass="SignupViewController" customModule="Dialogue" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="JjL-gu-cqE" customClass="SignupViewController" customModule="Dialogue" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="0NF-G5-7Ao">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="736"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -118,7 +120,6 @@
                                 <state key="normal" title="Sign Up"/>
                                 <connections>
                                     <action selector="onSignup:" destination="JjL-gu-cqE" eventType="touchUpInside" id="oem-du-pg3"/>
-                                    <segue destination="c2B-Ga-MF3" kind="show" id="v7z-j2-9NO"/>
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Haw-EV-9Yf">
@@ -134,7 +135,7 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <navigationBar contentMode="scaleToFill" translucent="NO" translatesAutoresizingMaskIntoConstraints="NO" id="UYX-Ga-Ww5">
-                                <rect key="frame" x="0.0" y="0.0" width="414" height="44"/>
+                                <rect key="frame" x="0.0" y="20" width="414" height="44"/>
                                 <items>
                                     <navigationItem title="Sign Up" id="1qG-8D-tkw">
                                         <barButtonItem key="leftBarButtonItem" title="Cancel" id="AZK-wc-f3O">
@@ -174,29 +175,30 @@
                         <outlet property="ConfirmPasswordTextField" destination="54E-mo-Jxo" id="qFs-hC-d96"/>
                         <outlet property="EmailTextField" destination="jSS-Zs-x9z" id="a3b-j4-opY"/>
                         <outlet property="PasswordTextField" destination="Gfs-wM-0nx" id="gg5-iY-Frw"/>
+                        <segue destination="c2B-Ga-MF3" kind="show" identifier="signupToDialogue" id="8q2-w5-9mC"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="9Rm-6j-Ifk" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="881" y="120"/>
+            <point key="canvasLocation" x="138" y="934"/>
         </scene>
         <!--Following Dialogues-->
         <scene sceneID="FwZ-3r-P20">
             <objects>
-                <viewController title="Following Dialogues" modalPresentationStyle="fullScreen" id="Ff9-VT-5th" sceneMemberID="viewController">
+                <viewController title="Following Dialogues" id="Ff9-VT-5th" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="6p6-BC-em2">
-                        <rect key="frame" x="0.0" y="0.0" width="414" height="716"/>
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="736"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="4Xp-fu-VOC">
-                                <rect key="frame" x="0.0" y="56" width="414" height="611"/>
+                                <rect key="frame" x="0.0" y="64" width="414" height="623"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <prototypes>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" id="9XG-jG-ke3">
-                                        <rect key="frame" x="0.0" y="28" width="414" height="43.666667938232422"/>
+                                        <rect key="frame" x="0.0" y="28" width="414" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="9XG-jG-ke3" id="lWQ-8R-dru">
-                                            <rect key="frame" x="0.0" y="0.0" width="414" height="43.666667938232422"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="414" height="43.666666666666664"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                         </tableViewCellContentView>
                                     </tableViewCell>
@@ -227,11 +229,11 @@
         <!--View Controller-->
         <scene sceneID="59o-cn-PSI">
             <objects>
-                <viewController modalPresentationStyle="fullScreen" id="q7P-lq-TEX" sceneMemberID="viewController">
+                <viewController id="q7P-lq-TEX" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="Wxn-0x-ppg">
-                        <rect key="frame" x="0.0" y="0.0" width="414" height="716"/>
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="736"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <viewLayoutGuide key="safeArea" id="Ia6-NH-wIt"/>
                     </view>
                     <navigationItem key="navigationItem" id="6MU-hx-dL5"/>
@@ -243,20 +245,20 @@
         <!--My Dialogues-->
         <scene sceneID="i9B-Wo-4vM">
             <objects>
-                <viewController modalPresentationStyle="fullScreen" id="WQd-7m-53j" sceneMemberID="viewController">
+                <viewController id="WQd-7m-53j" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="MXA-0H-LCA">
-                        <rect key="frame" x="0.0" y="0.0" width="414" height="716"/>
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="736"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="lPA-t6-Zsi">
-                                <rect key="frame" x="0.0" y="56" width="414" height="611"/>
+                                <rect key="frame" x="0.0" y="64" width="414" height="623"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <prototypes>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" id="Aug-UP-ppx">
-                                        <rect key="frame" x="0.0" y="28" width="414" height="43.666667938232422"/>
+                                        <rect key="frame" x="0.0" y="28" width="414" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="Aug-UP-ppx" id="v6F-yq-vOF">
-                                            <rect key="frame" x="0.0" y="0.0" width="414" height="43.666667938232422"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="414" height="43.666666666666664"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                         </tableViewCellContentView>
                                     </tableViewCell>
@@ -289,21 +291,21 @@
         <!--Create a Dialogue-->
         <scene sceneID="PNR-j7-vEC">
             <objects>
-                <viewController title="Create a Dialogue" modalPresentationStyle="fullScreen" id="y5z-3U-2yE" sceneMemberID="viewController">
+                <viewController title="Create a Dialogue" id="y5z-3U-2yE" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="4TH-hy-8zk">
-                        <rect key="frame" x="0.0" y="0.0" width="414" height="716"/>
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="736"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="NlX-yA-9VV">
                                 <rect key="frame" x="0.0" y="136" width="414" height="531"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <prototypes>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" id="yJ5-fs-e1X">
                                         <rect key="frame" x="0.0" y="28" width="414" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="yJ5-fs-e1X" id="mER-Pa-Z5u">
-                                            <rect key="frame" x="0.0" y="0.0" width="414" height="44"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="414" height="43.666666666666664"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                         </tableViewCellContentView>
                                     </tableViewCell>
@@ -315,7 +317,7 @@
                                 <textInputTraits key="textInputTraits"/>
                             </searchBar>
                         </subviews>
-                        <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <viewLayoutGuide key="safeArea" id="wIp-7o-xSK"/>
                     </view>
                     <navigationItem key="navigationItem" title="Create a Dialogue" id="9aR-sg-zd2">
@@ -333,18 +335,18 @@
         <!--Dialogue Settings-->
         <scene sceneID="Xhu-S4-tIR">
             <objects>
-                <viewController modalPresentationStyle="fullScreen" id="m1F-4t-FHS" sceneMemberID="viewController">
+                <viewController id="m1F-4t-FHS" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="ogX-xc-5GX">
-                        <rect key="frame" x="0.0" y="0.0" width="414" height="716"/>
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="736"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Group Name" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="Enf-g5-620">
-                                <rect key="frame" x="20" y="114" width="374" height="34"/>
+                                <rect key="frame" x="20" y="122" width="374" height="30"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits"/>
                             </textField>
                         </subviews>
-                        <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
                             <constraint firstItem="Enf-g5-620" firstAttribute="trailing" secondItem="ogX-xc-5GX" secondAttribute="trailingMargin" id="UIU-5z-6yB"/>
                             <constraint firstItem="Enf-g5-620" firstAttribute="leading" secondItem="ogX-xc-5GX" secondAttribute="leadingMargin" id="ZRc-9K-WHB"/>
@@ -363,7 +365,7 @@
         <!--Tab Bar Controller-->
         <scene sceneID="LhT-v1-cDj">
             <objects>
-                <tabBarController modalPresentationStyle="fullScreen" id="c2B-Ga-MF3" sceneMemberID="viewController">
+                <tabBarController id="c2B-Ga-MF3" sceneMemberID="viewController">
                     <navigationItem key="navigationItem" id="gml-NG-RND"/>
                     <tabBar key="tabBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="Vxe-lt-oFp">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="49"/>
@@ -386,7 +388,7 @@
                     <tabBarItem key="tabBarItem" title="My Dialogues" id="92N-gX-tl3"/>
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="zxZ-MZ-iGo">
-                        <rect key="frame" x="0.0" y="0.0" width="414" height="56"/>
+                        <rect key="frame" x="0.0" y="20" width="414" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
                     <nil name="viewControllers"/>
@@ -405,7 +407,7 @@
                     <tabBarItem key="tabBarItem" title="Following" id="heH-LY-1Dx"/>
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="u9I-UU-JxA">
-                        <rect key="frame" x="0.0" y="0.0" width="414" height="56"/>
+                        <rect key="frame" x="0.0" y="20" width="414" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
                     <nil name="viewControllers"/>
@@ -419,6 +421,6 @@
         </scene>
     </scenes>
     <inferredMetricsTieBreakers>
-        <segue reference="v7z-j2-9NO"/>
+        <segue reference="U3F-ba-VJP"/>
     </inferredMetricsTieBreakers>
 </document>

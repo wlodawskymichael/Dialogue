@@ -14,5 +14,11 @@ class Alerts {
         alert.addAction(UIAlertAction(title: "Okay", style: .default, handler: nil))
         vc.present(alert, animated: true, completion: nil)
     }
+    
+    static func notImplementedAlert(functionalityDescription: String, vc: UIViewController) {
+        let alert = UIAlertController(title: "Functionality not Implemented!", message: functionalityDescription, preferredStyle: .alert)
+        alert.addAction(UIAlertAction(title: "Okay", style: .default, handler: nil))
+        vc.present(alert, animated: true, completion: nil)
+    }
 
 }

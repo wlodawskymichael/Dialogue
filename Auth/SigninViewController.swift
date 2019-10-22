@@ -20,6 +20,14 @@ class SigninViewController: UIViewController {
 
     }
     
+    @IBAction func onGoogleSignin(_ sender: Any) {
+        Alerts.notImplementedAlert(functionalityDescription: "This button will signin the user with Google in future releases.", vc: self)
+    }
+    
+    @IBAction func onFacebookSignin(_ sender: Any) {
+        Alerts.notImplementedAlert(functionalityDescription: "This button will signin the user with Facebook in future releases", vc: self)
+    }
+    
     @IBAction func onSignin(_ sender: Any) {
         let vc = self
         if !(EmailTextField.text?.isEmpty ?? true || PasswordTextField.text?.isEmpty ?? true) {

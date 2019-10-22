@@ -21,6 +21,14 @@ class SignupViewController: UIViewController {
         
     }
     
+    @IBAction func onGoogleSignup(_ sender: Any) {
+        Alerts.notImplementedAlert(functionalityDescription: "This button will allow users to signup with Google in future releases.", vc: self)
+    }
+    
+    @IBAction func onFacebookSignup(_ sender: Any) {
+        Alerts.notImplementedAlert(functionalityDescription: "This button will allow users to signup with Facebook in future releases.", vc: self)
+    }
+    
     @IBAction func onSignup(_ sender: Any) {
         let vc = self
         if EmailTextField.text?.isEmpty ?? true || PasswordTextField.text?.isEmpty ?? true || ConfirmPasswordTextField.text?.isEmpty ?? true {

@@ -42,11 +42,17 @@
                                 <rect key="frame" x="137" y="471" width="141" height="30"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <state key="normal" title="Login with Facebook"/>
+                                <connections>
+                                    <action selector="onFacebookSignin:" destination="BYZ-38-t0r" eventType="touchUpInside" id="c3W-gM-Up5"/>
+                                </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="DAU-ft-FBz">
                                 <rect key="frame" x="145" y="433" width="124" height="30"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <state key="normal" title="Login with Google"/>
+                                <connections>
+                                    <action selector="onGoogleSignin:" destination="BYZ-38-t0r" eventType="touchUpInside" id="gIY-eW-6er"/>
+                                </connections>
                             </button>
                             <textField opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Email" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="Bk5-zH-UFZ">
                                 <rect key="frame" x="20" y="287" width="374" height="30"/>
@@ -126,6 +132,9 @@
                                 <rect key="frame" x="137" y="499" width="140" height="30"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <state key="normal" title="Sign Up with Google"/>
+                                <connections>
+                                    <action selector="onGoogleSignup:" destination="JjL-gu-cqE" eventType="touchUpInside" id="M1U-tL-JgE"/>
+                                </connections>
                             </button>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="New here? Just a few more steps." textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="OMe-m8-HqL">
                                 <rect key="frame" x="78" y="169" width="259" height="21"/>
@@ -150,6 +159,9 @@
                                 <rect key="frame" x="128" y="537" width="158" height="30"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <state key="normal" title="Sign Up with Facebook"/>
+                                <connections>
+                                    <action selector="onFacebookSignup:" destination="JjL-gu-cqE" eventType="touchUpInside" id="7LC-hd-oGF"/>
+                                </connections>
                             </button>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -245,7 +257,7 @@
         <!--My Dialogues-->
         <scene sceneID="i9B-Wo-4vM">
             <objects>
-                <viewController id="WQd-7m-53j" sceneMemberID="viewController">
+                <viewController id="WQd-7m-53j" customClass="MyDialogueViewController" customModule="Dialogue" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="MXA-0H-LCA">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="736"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -276,7 +288,11 @@
                         <viewLayoutGuide key="safeArea" id="od1-pU-U2J"/>
                     </view>
                     <navigationItem key="navigationItem" title="My Dialogues" id="oIi-ez-rOR">
-                        <barButtonItem key="leftBarButtonItem" title="Profile" id="dJt-o0-XFN"/>
+                        <barButtonItem key="leftBarButtonItem" title="Profile" id="dJt-o0-XFN">
+                            <connections>
+                                <action selector="onProfile:" destination="WQd-7m-53j" id="phf-hh-Xes"/>
+                            </connections>
+                        </barButtonItem>
                         <barButtonItem key="rightBarButtonItem" systemItem="compose" id="imf-9E-raf">
                             <connections>
                                 <segue destination="y5z-3U-2yE" kind="show" id="nBB-Fl-pqf"/>
@@ -421,6 +437,6 @@
         </scene>
     </scenes>
     <inferredMetricsTieBreakers>
-        <segue reference="U3F-ba-VJP"/>
+        <segue reference="8q2-w5-9mC"/>
     </inferredMetricsTieBreakers>
 </document>

@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import FirebaseAuth
 
 class MyDialogueViewController: UIViewController {
 
@@ -18,7 +19,11 @@ class MyDialogueViewController: UIViewController {
     
 
     @IBAction func onProfile(_ sender: Any) {
-        Alerts.notImplementedAlert(functionalityDescription: "This button will allow user customization in future releases.", vc: self)
+        if LoginListener.isUserSignedIn() {
+            Alerts.singleChoiceAlert(title: "Login Status", message: "The user is logged in.", vc: self)
+        } else {
+            Alerts.singleChoiceAlert(title: "Error", message: "The user is not logged in!", vc: self)
+        }
     }
     /*
     // MARK: - Navigation

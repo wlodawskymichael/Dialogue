@@ -8,9 +8,17 @@
 
 import Foundation
 import UIKit
+import FirebaseAuth
 
 
 class LoginListener {
+    static func isUserSignedIn() -> Bool {
+        if Auth.auth().currentUser != nil {
+            return true
+        }
+        return false
+    }
+    
     static func attemptLogin(title: String, message: String, vc: UIViewController) {
         let alert = UIAlertController(title: title, message: message, preferredStyle: .alert)
         alert.addAction(UIAlertAction(title: "Okay", style: .default, handler: nil))

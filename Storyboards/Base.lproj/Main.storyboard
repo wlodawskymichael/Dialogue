@@ -17,9 +17,9 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Dialogue" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="I79-cQ-I2w">
-                                <rect key="frame" x="173" y="189" width="68" height="21"/>
+                                <rect key="frame" x="165" y="181" width="85" height="27"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="22"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
@@ -72,6 +72,10 @@
                                     <segue destination="JjL-gu-cqE" kind="presentation" id="qkR-Aj-Ld4"/>
                                 </connections>
                             </button>
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="logo" translatesAutoresizingMaskIntoConstraints="NO" id="dfx-Ia-j7W">
+                                <rect key="frame" x="155" y="71" width="104" height="79"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            </imageView>
                         </subviews>
                         <color key="backgroundColor" red="0.45882352939999999" green="0.86666666670000003" blue="0.86666666670000003" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
@@ -135,7 +139,7 @@
                                 </connections>
                             </button>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="New here? Just a few more steps." textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="OMe-m8-HqL">
-                                <rect key="frame" x="78" y="169" width="259" height="21"/>
+                                <rect key="frame" x="78" y="200" width="259" height="21"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <nil key="textColor"/>
@@ -143,6 +147,8 @@
                             </label>
                             <navigationBar contentMode="scaleToFill" translucent="NO" translatesAutoresizingMaskIntoConstraints="NO" id="UYX-Ga-Ww5">
                                 <rect key="frame" x="0.0" y="0.0" width="414" height="56"/>
+                                <color key="tintColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <color key="barTintColor" red="0.45882352939999999" green="0.86666666670000003" blue="0.86666666670000003" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <items>
                                     <navigationItem title="Sign Up" id="1qG-8D-tkw">
                                         <barButtonItem key="leftBarButtonItem" title="Cancel" id="AZK-wc-f3O">
@@ -161,8 +167,12 @@
                                     <action selector="onFacebookSignup:" destination="JjL-gu-cqE" eventType="touchUpInside" id="7LC-hd-oGF"/>
                                 </connections>
                             </button>
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="logo" translatesAutoresizingMaskIntoConstraints="NO" id="V9a-SW-yXB">
+                                <rect key="frame" x="145" y="95" width="125" height="83"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            </imageView>
                         </subviews>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <color key="backgroundColor" red="0.45882352939999999" green="0.86666666670000003" blue="0.86666666670000003" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
                             <constraint firstItem="UYX-Ga-Ww5" firstAttribute="leading" secondItem="43o-oc-haP" secondAttribute="leading" id="8jM-lo-Na5"/>
                             <constraint firstItem="UYX-Ga-Ww5" firstAttribute="top" secondItem="43o-oc-haP" secondAttribute="top" constant="10" id="A7j-ac-DCK"/>
@@ -190,7 +200,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="9Rm-6j-Ifk" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="138" y="934"/>
+            <point key="canvasLocation" x="137.68115942028987" y="933.42391304347836"/>
         </scene>
         <!--Following Dialogues-->
         <scene sceneID="FwZ-3r-P20">
@@ -448,10 +458,11 @@
     </scenes>
     <resources>
         <image name="eye.fill" catalog="system" width="64" height="38"/>
+        <image name="logo" width="602" height="402"/>
         <image name="message.fill" catalog="system" width="64" height="56"/>
         <image name="person.crop.circle" catalog="system" width="64" height="60"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="U3F-ba-VJP"/>
+        <segue reference="8q2-w5-9mC"/>
     </inferredMetricsTieBreakers>
 </document>

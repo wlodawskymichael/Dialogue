@@ -246,26 +246,49 @@
                             </connections>
                         </barButtonItem>
                     </navigationItem>
+                    <connections>
+                        <outlet property="tableView" destination="4Xp-fu-VOC" id="vfZ-K6-On4"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="8Du-sj-CoN" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="3544.9275362318845" y="560.86956521739137"/>
         </scene>
-        <!--View Controller-->
+        <!--FollowA Dialogue View Controller-->
         <scene sceneID="59o-cn-PSI">
             <objects>
-                <viewController id="q7P-lq-TEX" sceneMemberID="viewController">
+                <viewController id="q7P-lq-TEX" customClass="FollowADialogueViewController" customModule="Dialogue" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="Wxn-0x-ppg">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="716"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="wBU-ux-YbX">
+                                <rect key="frame" x="0.0" y="56" width="414" height="611"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                                <prototypes>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" id="fxe-8V-TtK">
+                                        <rect key="frame" x="0.0" y="28" width="414" height="44"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="fxe-8V-TtK" id="ENo-v6-aCD">
+                                            <rect key="frame" x="0.0" y="0.0" width="414" height="44"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                        </tableViewCellContentView>
+                                    </tableViewCell>
+                                </prototypes>
+                            </tableView>
+                        </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <viewLayoutGuide key="safeArea" id="Ia6-NH-wIt"/>
                     </view>
                     <navigationItem key="navigationItem" id="6MU-hx-dL5"/>
+                    <connections>
+                        <outlet property="tableView" destination="wBU-ux-YbX" id="QJ0-6Y-Vge"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="z5y-6E-Ojb" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="4317" y="561"/>
+            <point key="canvasLocation" x="4315.9420289855079" y="560.86956521739137"/>
         </scene>
         <!--My Dialogues-->
         <scene sceneID="i9B-Wo-4vM">
@@ -314,6 +337,9 @@
                             </connections>
                         </barButtonItem>
                     </navigationItem>
+                    <connections>
+                        <outlet property="dialoguesTableView" destination="lPA-t6-Zsi" id="94d-nY-vk5"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="q4P-Fd-eV8" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
@@ -322,7 +348,7 @@
         <!--Create a Dialogue-->
         <scene sceneID="PNR-j7-vEC">
             <objects>
-                <viewController title="Create a Dialogue" id="y5z-3U-2yE" sceneMemberID="viewController">
+                <viewController title="Create a Dialogue" id="y5z-3U-2yE" customClass="CreateDialogueViewController" customModule="Dialogue" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="4TH-hy-8zk">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="716"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -359,6 +385,9 @@
                             </connections>
                         </barButtonItem>
                     </navigationItem>
+                    <connections>
+                        <outlet property="contactsTableView" destination="NlX-yA-9VV" id="XiN-Vh-PQu"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="2fS-tS-GaL" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>

@@ -19,6 +19,13 @@ class LoginListener {
         return false
     }
     
+    static func getCurrentUserEmail() -> String? {
+        if let currentUser = Auth.auth().currentUser {
+            return currentUser.email
+        }
+        return nil
+    }
+    
     static func attemptLogin(title: String, message: String, vc: UIViewController) {
         let alert = UIAlertController(title: title, message: message, preferredStyle: .alert)
         alert.addAction(UIAlertAction(title: "Okay", style: .default, handler: nil))

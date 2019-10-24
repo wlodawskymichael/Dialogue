@@ -42,6 +42,7 @@ PODS:
     - GoogleUtilities/Logger
   - GTMSessionFetcher/Core (1.2.2)
   - InputBarAccessoryView (4.2.2)
+  - KVLoading (2.0.3)
   - MessageKit (3.0.0):
     - InputBarAccessoryView (~> 4.2.2)
   - nanopb (0.3.901):
@@ -52,6 +53,7 @@ PODS:
 
 DEPENDENCIES:
   - Firebase/Auth
+  - KVLoading (~> 2.0.3)
   - MessageKit
 
 SPEC REPOS:
@@ -67,6 +69,7 @@ SPEC REPOS:
     - GoogleUtilities
     - GTMSessionFetcher
     - InputBarAccessoryView
+    - KVLoading
     - MessageKit
     - nanopb
 
@@ -82,9 +85,10 @@ SPEC CHECKSUMS:
   GoogleUtilities: f895fde57977df4e0233edda0dbeac490e3703b6
   GTMSessionFetcher: 61bb0f61a4cb560030f1222021178008a5727a23
   InputBarAccessoryView: 2b937602598e2fab3149f37f51dd7ad795653812
+  KVLoading: de123c5840f27636e6320ec1fb00ba29f8833c12
   MessageKit: e892a9ca49ebe6d82684d3a93ad84021fa23e2c6
   nanopb: 2901f78ea1b7b4015c860c2fdd1ea2fee1a18d48
 
-PODFILE CHECKSUM: 937d1cf8ffcdcd936e49aad6154979f2d2f06e36
+PODFILE CHECKSUM: 876499da58e526eae894928c7ca22cbd546e72f3
 
 COCOAPODS: 1.8.4

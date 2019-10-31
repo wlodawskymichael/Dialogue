@@ -11,7 +11,6 @@ import FirebaseAuth
 
 class MyDialogueViewController: UIViewController {
     
-    
     @IBOutlet weak var dialoguesTableView: UITableView!
     
     override func viewDidLoad() {
@@ -35,12 +34,13 @@ class MyDialogueViewController: UIViewController {
     }
 
     @IBAction func onProfile(_ sender: Any) {
-        if let userEmail = LoginListener.getCurrentUserEmail() {
+        if let userEmail = UserHandling.getCurrentUserEmail() {
             Alerts.singleChoiceAlert(title: "Login Status", message: "\(userEmail) is logged in.", vc: self)
         } else {
             Alerts.singleChoiceAlert(title: "Error", message: "The user is not logged in!", vc: self)
         }
     }
+    
     /*
     // MARK: - Navigation
 

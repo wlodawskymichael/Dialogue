@@ -1,8 +1,8 @@
 //
-//  LoginListener.swift
+//  UserHandling.swift
 //  Dialogue
 //
-//  Created by William Lemens on 10/21/19.
+//  Created by William Lemens on 10/31/19.
 //  Copyright © 2019 CS371L. All rights reserved.
 //
 
@@ -10,17 +10,28 @@ import Foundation
 import UIKit
 import FirebaseAuth
 
-
-class LoginListener {
+class UserHandling {
+    static func getCurrentUser() -> User? {
+        var out = Auth.auth().currentUser
+        if out == nil {
+            Auth.auth().addStateDidChangeListener { auth, user in
+                if let user = user {
+                    out = user
+                }
+            }
+        }
+        return out
+    }
+    
     static func isUserSignedIn() -> Bool {
-        if Auth.auth().currentUser != nil {
+        if getCurrentUser() != nil {
             return true
         }
         return false
     }
     
     static func getCurrentUserEmail() -> String? {
-        if let currentUser = Auth.auth().currentUser {
+        if let currentUser = getCurrentUser() {
             return currentUser.email
         }
         return nil
@@ -31,5 +42,4 @@ class LoginListener {
         alert.addAction(UIAlertAction(title: "Okay", style: .default, handler: nil))
         vc.present(alert, animated: true, completion: nil)
     }
-
 }

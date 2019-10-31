@@ -17,7 +17,9 @@ class SigninViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-
+        if UserDefaults.standard.object(forKey: "user_uid_key") != nil {
+            self.performSegue(withIdentifier: "signinToDialogue", sender: nil)
+        }
     }
     
     @IBAction func onGoogleSignin(_ sender: Any) {

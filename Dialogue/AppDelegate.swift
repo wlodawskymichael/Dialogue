@@ -8,16 +8,40 @@
 
 import UIKit
 import Firebase
+import FirebaseAuth
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
 
     var window: UIWindow?
 
-
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
-        FirebaseApp.configure()
         return true
+    }
+    
+    func application(_ application: UIApplication, willFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey : Any]? = nil) -> Bool {
+        FirebaseApp.configure()
+        
+        setRootViewController()
+        return true
+    }
+    
+    func setRootViewController() {
+        if UserHandling.getCurrentUser() != nil {
+            // Set Your home view controller Here as root View Controller
+            let storyboard = UIStoryboard(name: "Main", bundle: nil)
+
+            // instantiate your desired ViewController
+            let rootController = storyboard.instantiateViewController(withIdentifier: "DialogueTabBarController")
+
+            // Because self.window is an optional you should check it's value first and assign your rootViewController
+            if let window = self.window {
+               window.rootViewController = rootController
+            }
+        } else {
+            // Set you login view controller here as root view controller
+            print("Fuck")
+        }
     }
 
     func applicationWillResignActive(_ application: UIApplication) {

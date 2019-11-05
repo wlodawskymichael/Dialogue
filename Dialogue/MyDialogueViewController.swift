@@ -15,6 +15,8 @@ class MyDialogueViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        // Test get
+        NetworkHelper.getGroup(groupID: "groupID")
 
         // Do any additional setup after loading the view.
         initTableView()

@@ -9,6 +9,9 @@ target 'Dialogue' do
   pod 'Firebase/Auth'
   pod 'MessageKit'
   pod 'KVLoading', '~> 2.0.3'
+  pod 'Firebase/Firestore'
+  pod 'Firebase/Core'
+
 
   target 'DialogueTests' do
     inherit! :search_paths

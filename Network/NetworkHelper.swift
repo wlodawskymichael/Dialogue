@@ -11,7 +11,7 @@ import Firebase
 import FirebaseFirestore
 
 
-struct Speaker {
+struct SpeakerStruct {
     var admin: Bool
     var userID: String
     
@@ -21,15 +21,27 @@ struct Speaker {
     }
 }
 
-struct Group {
+struct GroupStruct {
     var groupID: String
-    var speakers: [Speaker]
+    var speakers: [SpeakerStruct]
     var spectators: [String]
     
-    init(groupID: String, speakers: [Speaker], spectators: [String]) {
+    init(groupID: String, speakers: [SpeakerStruct], spectators: [String]) {
         self.groupID = groupID
         self.speakers = speakers
         self.spectators = spectators
+    }
+}
+
+struct UserStruct {
+    var displayName: String
+    var friendList: [String]
+    var groupList: [String]
+
+    init(displayName: String, friendList: [String], groupList: [String]) {
+        self.displayName = displayName
+        self.friendList = friendList
+        self.groupList = groupList
     }
 }
 
@@ -37,8 +49,8 @@ class NetworkHelper {
     
     private static let dbRef = Firestore.firestore()
     
-    static func getGroup(groupID: String, completion:  @escaping (Group, Error?) -> Void) {
-        var group = Group(groupID: "None", speakers: [], spectators: [])
+    static func getGroup(groupID: String, completion:  @escaping (GroupStruct, Error?) -> Void) {
+        var group = GroupStruct(groupID: "None", speakers: [], spectators: [])
         self.dbRef.collection("groups").getDocuments { (snapshot, error) in
             if error != nil {
                 print("***ERROR: \(error ?? "Couldn't print error" as! Error)")
@@ -46,18 +58,18 @@ class NetworkHelper {
                 for document in snapshot!.documents {
                     if document.documentID == groupID {
                         // Conform group to Group struct
-                        var speakers: [Speaker] = []
+                        var speakers: [SpeakerStruct] = []
                         var spectators: [String] = []
                         
                         let speakerData = document["speakers"] as? [NSDictionary]
                         for speaker in speakerData ?? [] {
                             let admin: Bool = speaker["admin"] as? Bool ?? false
                             let userID: String = speaker["userID"] as? String ?? "None"
-                            speakers.append(Speaker(userID: userID, admin: admin))
+                            speakers.append(SpeakerStruct(userID: userID, admin: admin))
                         }
                         spectators = document["spectators"] as? [String] ?? []
                         
-                        group = Group(groupID: document.documentID, speakers: speakers, spectators: spectators)
+                        group = GroupStruct(groupID: document.documentID, speakers: speakers, spectators: spectators)
                         
                         // Call completion handler
                         completion(group, nil)
@@ -67,10 +79,48 @@ class NetworkHelper {
         }
     }
     
-    static func getUserFriendList(completion: @escaping () -> Void) {
+    static func getUser(completion: @escaping (UserStruct, Error?) -> Void) {
         dbRef.collection("users").document(UserHandling.getCurrentUser()!.uid).getDocument { (snapshot, error) in
             if error != nil {
                 print("***ERROR: \(error ?? "Couldn't print error" as! Error)")
+            } else {
+                let friends: [String] = snapshot?.get("friendList") as? [String] ?? []
+                let groups: [String] = snapshot?.get("groupList") as? [String] ?? []
+                let displayName: String = snapshot?.get("displayName") as? String ?? ""
+                completion(UserStruct(displayName: displayName, friendList: friends, groupList: groups), nil)
+            }
+        }
+    }
+    
+    static func getUserFriendList(completion: @escaping ([String], Error?) -> Void) {
+        dbRef.collection("users").document(UserHandling.getCurrentUser()!.uid).getDocument { (snapshot, error) in
+            if error != nil {
+                print("***ERROR: \(error ?? "Couldn't print error" as! Error)")
+            } else {
+                let friends: [String] = snapshot?.get("friendList") as? [String] ?? []
+                completion(friends, nil)
+            }
+        }
+    }
+    
+    static func getUserGroupList(completion: @escaping ([String], Error?) -> Void) {
+        dbRef.collection("users").document(UserHandling.getCurrentUser()!.uid).getDocument { (snapshot, error) in
+            if error != nil {
+                print("***ERROR: \(error ?? "Couldn't print error" as! Error)")
+            } else {
+                let groups: [String] = snapshot?.get("groupList") as? [String] ?? []
+                completion(groups, nil)
+            }
+        }
+    }
+    
+    static func getUserDisplayName(completion: @escaping (String, Error?) -> Void) {
+        dbRef.collection("users").document(UserHandling.getCurrentUser()!.uid).getDocument { (snapshot, error) in
+            if error != nil {
+                print("***ERROR: \(error ?? "Couldn't print error" as! Error)")
+            } else {
+                let displayName: String = snapshot?.get("displayName") as? String ?? ""
+                completion(displayName, nil)
             }
         }
     }

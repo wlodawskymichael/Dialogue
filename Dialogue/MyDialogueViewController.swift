@@ -15,10 +15,9 @@ class MyDialogueViewController: UIViewController, UITableViewDelegate, UITableVi
     @IBOutlet weak var dialoguesTableView: UITableView!
     @IBOutlet weak var tableView: UITableView!
     
-    var groups:[Group] = []
-    
     private let db = Firestore.firestore()
     private var userSnapshotListener:ListenerRegistration?
+    private var groups:[String] = []
     
     deinit {
       userSnapshotListener?.remove()
@@ -32,7 +31,7 @@ class MyDialogueViewController: UIViewController, UITableViewDelegate, UITableVi
     // TODO
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: DialogueTableViewCell.identifier, for: indexPath as IndexPath) as! DialogueTableViewCell
-        cell.titleLabel?.text = groups[indexPath.row].groupID
+        cell.titleLabel?.text = groups[indexPath.row]
         cell.subLabel?.text = "temp val"
         return cell
     }
@@ -44,23 +43,20 @@ class MyDialogueViewController: UIViewController, UITableViewDelegate, UITableVi
         tableView.dataSource = self
         
         // Setup listener for user data
-        userSnapshotListener = db.collection("users").document(UserHandling.getCurrentUser()!.uid).addSnapshotListener { snapshot, error in
-            guard let document = snapshot else {
-                print("***ERROR: Error fetching document: \(error!)")
-                return
-            }
-            guard let data = document.data() else {
-                print("Document data was empty.")
-                return
-            }
-            print("Current data: \(data)")
-            document.documentChanges.forEach { change in
-                self.handleDocumentChange(change)
-            }
-        }
-        
-        groups = NetworkHelper.getMyGroups()
-        print(groups)
+//        userSnapshotListener = db.collection("users").document(UserHandling.getCurrentUser()!.uid).addSnapshotListener { snapshot, error in
+//            guard let document = snapshot else {
+//                print("***ERROR: Error fetching document: \(error!)")
+//                return
+//            }
+//            guard let data = document.data() else {
+//                print("Document data was empty.")
+//                return
+//            }
+//            print("Current data: \(data)")
+//            document.documentChanges.forEach { change in
+//                self.handleDocumentChange(change)
+//            }
+//        }
         //TODO: Remove
         NetworkHelper.getUserFriendList { (friends, error) in
             print("\(friends)")
@@ -71,21 +67,24 @@ class MyDialogueViewController: UIViewController, UITableViewDelegate, UITableVi
     }
     
     func initTableView() {
-        if groups.count < 1 {
-            let rect = CGRect(origin: CGPoint(x: 0,y :0), size: CGSize(width: self.view.bounds.size.width, height: self.view.bounds.size.height))
-            let messageLabel = UILabel(frame: rect)
-            messageLabel.textColor = UIColor.black
-            messageLabel.numberOfLines = 0
-            messageLabel.textAlignment = .center
-            messageLabel.sizeToFit()
-            messageLabel.text = "You don't have any Dialogues yet."
-            dialoguesTableView.backgroundView = messageLabel
-            dialoguesTableView.separatorStyle = .none
-        } else {
-            print("HELLO FUCKER")
-            print(groups)
-            tableView.reloadData()
-        }
+        NetworkHelper.getUser(completion: { (user, error) in
+            self.groups = user.groupList
+            if self.groups.count < 1 {
+                let rect = CGRect(origin: CGPoint(x: 0,y :0), size: CGSize(width: self.view.bounds.size.width, height: self.view.bounds.size.height))
+                let messageLabel = UILabel(frame: rect)
+                messageLabel.textColor = UIColor.black
+                messageLabel.numberOfLines = 0
+                messageLabel.textAlignment = .center
+                messageLabel.sizeToFit()
+                messageLabel.text = "You don't have any Dialogues yet."
+                self.dialoguesTableView.backgroundView = messageLabel
+                self.dialoguesTableView.separatorStyle = .none
+            } else {
+                print("HELLO FUCKER")
+                print(self.groups)
+                self.tableView.reloadData()
+            }
+        })
     }
 
     @IBAction func onProfile(_ sender: Any) {

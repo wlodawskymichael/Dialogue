@@ -13,132 +13,86 @@ import FirebaseFirestore
 
 class ChatViewController: MessagesViewController {
     
-//    private let db = Firestore.firestore()
-//    private var reference: CollectionReference?
-//
-//    private var messages: [Message] = []
-//    private var messageListener: ListenerRegistration?
-//
-//    private let user: User
-//    private let group: GroupStruct
-//
-//    deinit {
-//      messageListener?.remove()
-//    }
-//
-//    init(user: User, group: GroupStruct) {
-//      self.user = user
-//      self.group = group
-//      super.init(nibName: nil, bundle: nil)
-//
-//      title = group.groupID
-//    }
-//
-//    required init?(coder aDecoder: NSCoder) {
-//      fatalError("init(coder:) has not been implemented")
-//    }
-//
-//    override func viewDidLoad() {
-//        super.viewDidLoad()
-//
-//        // Do any additional setup after loading the view.
-//
-//        reference = db.collection(["groups", group.groupID, "thread"].joined(separator: "/"))
-//
-//        messageListener = reference?.addSnapshotListener { querySnapshot, error in
-//          guard let snapshot = querySnapshot else {
-//            print("Error listening for channel updates: \(error?.localizedDescription ?? "No error")")
-//            return
-//          }
-//
-//          snapshot.documentChanges.forEach { change in
-//            self.handleDocumentChange(change)
-//          }
-//        }
-//
-//        navigationItem.largeTitleDisplayMode = .never
-//
-//        maintainPositionOnKeyboardFrameChanged = true
-//        messageInputBar.inputTextView.tintColor = .primary
-//        messageInputBar.sendButton.setTitleColor(.primary, for: .normal)
-//
-//        messageInputBar.delegate = self
-//        messagesCollectionView.messagesDataSource = self
-//        messagesCollectionView.messagesLayoutDelegate = self
-//        messagesCollectionView.messagesDisplayDelegate = self
-//
-//        let cameraItem = InputBarButtonItem(type: .system) // 1
-//        cameraItem.tintColor = .primary
-//        cameraItem.image = #imageLiteral(resourceName: "camera")
-//        cameraItem.addTarget(
-//          self,
-//          action: #selector(cameraButtonPressed), // 2
-//          for: .primaryActionTriggered
-//        )
-//        cameraItem.setSize(CGSize(width: 60, height: 30), animated: false)
-//
-//        messageInputBar.leftStackView.alignment = .center
-//        messageInputBar.setLeftStackViewWidthConstant(to: 50, animated: false)
-//        messageInputBar.setStackViewItems([cameraItem], forStack: .left, animated: false)
-//    }
-//
-//    private func handleDocumentChange(_ change: DocumentChange) {
-//      guard var message = Message(document: change.document) else {
-//        return
-//      }
-//
-//      switch change.type {
-//      case .added:
-////        if let url = message.downloadURL {
-////          downloadImage(at: url) { [weak self] image in
-////            guard let `self` = self else {
-////              return
-////            }
-////            guard let image = image else {
-////              return
-////            }
-////
-////            message.image = image
-////            self.insertNewMessage(message)
-////          }
-////        } else {
-//          insertNewMessage(message)
-////        }
-//
-//      default:
-//        break
-//      }
-//    }
-//
-//    private func insertNewMessage(_ message: Message) {
-//      guard !messages.contains(message) else {
-//        return
-//      }
-//
-//      messages.append(message)
-//      messages.sort()
-//
-//      let isLatestMessage = messages.index(of: message) == (messages.count - 1)
-//      let shouldScrollToBottom = messagesCollectionView.isAtBottom && isLatestMessage
-//
-//      messagesCollectionView.reloadData()
-//
-//      if shouldScrollToBottom {
-//        DispatchQueue.main.async {
-//          self.messagesCollectionView.scrollToBottom(animated: true)
-//        }
-//      }
-//    }
-//
-//
-//    /*
-//    // MARK: - Navigation
-//
-//    // In a storyboard-based application, you will often want to do a little preparation before navigation
-//    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-//        // Get the new view controller using segue.destination.
-//        // Pass the selected object to the new view controller.
-//    }
-//    */
+    private let group: GroupStruct
+    
+    private var messages: [Message] = []
+    private var messageListener: ListenerRegistration?
+    
+    
+    init(group: GroupStruct) {
+        self.group = group
+        super.init(nibName: nil, bundle: nil)
+        title = group.groupID
+    }
+    
+    required init?(coder aDecoder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        self.becomeFirstResponder()
+    }
+    
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        
+        
+        navigationItem.largeTitleDisplayMode = .never
+        
+        maintainPositionOnKeyboardFrameChanged = true
+    }
+}
 
+// MARK: - MessagesDisplayDelegate
+
+extension ChatViewController: MessagesDisplayDelegate {
+    
+}
+
+// MARK: - MessagesDataSource
+extension ChatViewController: MessagesDataSource {
+    
+    // 1
+    func currentSender() -> SenderType {
+        return Sender(id: UserHandling.getCurrentUser()!.uid, displayName: (UserHandling.getCurrentUser()?.displayName)!)
+    }
+    
+    // 2
+    func numberOfSections(in messagesCollectionView: MessagesCollectionView) -> Int {
+        return messages.count
+    }
+    
+    // 3
+    func messageForItem(at indexPath: IndexPath,
+                        in messagesCollectionView: MessagesCollectionView) -> MessageType {
+        
+        return messages[indexPath.section]
+    }
+    
+    // 4
+    func cellTopLabelAttributedText(for message: MessageType,
+                                    at indexPath: IndexPath) -> NSAttributedString? {
+        
+        let name = message.sender.displayName
+        return NSAttributedString(
+            string: name,
+            attributes: [
+                .font: UIFont.preferredFont(forTextStyle: .caption1),
+                .foregroundColor: UIColor(white: 0.3, alpha: 1)
+            ]
+        )
+    }
+}
+
+// MARK: - MessageInputBarDelegate
+
+extension ChatViewController: MessageInputBarDelegate {
+    
+}
+
+// MARK: - UIImagePickerControllerDelegate
+
+extension ChatViewController: UIImagePickerControllerDelegate, UINavigationControllerDelegate {
+    
 }

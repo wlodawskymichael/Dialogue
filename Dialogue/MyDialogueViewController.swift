@@ -20,7 +20,7 @@ class MyDialogueViewController: UIViewController, UITableViewDelegate, UITableVi
     private var groups:[String] = []
     
     deinit {
-      userSnapshotListener?.remove()
+        userSnapshotListener?.remove()
     }
     
     // TODO
@@ -36,6 +36,13 @@ class MyDialogueViewController: UIViewController, UITableViewDelegate, UITableVi
         return cell
     }
     
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        NetworkHelper.getGroup(groupID: groups[indexPath.row]) { (group, error) in
+            let vc = ChatViewController(group: group)
+            self.navigationController?.pushViewController(vc, animated: true)
+        }
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -43,25 +50,25 @@ class MyDialogueViewController: UIViewController, UITableViewDelegate, UITableVi
         tableView.dataSource = self
         
         // Setup listener for user data
-//        userSnapshotListener = db.collection("users").document(UserHandling.getCurrentUser()!.uid).addSnapshotListener { snapshot, error in
-//            guard let document = snapshot else {
-//                print("***ERROR: Error fetching document: \(error!)")
-//                return
-//            }
-//            guard let data = document.data() else {
-//                print("Document data was empty.")
-//                return
-//            }
-//            print("Current data: \(data)")
-//            document.documentChanges.forEach { change in
-//                self.handleDocumentChange(change)
-//            }
-//        }
+        //        userSnapshotListener = db.collection("users").document(UserHandling.getCurrentUser()!.uid).addSnapshotListener { snapshot, error in
+        //            guard let document = snapshot else {
+        //                print("***ERROR: Error fetching document: \(error!)")
+        //                return
+        //            }
+        //            guard let data = document.data() else {
+        //                print("Document data was empty.")
+        //                return
+        //            }
+        //            print("Current data: \(data)")
+        //            document.documentChanges.forEach { change in
+        //                self.handleDocumentChange(change)
+        //            }
+        //        }
         //TODO: Remove
         NetworkHelper.getUserFriendList { (friends, error) in
             print("\(friends)")
         }
-
+        
         // Do any additional setup after loading the view.
         initTableView()
     }
@@ -86,7 +93,7 @@ class MyDialogueViewController: UIViewController, UITableViewDelegate, UITableVi
             }
         })
     }
-
+    
     @IBAction func onProfile(_ sender: Any) {
         if let userEmail = UserHandling.getCurrentUserEmail() {
             Alerts.singleChoiceAlert(title: "Login Status", message: "\(userEmail) is logged in.", vc: self)
@@ -96,13 +103,13 @@ class MyDialogueViewController: UIViewController, UITableViewDelegate, UITableVi
     }
     
     /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destination.
-        // Pass the selected object to the new view controller.
-    }
-    */
-
+     // MARK: - Navigation
+     
+     // In a storyboard-based application, you will often want to do a little preparation before navigation
+     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+     // Get the new view controller using segue.destination.
+     // Pass the selected object to the new view controller.
+     }
+     */
+    
 }

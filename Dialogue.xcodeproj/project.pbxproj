@@ -9,7 +9,6 @@
 /* Begin PBXBuildFile section */
 		1761CC261F681B64DDC7007D /* Pods_Dialogue.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D3C922888D594B4BE0FE60B8 /* Pods_Dialogue.framework */; };
 		3D7A8E702371F4A000F16F22 /* NetworkHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D7A8E6F2371F4A000F16F22 /* NetworkHelper.swift */; };
-		3D7A8E73237357ED00F16F22 /* blank-user.png in Resources */ = {isa = PBXBuildFile; fileRef = 3D7A8E72237357ED00F16F22 /* blank-user.png */; };
 		3D7A8E752373589700F16F22 /* ProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D7A8E742373589700F16F22 /* ProfileViewController.swift */; };
 		3DB9DBC92358E8A30045F25C /* SignupViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DB9DBC82358E8A30045F25C /* SignupViewController.swift */; };
 		3DB9DBCB2358E9530045F25C /* Alerts.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DB9DBCA2358E9530045F25C /* Alerts.swift */; };
@@ -377,7 +376,6 @@
 				C3C1AABC23626AE9007B7E88 /* GoogleService-Info.plist in Resources */,
 				3DF0B01523413F4E00F99848 /* Assets.xcassets in Resources */,
 				3DF0B01323413F4D00F99848 /* Main.storyboard in Resources */,
-				3D7A8E73237357ED00F16F22 /* blank-user.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

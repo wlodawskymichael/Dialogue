@@ -266,6 +266,7 @@
                         <barButtonItem key="leftBarButtonItem" title="Profile" id="xqV-IM-C7j">
                             <connections>
                                 <action selector="profileButtonPressed:" destination="Ff9-VT-5th" id="is8-3J-NYx"/>
+                                <segue destination="VOE-yw-kns" kind="show" id="YWD-Xt-4fO"/>
                             </connections>
                         </barButtonItem>
                         <barButtonItem key="rightBarButtonItem" systemItem="add" id="tsp-yT-xmF">
@@ -281,6 +282,27 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="8Du-sj-CoN" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="3544.9275362318845" y="526.63043478260875"/>
+        </scene>
+        <!--View Controller-->
+        <scene sceneID="9Di-AK-Qqn">
+            <objects>
+                <viewController id="VOE-yw-kns" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="R6f-QJ-DrS">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="736"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <stackView opaque="NO" contentMode="scaleToFill" fixedFrame="YES" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="zVa-n4-3vn">
+                                <rect key="frame" x="0.0" y="20" width="46" height="30"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            </stackView>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <viewLayoutGuide key="safeArea" id="hak-e1-8Jr"/>
+                    </view>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="eIh-33-u4a" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="3534.7826086956525" y="1339.4021739130435"/>
         </scene>
         <!--FollowA Dialogue View Controller-->
         <scene sceneID="59o-cn-PSI">
@@ -382,6 +404,7 @@
                             <color key="tintColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             <connections>
                                 <action selector="onProfile:" destination="WQd-7m-53j" id="phf-hh-Xes"/>
+                                <segue destination="VOE-yw-kns" kind="show" id="CZR-1v-44W"/>
                             </connections>
                         </barButtonItem>
                         <barButtonItem key="rightBarButtonItem" systemItem="compose" id="imf-9E-raf">
@@ -611,6 +634,7 @@
     <inferredMetricsTieBreakers>
         <segue reference="iYB-EK-7pY"/>
         <segue reference="oUj-pA-WFu"/>
-        <segue reference="943-Bs-CiI"/>
+        <segue reference="LBh-lK-UgD"/>
+        <segue reference="CZR-1v-44W"/>
     </inferredMetricsTieBreakers>
 </document>

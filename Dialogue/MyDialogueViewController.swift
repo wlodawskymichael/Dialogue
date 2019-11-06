@@ -15,11 +15,6 @@ class MyDialogueViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        //TODO: Remove
-        NetworkHelper.getUserFriendList { (friends, error) in
-            print("\(friends)")
-        }
 
         // Do any additional setup after loading the view.
         initTableView()

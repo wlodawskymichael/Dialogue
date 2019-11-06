@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import FirebaseAuth
 
 class ProfileViewController: UIViewController {
 
@@ -31,14 +32,14 @@ class ProfileViewController: UIViewController {
     @IBAction func onDisplayName(_ sender: Any) {
         Alerts.notImplementedAlert(functionalityDescription: "This button will allow you to change your display name in future releases", vc: self)
     }
-    /*
-    // MARK: - Navigation
 
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destination.
-        // Pass the selected object to the new view controller.
+    
+    @IBAction func onLogout(_ sender: Any) {
+        do {
+            try Auth.auth().signOut()
+        } catch {
+            print("Failed to singout user")
+        }
     }
-    */
-
+    
 }

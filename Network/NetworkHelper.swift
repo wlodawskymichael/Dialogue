@@ -144,7 +144,7 @@ class NetworkHelper {
     
     private static let dbRef = Firestore.firestore()
     
-    static func writeGroup(group: GroupStruct) {
+    static func writeGroup(group: GroupStruct, completion: @escaping () -> Void) {
         var speakers: [[String: Any]] = []
         for speaker in group.speakers {
             speakers.append([
@@ -158,11 +158,13 @@ class NetworkHelper {
         ]) { (error) in
             if error != nil {
                 print("***ERROR: \(error ?? "Couldn't print error" as! Error)")
+            } else {
+                completion()
             }
         }
     }
     
-    static func writeUser(user: UserStruct) {
+    static func writeUser(user: UserStruct, completion:  @escaping () -> Void) {
         dbRef.collection("users").document(UserHandling.getCurrentUser()!.uid).setData([
             "displayName": user.displayName,
             "friendList": user.friendList,
@@ -170,6 +172,8 @@ class NetworkHelper {
         ]) { (error) in
             if error != nil {
                 print("***ERROR: \(error ?? "Couldn't print error" as! Error)")
+            } else {
+                completion()
             }
         }
     }

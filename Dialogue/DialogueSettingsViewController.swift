@@ -14,8 +14,6 @@ class DialogueSettingsViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-
-        // Do any additional setup after loading the view.
     }
     
     override func shouldPerformSegue(withIdentifier identifier: String, sender: Any?) -> Bool {
@@ -34,18 +32,6 @@ class DialogueSettingsViewController: UIViewController {
     
     @IBAction func onFollowable(_ sender: Any) {
         Alerts.notImplementedAlert(functionalityDescription: "This switch will toggle if this Group to be public in future releases.", vc: self)
-    }
-    
-    @IBAction func onSave(_ sender: Any) {
-        if GroupNameTextField.text?.isEmpty ?? true {
-            Alerts.singleChoiceAlert(title: "Error", message: "Group Name cannot be empty or a duplicate.", vc: self)
-            return
-        } else {
-            let owner = SpeakerStruct(userID: NetworkHelper.getCurrentUser()!.uid, admin: true)
-            NetworkHelper.writeGroup(group: GroupStruct(groupID: GroupNameTextField.text!, speakers: [owner], spectators: [])) {
-                self.performSegue(withIdentifier: "saveDialogueToMyDialogues", sender: self)
-            }
-        }
     }
 
 }

@@ -5,7 +5,6 @@
 //  Created by Michael Wlodawsky on 10/22/19.
 //  Copyright © 2019 CS371L. All rights reserved.
 //
-
 import UIKit
 import FirebaseAuth
 import FirebaseFirestore

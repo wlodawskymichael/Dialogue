@@ -155,6 +155,36 @@ class NetworkHelper {
     
     private static let dbRef = Firestore.firestore()
     
+    static func writeGroup(group: GroupStruct) {
+        var speakers: [[String: Any]] = []
+        for speaker in group.speakers {
+            speakers.append([
+                "userID": speaker.userID,
+                "admin": speaker.admin
+            ])
+        }
+        dbRef.collection("groups").document(group.groupID).setData([
+            "speakers": speakers,
+            "spectators": group.spectators
+        ]) { (error) in
+            if error != nil {
+                print("***ERROR: \(error ?? "Couldn't print error" as! Error)")
+            }
+        }
+    }
+    
+    static func writeUser(user: UserStruct) {
+        dbRef.collection("users").document(UserHandling.getCurrentUser()!.uid).setData([
+            "displayName": user.displayName,
+            "friendList": user.friendList,
+            "groupList": user.groupList
+        ]) { (error) in
+            if error != nil {
+                print("***ERROR: \(error ?? "Couldn't print error" as! Error)")
+            }
+        }
+    }
+    
     static func getGroup(groupID: String, completion:  @escaping (GroupStruct, Error?) -> Void) {
         var group = GroupStruct(groupID: "None", speakers: [], spectators: [])
         self.dbRef.collection("groups").getDocuments { (snapshot, error) in

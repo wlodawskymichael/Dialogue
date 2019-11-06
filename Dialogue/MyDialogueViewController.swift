@@ -22,12 +22,11 @@ class MyDialogueViewController: UIViewController, UITableViewDelegate, UITableVi
         userSnapshotListener?.remove()
     }
     
-    // TODO
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        print("Groups count: \(groups.count)")
         return groups.count
     }
     
-    // TODO
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: DialogueTableViewCell.identifier, for: indexPath as IndexPath) as! DialogueTableViewCell
         cell.titleLabel?.text = groups[indexPath.row]
@@ -66,12 +65,12 @@ class MyDialogueViewController: UIViewController, UITableViewDelegate, UITableVi
         //                self.handleDocumentChange(change)
         //            }
         //        }
-        //TODO: Remove
-        NetworkHelper.getUserFriendList { (friends, error) in
-            print("\(friends)")
-        }
         
         // Do any additional setup after loading the view.
+        initTableView()
+    }
+    
+    override func viewDidAppear(_ animated: Bool) {
         initTableView()
     }
     
@@ -101,15 +100,4 @@ class MyDialogueViewController: UIViewController, UITableViewDelegate, UITableVi
             Alerts.singleChoiceAlert(title: "Error", message: "The user is not logged in!", vc: self)
         }
     }
-    
-    /*
-     // MARK: - Navigation
-     
-     // In a storyboard-based application, you will often want to do a little preparation before navigation
-     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-     // Get the new view controller using segue.destination.
-     // Pass the selected object to the new view controller.
-     }
-     */
-    
 }

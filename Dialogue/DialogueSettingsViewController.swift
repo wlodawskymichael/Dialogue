@@ -23,7 +23,13 @@ class DialogueSettingsViewController: UIViewController {
                 return false
             } else {
                 let owner = SpeakerStruct(userID: NetworkHelper.getCurrentUser()!.uid, admin: true)
-                NetworkHelper.writeGroup(group: GroupStruct(groupID: GroupNameTextField.text!, speakers: [owner], spectators: [])) {}
+                NetworkHelper.writeGroup(group: GroupStruct(groupID: GroupNameTextField.text!, speakers: [owner], spectators: [])) {
+                    NetworkHelper.getUser(completion: { (user, error) in
+                        var newUser = user
+                        newUser.groupList.append(self.GroupNameTextField.text!)
+                        NetworkHelper.writeUser(user: newUser, completion: nil)
+                    })
+                }
                 return true
             }
         }

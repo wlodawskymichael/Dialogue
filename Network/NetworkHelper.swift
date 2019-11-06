@@ -144,7 +144,7 @@ class NetworkHelper {
     
     private static let dbRef = Firestore.firestore()
     
-    static func writeGroup(group: GroupStruct, completion: @escaping () -> Void) {
+    static func writeGroup(group: GroupStruct, completion: (() -> Void)? = nil) {
         var speakers: [[String: Any]] = []
         for speaker in group.speakers {
             speakers.append([
@@ -159,12 +159,14 @@ class NetworkHelper {
             if error != nil {
                 print("***ERROR: \(error ?? "Couldn't print error" as! Error)")
             } else {
-                completion()
+                if completion != nil  {
+                    completion!()
+                }
             }
         }
     }
     
-    static func writeUser(user: UserStruct, completion:  @escaping () -> Void) {
+    static func writeUser(user: UserStruct, completion: (() -> Void)? = nil) {
         dbRef.collection("users").document(getCurrentUser()!.uid).setData([
             "displayName": user.displayName,
             "friendList": user.friendList,
@@ -173,12 +175,14 @@ class NetworkHelper {
             if error != nil {
                 print("***ERROR: \(error ?? "Couldn't print error" as! Error)")
             } else {
-                completion()
+                if completion != nil {
+                    completion!()
+                }
             }
         }
     }
     
-    static func getGroup(groupID: String, completion:  @escaping (GroupStruct, Error?) -> Void) {
+    static func getGroup(groupID: String, completion: ((GroupStruct, Error?) -> Void)? = nil) {
         var group = GroupStruct(groupID: "None", speakers: [], spectators: [])
         self.dbRef.collection("groups").getDocuments { (snapshot, error) in
             if error != nil {
@@ -201,14 +205,16 @@ class NetworkHelper {
                         group = GroupStruct(groupID: document.documentID, speakers: speakers, spectators: spectators)
                         
                         // Call completion handler
-                        completion(group, nil)
+                        if completion != nil {
+                            completion!(group, nil)
+                        }
                     }
                 }
             }
         }
     }
     
-    static func getUser(completion: @escaping (UserStruct, Error?) -> Void) {
+    static func getUser(completion: ((UserStruct, Error?) -> Void)? = nil) {
         dbRef.collection("users").document(getCurrentUser()!.uid).getDocument { (snapshot, error) in
             if error != nil {
                 print("***ERROR: \(error ?? "Couldn't print error" as! Error)")
@@ -217,40 +223,48 @@ class NetworkHelper {
                 let displayName: String = snapshot?.get("displayName") as? String ?? userId
                 let friends: [String] = snapshot?.get("friendList") as? [String] ?? []
                 let groups: [String] = snapshot?.get("groupList") as? [String] ?? []
-                completion(UserStruct(userId: userId, displayName: displayName, friendList: friends, groupList: groups), nil)
+                if completion != nil {
+                    completion!(UserStruct(userId: userId, displayName: displayName, friendList: friends, groupList: groups), nil)
+                }
             }
         }
     }
     
-    static func getUserFriendList(completion: @escaping ([String], Error?) -> Void) {
+    static func getUserFriendList(completion: (([String], Error?) -> Void)? = nil) {
         dbRef.collection("users").document(getCurrentUser()!.uid).getDocument { (snapshot, error) in
             if error != nil {
                 print("***ERROR: \(error ?? "Couldn't print error" as! Error)")
             } else {
                 let friends: [String] = snapshot?.get("friendList") as? [String] ?? []
-                completion(friends, nil)
+                if completion != nil {
+                    completion!(friends, nil)
+                }
             }
         }
     }
     
-    static func getUserGroupList(completion: @escaping ([String], Error?) -> Void) {
+    static func getUserGroupList(completion: (([String], Error?) -> Void)? = nil) {
         dbRef.collection("users").document(getCurrentUser()!.uid).getDocument { (snapshot, error) in
             if error != nil {
                 print("***ERROR: \(error ?? "Couldn't print error" as! Error)")
             } else {
                 let groups: [String] = snapshot?.get("groupList") as? [String] ?? []
-                completion(groups, nil)
+                if completion != nil {
+                    completion!(groups, nil)
+                }
             }
         }
     }
     
-    static func getUserDisplayName(completion: @escaping (String, Error?) -> Void) {
+    static func getUserDisplayName(completion: ((String, Error?) -> Void)? = nil) {
         dbRef.collection("users").document(getCurrentUser()!.uid).getDocument { (snapshot, error) in
             if error != nil {
                 print("***ERROR: \(error ?? "Couldn't print error" as! Error)")
             } else {
                 let displayName: String = snapshot?.get("displayName") as? String ?? ""
-                completion(displayName, nil)
+                if completion != nil {
+                    completion!(displayName, nil)
+                }
             }
         }
     }

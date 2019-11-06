@@ -27,7 +27,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     }
     
     func setRootViewController() {
-        if UserHandling.getCurrentUser() != nil {
+        if NetworkHelper.getCurrentUser() != nil {
             // Set Your home view controller Here as root View Controller
             let storyboard = UIStoryboard(name: "Main", bundle: nil)
 

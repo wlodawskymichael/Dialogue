@@ -88,15 +88,13 @@ class MyDialogueViewController: UIViewController, UITableViewDelegate, UITableVi
                 self.dialoguesTableView.backgroundView = messageLabel
                 self.dialoguesTableView.separatorStyle = .none
             } else {
-                print("HELLO FUCKER")
-                print(self.groups)
                 self.tableView.reloadData()
             }
         })
     }
     
     @IBAction func onProfile(_ sender: Any) {
-        if let userEmail = UserHandling.getCurrentUserEmail() {
+        if let userEmail = NetworkHelper.getCurrentUserEmail() {
             Alerts.singleChoiceAlert(title: "Login Status", message: "\(userEmail) is logged in.", vc: self)
         } else {
             Alerts.singleChoiceAlert(title: "Error", message: "The user is not logged in!", vc: self)

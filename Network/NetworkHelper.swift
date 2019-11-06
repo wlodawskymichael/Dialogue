@@ -165,7 +165,7 @@ class NetworkHelper {
     }
     
     static func writeUser(user: UserStruct, completion:  @escaping () -> Void) {
-        dbRef.collection("users").document(UserHandling.getCurrentUser()!.uid).setData([
+        dbRef.collection("users").document(getCurrentUser()!.uid).setData([
             "displayName": user.displayName,
             "friendList": user.friendList,
             "groupList": user.groupList
@@ -209,11 +209,11 @@ class NetworkHelper {
     }
     
     static func getUser(completion: @escaping (UserStruct, Error?) -> Void) {
-        dbRef.collection("users").document(UserHandling.getCurrentUser()!.uid).getDocument { (snapshot, error) in
+        dbRef.collection("users").document(getCurrentUser()!.uid).getDocument { (snapshot, error) in
             if error != nil {
                 print("***ERROR: \(error ?? "Couldn't print error" as! Error)")
             } else {
-                let userId: String = UserHandling.getCurrentUser()!.uid
+                let userId: String = getCurrentUser()!.uid
                 let displayName: String = snapshot?.get("displayName") as? String ?? userId
                 let friends: [String] = snapshot?.get("friendList") as? [String] ?? []
                 let groups: [String] = snapshot?.get("groupList") as? [String] ?? []
@@ -223,7 +223,7 @@ class NetworkHelper {
     }
     
     static func getUserFriendList(completion: @escaping ([String], Error?) -> Void) {
-        dbRef.collection("users").document(UserHandling.getCurrentUser()!.uid).getDocument { (snapshot, error) in
+        dbRef.collection("users").document(getCurrentUser()!.uid).getDocument { (snapshot, error) in
             if error != nil {
                 print("***ERROR: \(error ?? "Couldn't print error" as! Error)")
             } else {
@@ -234,7 +234,7 @@ class NetworkHelper {
     }
     
     static func getUserGroupList(completion: @escaping ([String], Error?) -> Void) {
-        dbRef.collection("users").document(UserHandling.getCurrentUser()!.uid).getDocument { (snapshot, error) in
+        dbRef.collection("users").document(getCurrentUser()!.uid).getDocument { (snapshot, error) in
             if error != nil {
                 print("***ERROR: \(error ?? "Couldn't print error" as! Error)")
             } else {
@@ -245,7 +245,7 @@ class NetworkHelper {
     }
     
     static func getUserDisplayName(completion: @escaping (String, Error?) -> Void) {
-        dbRef.collection("users").document(UserHandling.getCurrentUser()!.uid).getDocument { (snapshot, error) in
+        dbRef.collection("users").document(getCurrentUser()!.uid).getDocument { (snapshot, error) in
             if error != nil {
                 print("***ERROR: \(error ?? "Couldn't print error" as! Error)")
             } else {
@@ -255,5 +255,35 @@ class NetworkHelper {
         }
     }
     
+    static func getCurrentUser() -> User? {
+        var out = Auth.auth().currentUser
+        if out == nil {
+            Auth.auth().addStateDidChangeListener { auth, user in
+                if let user = user {
+                    out = user
+                }
+            }
+        }
+        return out
+    }
     
+    static func isUserSignedIn() -> Bool {
+        if getCurrentUser() != nil {
+            return true
+        }
+        return false
+    }
+    
+    static func getCurrentUserEmail() -> String? {
+        if let currentUser = getCurrentUser() {
+            return currentUser.email
+        }
+        return nil
+    }
+    
+    static func attemptLogin(title: String, message: String, vc: UIViewController) {
+        let alert = UIAlertController(title: title, message: message, preferredStyle: .alert)
+        alert.addAction(UIAlertAction(title: "Okay", style: .default, handler: nil))
+        vc.present(alert, animated: true, completion: nil)
+    }
 }

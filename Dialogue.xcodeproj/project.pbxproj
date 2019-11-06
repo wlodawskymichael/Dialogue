@@ -26,7 +26,6 @@
 		3DF163F32358E27E00A49BAC /* SigninViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DF163F22358E27E00A49BAC /* SigninViewController.swift */; };
 		5706F1EC237251500080C689 /* ChatViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5706F1EB237251500080C689 /* ChatViewController.swift */; };
 		5706F1F423725FB30080C689 /* DialogueTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5706F1F323725FB30080C689 /* DialogueTableViewCell.swift */; };
-		57AD363C236B495900C380D7 /* UserHandling.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57AD363B236B495900C380D7 /* UserHandling.swift */; };
 		79179D25B707C29E181E1E8C /* Pods_DialogueTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 48228F2CE385DD55C1150BD9 /* Pods_DialogueTests.framework */; };
 		B8B81CCF236207340058056E /* CreateDialogueViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8B81CCE236207340058056E /* CreateDialogueViewController.swift */; };
 		B8B81CD1236216860058056E /* FollowADialogueViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8B81CD0236216860058056E /* FollowADialogueViewController.swift */; };
@@ -83,7 +82,6 @@
 		51D0B961DEA6953D5B239C1F /* Pods_Dialogue_DialogueUITests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Dialogue_DialogueUITests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		5706F1EB237251500080C689 /* ChatViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = ChatViewController.swift; path = Dialogue/ChatViewController.swift; sourceTree = SOURCE_ROOT; };
 		5706F1F323725FB30080C689 /* DialogueTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DialogueTableViewCell.swift; sourceTree = "<group>"; };
-		57AD363B236B495900C380D7 /* UserHandling.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserHandling.swift; sourceTree = "<group>"; };
 		6213E28C63618210CE64CE87 /* Pods-Dialogue.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Dialogue.debug.xcconfig"; path = "Target Support Files/Pods-Dialogue/Pods-Dialogue.debug.xcconfig"; sourceTree = "<group>"; };
 		A85DF578BB82003BADB74BF8 /* Pods-DialogueTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-DialogueTests.debug.xcconfig"; path = "Target Support Files/Pods-DialogueTests/Pods-DialogueTests.debug.xcconfig"; sourceTree = "<group>"; };
 		B8B81CCE236207340058056E /* CreateDialogueViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateDialogueViewController.swift; sourceTree = "<group>"; };
@@ -244,7 +242,6 @@
 			children = (
 				3DB9DBCA2358E9530045F25C /* Alerts.swift */,
 				C3CFB2E12360FF3C001D0FA3 /* Loading.swift */,
-				57AD363B236B495900C380D7 /* UserHandling.swift */,
 			);
 			path = Design;
 			sourceTree = "<group>";
@@ -506,7 +503,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				B8B81CCF236207340058056E /* CreateDialogueViewController.swift in Sources */,
-				57AD363C236B495900C380D7 /* UserHandling.swift in Sources */,
 				C33230DC236158E200359A84 /* FollowingDialoguesViewController.swift in Sources */,
 				3DF0B01023413F4D00F99848 /* ViewController.swift in Sources */,
 				3D7A8E702371F4A000F16F22 /* NetworkHelper.swift in Sources */,

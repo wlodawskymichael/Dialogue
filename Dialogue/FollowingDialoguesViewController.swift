@@ -43,7 +43,7 @@ class FollowingDialoguesViewController: UIViewController {
     }
     */
     @IBAction func profileButtonPressed(_ sender: Any) {
-        if let userEmail = UserHandling.getCurrentUserEmail() {
+        if let userEmail = NetworkHelper.getCurrentUserEmail() {
             Alerts.singleChoiceAlert(title: "Login Status", message: "\(userEmail) is logged in.", vc: self)
         } else {
             Alerts.singleChoiceAlert(title: "Error", message: "The user is not logged in!", vc: self)

@@ -9,6 +9,7 @@
 import Foundation
 import Firebase
 import FirebaseFirestore
+import MessageKit
 
 
 struct Speakers {
@@ -41,9 +42,20 @@ struct Group {
     }
 }
 
-class NetworkHelper {
+// TODO
+struct Message: MessageType {
+    var sender: SenderType
     
-   static func getGroup(groupID: String) -> Group {
+    var messageId: String
+    
+    var sentDate: Date
+    
+    var kind: MessageKind
+}
+
+class NetworkHelper {
+    static func getGroup(groupID: String) -> Group {
+        var output:Group = Group(groupID: "None", speakers: [], spectators: [])
         Firestore.firestore().collection("groups").getDocuments { (snapshot, error) in
             if error != nil {
                 print("***ERROR: \(error)")
@@ -51,12 +63,31 @@ class NetworkHelper {
                 for document in (snapshot?.documents)! {
                     if document.documentID == groupID {
                         print("\(document.documentID) ==> \(document.data())")
-                        // TODO: Confrom document data to defined structurs
-                        // return Group(groupID: document.documentID, speakers: [], spectators: [])
+                        // TODO: Confrom document data to defined structures
+                        output = Group(groupID: document.documentID, speakers: [], spectators: [])
+                        completion(output, nil)
                     }
                 }
             }
         }
-        return Group(groupID: "None", speakers: [], spectators: [])
+        return output
+    }
+    
+    static func getMyGroups() -> [Group] {
+        var output:[Group] = []
+//        Firestore.firestore().collection("users").document(UserHandling.getCurrentUser()!.uid).getDocument { (snapshot, error) in
+//            if error != nil {
+//                print("***ERROR: \(error)")
+//            } else {
+//                let groupIDs:[String] = snapshot?.get("groupList") as! [String]
+//                for group in groupIDs {
+//                    output.append(getGroup(groupID: group))
+//                }
+//            }
+//        }
+        Firestore.firestore().collection("users").document("userID").collection("groupList").document().getDocument { (snapshot, error) in
+            print(snapshot?.data())
+        }
+        return output
     }
 }

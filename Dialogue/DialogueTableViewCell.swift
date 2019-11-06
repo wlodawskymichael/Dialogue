@@ -10,6 +10,8 @@ import UIKit
 
 class DialogueTableViewCell: UITableViewCell {
     
+    static let identifier:String = "DialogueTableViewCell"
+    
     @IBOutlet weak var photo:UIImageView!
     @IBOutlet weak var titleLabel:UILabel!
     @IBOutlet weak var subLabel:UILabel!

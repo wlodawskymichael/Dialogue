@@ -214,7 +214,7 @@
                                 <rect key="frame" x="0.0" y="44" width="414" height="643"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <prototypes>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" id="lOi-pg-t4h" customClass="DialogueTableViewCell" customModule="Dialogue" customModuleProvider="target">
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" id="lOi-pg-t4h">
                                         <rect key="frame" x="0.0" y="28" width="414" height="70"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="lOi-pg-t4h" id="pPE-8E-Lig">
@@ -242,9 +242,6 @@
                                             </subviews>
                                         </tableViewCellContentView>
                                         <connections>
-                                            <outlet property="photo" destination="pNJ-ly-05C" id="5T3-Jf-GsG"/>
-                                            <outlet property="subLabel" destination="f3L-4Z-fJ8" id="kE0-PN-96V"/>
-                                            <outlet property="titleLabel" destination="7tV-GK-Qrb" id="xEj-Cc-Aix"/>
                                             <segue destination="zik-PS-Hqh" kind="showDetail" id="943-Bs-CiI"/>
                                         </connections>
                                     </tableViewCell>
@@ -328,7 +325,7 @@
                                 <rect key="frame" x="0.0" y="44" width="414" height="643"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <prototypes>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" id="Aug-UP-ppx" customClass="DialogueTableViewCell" customModule="Dialogue" customModuleProvider="target">
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="DialogueTableViewCell" id="Aug-UP-ppx" customClass="DialogueTableViewCell" customModule="Dialogue">
                                         <rect key="frame" x="0.0" y="28" width="414" height="70"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="Aug-UP-ppx" id="v6F-yq-vOF">
@@ -391,6 +388,7 @@
                     </navigationItem>
                     <connections>
                         <outlet property="dialoguesTableView" destination="lPA-t6-Zsi" id="94d-nY-vk5"/>
+                        <outlet property="tableView" destination="lPA-t6-Zsi" id="yvy-WG-6K9"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="q4P-Fd-eV8" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -418,7 +416,7 @@
             <objects>
                 <viewController id="BQl-2p-ejO" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="GT6-vt-wAj">
-                        <rect key="frame" x="0.0" y="0.0" width="414" height="736"/>
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="716"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="cVu-Pp-79B">
@@ -498,11 +496,11 @@
             <objects>
                 <viewController id="m1F-4t-FHS" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="ogX-xc-5GX">
-                        <rect key="frame" x="0.0" y="0.0" width="414" height="736"/>
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="716"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Group Name" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="Enf-g5-620">
-                                <rect key="frame" x="20" y="102" width="374" height="34"/>
+                                <rect key="frame" x="20" y="114" width="374" height="34"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits"/>
                             </textField>
@@ -608,7 +606,6 @@
         <image name="person.crop.circle" catalog="system" width="64" height="60"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="V1f-kP-A3r"/>
         <segue reference="iYB-EK-7pY"/>
         <segue reference="oUj-pA-WFu"/>
         <segue reference="943-Bs-CiI"/>

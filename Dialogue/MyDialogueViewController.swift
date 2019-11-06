@@ -8,31 +8,79 @@
 
 import UIKit
 import FirebaseAuth
+import FirebaseFirestore
 
-class MyDialogueViewController: UIViewController {
+class MyDialogueViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
     
     @IBOutlet weak var dialoguesTableView: UITableView!
+    @IBOutlet weak var tableView: UITableView!
+    
+    var groups:[Group] = []
+    
+    private let db = Firestore.firestore()
+    private var userSnapshotListener:ListenerRegistration?
+    
+    deinit {
+      userSnapshotListener?.remove()
+    }
+    
+    // TODO
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return groups.count
+    }
+    
+    // TODO
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let cell = tableView.dequeueReusableCell(withIdentifier: DialogueTableViewCell.identifier, for: indexPath as IndexPath) as! DialogueTableViewCell
+        cell.titleLabel?.text = groups[indexPath.row].groupID
+        cell.subLabel?.text = "temp val"
+        return cell
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        // Test get
-        NetworkHelper.getGroup(groupID: "groupID")
-
+        
+        tableView.delegate = self
+        tableView.dataSource = self
+        
+        // Setup listener for user data
+        userSnapshotListener = db.collection("users").document(UserHandling.getCurrentUser()!.uid).addSnapshotListener { snapshot, error in
+            guard let document = snapshot else {
+                print("***ERROR: Error fetching document: \(error!)")
+                return
+            }
+            guard let data = document.data() else {
+                print("Document data was empty.")
+                return
+            }
+            print("Current data: \(data)")
+            document.documentChanges.forEach { change in
+                self.handleDocumentChange(change)
+            }
+        }
+        
+        groups = NetworkHelper.getMyGroups()
+        print(groups)
         // Do any additional setup after loading the view.
         initTableView()
     }
     
     func initTableView() {
-        let rect = CGRect(origin: CGPoint(x: 0,y :0), size: CGSize(width: self.view.bounds.size.width, height: self.view.bounds.size.height))
-        let messageLabel = UILabel(frame: rect)
-        messageLabel.textColor = UIColor.black
-        messageLabel.numberOfLines = 0
-        messageLabel.textAlignment = .center
-        messageLabel.sizeToFit()
-        messageLabel.text = "You don't have any Dialogues yet."
-
-        dialoguesTableView.backgroundView = messageLabel
-        dialoguesTableView.separatorStyle = .none
+        if groups.count < 1 {
+            let rect = CGRect(origin: CGPoint(x: 0,y :0), size: CGSize(width: self.view.bounds.size.width, height: self.view.bounds.size.height))
+            let messageLabel = UILabel(frame: rect)
+            messageLabel.textColor = UIColor.black
+            messageLabel.numberOfLines = 0
+            messageLabel.textAlignment = .center
+            messageLabel.sizeToFit()
+            messageLabel.text = "You don't have any Dialogues yet."
+            dialoguesTableView.backgroundView = messageLabel
+            dialoguesTableView.separatorStyle = .none
+        } else {
+            print("HELLO FUCKER")
+            print(groups)
+            tableView.reloadData()
+        }
     }
 
     @IBAction func onProfile(_ sender: Any) {

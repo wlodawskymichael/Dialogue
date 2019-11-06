@@ -23,6 +23,8 @@
 		3DF0B02323413F4E00F99848 /* DialogueTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DF0B02223413F4E00F99848 /* DialogueTests.swift */; };
 		3DF0B02E23413F4E00F99848 /* DialogueUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DF0B02D23413F4E00F99848 /* DialogueUITests.swift */; };
 		3DF163F32358E27E00A49BAC /* SigninViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DF163F22358E27E00A49BAC /* SigninViewController.swift */; };
+		5706F1EC237251500080C689 /* ChatViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5706F1EB237251500080C689 /* ChatViewController.swift */; };
+		5706F1F423725FB30080C689 /* DialogueTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5706F1F323725FB30080C689 /* DialogueTableViewCell.swift */; };
 		57AD363C236B495900C380D7 /* UserHandling.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57AD363B236B495900C380D7 /* UserHandling.swift */; };
 		79179D25B707C29E181E1E8C /* Pods_DialogueTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 48228F2CE385DD55C1150BD9 /* Pods_DialogueTests.framework */; };
 		B8B81CCF236207340058056E /* CreateDialogueViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8B81CCE236207340058056E /* CreateDialogueViewController.swift */; };
@@ -76,6 +78,8 @@
 		3DF163F22358E27E00A49BAC /* SigninViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SigninViewController.swift; sourceTree = "<group>"; };
 		48228F2CE385DD55C1150BD9 /* Pods_DialogueTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_DialogueTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		51D0B961DEA6953D5B239C1F /* Pods_Dialogue_DialogueUITests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Dialogue_DialogueUITests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		5706F1EB237251500080C689 /* ChatViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = ChatViewController.swift; path = Dialogue/ChatViewController.swift; sourceTree = SOURCE_ROOT; };
+		5706F1F323725FB30080C689 /* DialogueTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DialogueTableViewCell.swift; sourceTree = "<group>"; };
 		57AD363B236B495900C380D7 /* UserHandling.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserHandling.swift; sourceTree = "<group>"; };
 		6213E28C63618210CE64CE87 /* Pods-Dialogue.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Dialogue.debug.xcconfig"; path = "Target Support Files/Pods-Dialogue/Pods-Dialogue.debug.xcconfig"; sourceTree = "<group>"; };
 		A85DF578BB82003BADB74BF8 /* Pods-DialogueTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-DialogueTests.debug.xcconfig"; path = "Target Support Files/Pods-DialogueTests/Pods-DialogueTests.debug.xcconfig"; sourceTree = "<group>"; };
@@ -186,7 +190,9 @@
 				3DF0B00F23413F4D00F99848 /* ViewController.swift */,
 				3DF0B01423413F4E00F99848 /* Assets.xcassets */,
 				3DF0B01923413F4E00F99848 /* Info.plist */,
+				5706F1EB237251500080C689 /* ChatViewController.swift */,
 				3DCA9F09235F80600078FD21 /* MyDialogueViewController.swift */,
+				5706F1F323725FB30080C689 /* DialogueTableViewCell.swift */,
 				B8B81CD0236216860058056E /* FollowADialogueViewController.swift */,
 				B8B81CCE236207340058056E /* CreateDialogueViewController.swift */,
 				C33230DB236158E200359A84 /* FollowingDialoguesViewController.swift */,
@@ -487,7 +493,9 @@
 				3DF0B00E23413F4D00F99848 /* AppDelegate.swift in Sources */,
 				B8B81CD1236216860058056E /* FollowADialogueViewController.swift in Sources */,
 				3DB9DBC92358E8A30045F25C /* SignupViewController.swift in Sources */,
+				5706F1EC237251500080C689 /* ChatViewController.swift in Sources */,
 				3DCA9F0A235F80600078FD21 /* MyDialogueViewController.swift in Sources */,
+				5706F1F423725FB30080C689 /* DialogueTableViewCell.swift in Sources */,
 				C3CFB2E22360FF3D001D0FA3 /* Loading.swift in Sources */,
 				3DF163F32358E27E00A49BAC /* SigninViewController.swift in Sources */,
 			);

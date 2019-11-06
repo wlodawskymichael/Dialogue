@@ -38,10 +38,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             if let window = self.window {
                window.rootViewController = rootController
             }
-        } else {
-            // Set you login view controller here as root view controller
-            print("Fuck")
         }
+        // Signin view controller will be root otherwise
     }
 
     func applicationWillResignActive(_ application: UIApplication) {

@@ -64,19 +64,20 @@ struct Message: MessageType {
     var kind: MessageKind
     var messageId: String
     let user: UserStruct
-    
-    init(user: UserStruct, content: String) {
+
+    private init(kind: MessageKind, user: UserStruct, messageId: String, date: Date) {
+        self.kind = kind
         self.user = user
-        sentDate = Date()
-        messageId = UUID().uuidString
-        kind = .text(content)
+        self.messageId = messageId
+        self.sentDate = date
     }
     
-    init(user: UserStruct, content: String, date: Date, messageId: String) {
-        self.user = user
-        sentDate = date
-        self.messageId = messageId
-        kind = .text(content)
+    init(user: UserStruct, text: String) {
+        self.init(kind: .text(text), user: user, messageId: UUID().uuidString, date: Date())
+    }
+
+    init(text: String, user: UserStruct, messageId: String, date: Date) {
+        self.init(kind: .text(text), user: user, messageId: messageId, date: date)
     }
 //
 //    init?(document: QueryDocumentSnapshot) {

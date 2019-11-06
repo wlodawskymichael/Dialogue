@@ -22,12 +22,10 @@ class MyDialogueViewController: UIViewController, UITableViewDelegate, UITableVi
         userSnapshotListener?.remove()
     }
     
-    // TODO
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return groups.count
     }
     
-    // TODO
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: DialogueTableViewCell.identifier, for: indexPath as IndexPath) as! DialogueTableViewCell
         cell.titleLabel?.text = groups[indexPath.row]
@@ -49,26 +47,6 @@ class MyDialogueViewController: UIViewController, UITableViewDelegate, UITableVi
         
         tableView.delegate = self
         tableView.dataSource = self
-        
-        // Setup listener for user data
-        //        userSnapshotListener = db.collection("users").document(UserHandling.getCurrentUser()!.uid).addSnapshotListener { snapshot, error in
-        //            guard let document = snapshot else {
-        //                print("***ERROR: Error fetching document: \(error!)")
-        //                return
-        //            }
-        //            guard let data = document.data() else {
-        //                print("Document data was empty.")
-        //                return
-        //            }
-        //            print("Current data: \(data)")
-        //            document.documentChanges.forEach { change in
-        //                self.handleDocumentChange(change)
-        //            }
-        //        }
-        //TODO: Remove
-        NetworkHelper.getUserFriendList { (friends, error) in
-            print("\(friends)")
-        }
         
         // Do any additional setup after loading the view.
         initTableView()
@@ -100,15 +78,4 @@ class MyDialogueViewController: UIViewController, UITableViewDelegate, UITableVi
             Alerts.singleChoiceAlert(title: "Error", message: "The user is not logged in!", vc: self)
         }
     }
-    
-    /*
-     // MARK: - Navigation
-     
-     // In a storyboard-based application, you will often want to do a little preparation before navigation
-     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-     // Get the new view controller using segue.destination.
-     // Pass the selected object to the new view controller.
-     }
-     */
-    
 }

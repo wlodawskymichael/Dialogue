@@ -11,7 +11,7 @@ import Firebase
 import FirebaseFirestore
 import MessageKit
 
-
+// MARK: - SpeakerStruct
 struct SpeakerStruct {
     var admin: Bool
     var userID: String
@@ -22,6 +22,7 @@ struct SpeakerStruct {
     }
 }
 
+// MARK: - GroupStruct
 struct GroupStruct {
     var groupID: String
     var speakers: [SpeakerStruct]
@@ -34,102 +35,102 @@ struct GroupStruct {
     }
 }
 
-// TODO
+// MARK: - UserStruct
+struct UserStruct: SenderType, Equatable {
+    var senderId: String {
+        return userId
+    }
+    var displayName: String
+    var friendList: [String]
+    var groupList: [String]
+    
+    let userId: String
+    
+    init(userId: String, displayName: String, friendList: [String], groupList: [String]) {
+        self.userId = userId
+        self.displayName = displayName
+        self.friendList = friendList
+        self.groupList = groupList
+    }
+}
+
+// MARK: - Message
 struct Message: MessageType {
     
-    let id: String?
-    let content: String
-    let sentDate: Date
-    let sender: SenderType
-    let kind: MessageKind
-    
-    //    var data: StringMessageData {
-    //    if let image = image {
-    //      return .photo(image)
-    //    } else {
-    //      return .text(content)
-    //    }
-    //  }
-    
-    var messageId: String {
-        return id ?? UUID().uuidString
+    var sender: SenderType {
+        return user
     }
+    var sentDate: Date
+    var kind: MessageKind
+    var messageId: String
+    let user: UserStruct
     
-    //  var image: UIImage? = nil
-    //  var downloadURL: URL? = nil
-    
-    init(user: User, content: String) {
-        sender = Sender(id: user.uid, displayName: user.uid /*AppSettings.displayName*/)
-        self.content = content
+    init(user: UserStruct, content: String) {
+        self.user = user
         sentDate = Date()
-        id = nil
-        kind = MessageKind.text(content)
+        messageId = UUID().uuidString
+        kind = .text(content)
     }
     
-    //  init(user: User, image: UIImage) {
-    //    sender = Sender(id: user.uid, displayName: AppSettings.displayName)
-    //    self.image = image
-    //    content = ""
-    //    sentDate = Date()
-    //    id = nil
-    //  }
-    
-    init?(document: QueryDocumentSnapshot) {
-        let data = document.data()
-        
-        guard let sentDate = data["created"] as? Date else {
-            return nil
-        }
-        guard let senderID = data["senderID"] as? String else {
-            return nil
-        }
-        guard let senderName = data["senderName"] as? String else {
-            return nil
-        }
-        
-        id = document.documentID
-        
-        self.sentDate = sentDate
-        sender = Sender(id: senderID, displayName: senderName)
-        
-        if let content = data["content"] as? String {
-            self.content = content
-            kind = MessageKind.text(content)
-            //      downloadURL = nil
-            //    } else if let urlString = data["url"] as? String, let url = URL(string: urlString) {
-            //      downloadURL = url
-            //      content = ""
-        } else {
-            return nil
-        }
+    init(user: UserStruct, content: String, date: Date, messageId: String) {
+        self.user = user
+        sentDate = date
+        self.messageId = messageId
+        kind = .text(content)
     }
-    
+//
+//    init?(document: QueryDocumentSnapshot) {
+//        let data = document.data()
+//
+//        guard let sentDate = data["created"] as? Date else {
+//            return nil
+//        }
+//        guard let senderID = data["senderID"] as? String else {
+//            return nil
+//        }
+//        guard let senderName = data["senderName"] as? String else {
+//            return nil
+//        }
+//
+//        id = document.documentID
+//
+//        self.sentDate = sentDate
+//        sender = Sender(id: senderID, displayName: senderName)
+//
+//        if let content = data["content"] as? String {
+//            self.content = content
+//            kind = MessageKind.text(content)
+//        } else {
+//            return nil
+//        }
+//    }
+//
 }
 
 //extension Message: DatabaseRepresentation {
 //
-//  var representation: [String : Any] {
-//    var rep: [String : Any] = [
-//      "created": sentDate,
-//      "senderID": sender.id,
-//      "senderName": sender.displayName
-//    ]
+//    var representation: [String : Any] {
+//        let rep: [String : Any] = [
+//            "content": content,
+//            "created": sentDate,
+//            "senderID": sender.senderId,
+//            "senderName": sender.displayName
+//        ]
 //
-//    if let url = downloadURL {
-//      rep["url"] = url.absoluteString
-//    } else {
-//      rep["content"] = content
+//        //    if let url = downloadURL {
+//        //      rep["url"] = url.absoluteString
+//        //    } else {
+//        //      rep["content"] = content
+//        //    }
+//        //
+//        return rep
 //    }
-//
-//    return rep
-//  }
-//
 //}
 
 extension Message: Comparable {
     
     static func == (lhs: Message, rhs: Message) -> Bool {
-        return lhs.id == rhs.id
+        return lhs.messageId == rhs.messageId
     }
     
     static func < (lhs: Message, rhs: Message) -> Bool {
@@ -138,19 +139,7 @@ extension Message: Comparable {
     
 }
 
-
-struct UserStruct {
-    var displayName: String
-    var friendList: [String]
-    var groupList: [String]
-    
-    init(displayName: String, friendList: [String], groupList: [String]) {
-        self.displayName = displayName
-        self.friendList = friendList
-        self.groupList = groupList
-    }
-}
-
+// MARK: - NetworkHelper
 class NetworkHelper {
     
     private static let dbRef = Firestore.firestore()
@@ -220,10 +209,11 @@ class NetworkHelper {
             if error != nil {
                 print("***ERROR: \(error ?? "Couldn't print error" as! Error)")
             } else {
+                let userId: String = UserHandling.getCurrentUser()!.uid
+                let displayName: String = snapshot?.get("displayName") as? String ?? userId
                 let friends: [String] = snapshot?.get("friendList") as? [String] ?? []
                 let groups: [String] = snapshot?.get("groupList") as? [String] ?? []
-                let displayName: String = snapshot?.get("displayName") as? String ?? ""
-                completion(UserStruct(displayName: displayName, friendList: friends, groupList: groups), nil)
+                completion(UserStruct(userId: userId, displayName: displayName, friendList: friends, groupList: groups), nil)
             }
         }
     }

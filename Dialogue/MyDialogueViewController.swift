@@ -37,8 +37,10 @@ class MyDialogueViewController: UIViewController, UITableViewDelegate, UITableVi
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         NetworkHelper.getGroup(groupID: groups[indexPath.row]) { (group, error) in
-            let vc = ChatViewController(group: group)
-            self.navigationController?.pushViewController(vc, animated: true)
+            NetworkHelper.getUser { (user, error) in
+                let vc = ChatViewController(user: user, group: group)
+                self.navigationController?.pushViewController(vc, animated: true)
+            }
         }
     }
     

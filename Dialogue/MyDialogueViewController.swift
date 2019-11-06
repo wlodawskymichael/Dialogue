@@ -61,6 +61,11 @@ class MyDialogueViewController: UIViewController, UITableViewDelegate, UITableVi
         
         groups = NetworkHelper.getMyGroups()
         print(groups)
+        //TODO: Remove
+        NetworkHelper.getUserFriendList { (friends, error) in
+            print("\(friends)")
+        }
+
         // Do any additional setup after loading the view.
         initTableView()
     }

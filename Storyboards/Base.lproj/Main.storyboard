@@ -11,9 +11,9 @@
         <!--Signin View Controller-->
         <scene sceneID="tne-QT-ifu">
             <objects>
-                <viewController storyboardIdentifier="SigninViewController" id="BYZ-38-t0r" customClass="SigninViewController" customModule="Dialogue" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="SigninViewController" modalPresentationStyle="fullScreen" id="BYZ-38-t0r" customClass="SigninViewController" customModule="Dialogue" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="8bC-Xf-vdC">
-                        <rect key="frame" x="0.0" y="0.0" width="414" height="716"/>
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="736"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Dialogue" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="I79-cQ-I2w">
@@ -93,9 +93,9 @@
         <!--Signup View Controller-->
         <scene sceneID="qmi-xd-Sem">
             <objects>
-                <viewController id="JjL-gu-cqE" customClass="SignupViewController" customModule="Dialogue" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController modalPresentationStyle="fullScreen" id="JjL-gu-cqE" customClass="SignupViewController" customModule="Dialogue" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="0NF-G5-7Ao">
-                        <rect key="frame" x="0.0" y="0.0" width="414" height="716"/>
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="736"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <textField opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Full Name" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="v9g-yA-ZjL">
@@ -146,7 +146,7 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <navigationBar contentMode="scaleToFill" translucent="NO" translatesAutoresizingMaskIntoConstraints="NO" id="UYX-Ga-Ww5">
-                                <rect key="frame" x="0.0" y="0.0" width="414" height="56"/>
+                                <rect key="frame" x="0.0" y="0.0" width="414" height="44"/>
                                 <color key="tintColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <color key="barTintColor" red="0.45882352939999999" green="0.86666666670000003" blue="0.86666666670000003" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <items>
@@ -326,9 +326,7 @@
                                 <state key="normal" title="Logout"/>
                                 <connections>
                                     <action selector="onLogout:" destination="VOE-yw-kns" eventType="touchUpInside" id="cZz-sx-aoB"/>
-                                    <segue destination="BYZ-38-t0r" kind="popoverPresentation" popoverAnchorView="DVB-mJ-J9p" id="tc9-6u-uPx">
-                                        <popoverArrowDirection key="popoverArrowDirection" up="YES" down="YES" left="YES" right="YES"/>
-                                    </segue>
+                                    <segue destination="BYZ-38-t0r" kind="showDetail" id="tc9-6u-uPx"/>
                                 </connections>
                             </button>
                         </subviews>
@@ -352,6 +350,7 @@
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="hak-e1-8Jr"/>
                     </view>
+                    <navigationItem key="navigationItem" id="sHz-Wl-jfA"/>
                     <connections>
                         <outlet property="DisplayNameButton" destination="i6p-eg-vON" id="bxR-3W-Ms5"/>
                     </connections>
@@ -609,7 +608,7 @@
         <!--Tab Bar Controller-->
         <scene sceneID="LhT-v1-cDj">
             <objects>
-                <tabBarController storyboardIdentifier="DialogueTabBarController" id="c2B-Ga-MF3" sceneMemberID="viewController">
+                <tabBarController storyboardIdentifier="DialogueTabBarController" modalPresentationStyle="fullScreen" id="c2B-Ga-MF3" sceneMemberID="viewController">
                     <navigationItem key="navigationItem" id="gml-NG-RND"/>
                     <tabBar key="tabBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="Vxe-lt-oFp">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="49"/>
@@ -675,7 +674,7 @@
         <image name="message.fill" width="64" height="56"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="8q2-w5-9mC"/>
+        <segue reference="U3F-ba-VJP"/>
         <segue reference="YWD-Xt-4fO"/>
     </inferredMetricsTieBreakers>
 </document>

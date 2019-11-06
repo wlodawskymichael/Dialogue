@@ -23,13 +23,15 @@ class MyDialogueViewController: UIViewController, UITableViewDelegate, UITableVi
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        print("Groups count: \(groups.count)")
         return groups.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: DialogueTableViewCell.identifier, for: indexPath as IndexPath) as! DialogueTableViewCell
         cell.titleLabel?.text = groups[indexPath.row]
-        cell.subLabel?.text = "temp val"
+        // TODO: In future show preview of conversation
+        cell.subLabel?.text = "Tap to see messages!"
         return cell
     }
     
@@ -49,6 +51,10 @@ class MyDialogueViewController: UIViewController, UITableViewDelegate, UITableVi
         tableView.dataSource = self
         
         // Do any additional setup after loading the view.
+        initTableView()
+    }
+    
+    override func viewDidAppear(_ animated: Bool) {
         initTableView()
     }
     

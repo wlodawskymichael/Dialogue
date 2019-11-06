@@ -10,6 +10,7 @@
 		1761CC261F681B64DDC7007D /* Pods_Dialogue.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D3C922888D594B4BE0FE60B8 /* Pods_Dialogue.framework */; };
 		3D7A8E702371F4A000F16F22 /* NetworkHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D7A8E6F2371F4A000F16F22 /* NetworkHelper.swift */; };
 		3D7A8E752373589700F16F22 /* ProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D7A8E742373589700F16F22 /* ProfileViewController.swift */; };
+		3D7A8E782373788800F16F22 /* DialogueSettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D7A8E772373788800F16F22 /* DialogueSettingsViewController.swift */; };
 		3DB9DBC92358E8A30045F25C /* SignupViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DB9DBC82358E8A30045F25C /* SignupViewController.swift */; };
 		3DB9DBCB2358E9530045F25C /* Alerts.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DB9DBCA2358E9530045F25C /* Alerts.swift */; };
 		3DBDA380234650EF00CD8291 /* Podfile in Resources */ = {isa = PBXBuildFile; fileRef = 3DBDA37F234650EF00CD8291 /* Podfile */; };
@@ -59,6 +60,7 @@
 		27129D4A273FE3B6D1097DA8 /* Pods-Dialogue-DialogueUITests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Dialogue-DialogueUITests.release.xcconfig"; path = "Target Support Files/Pods-Dialogue-DialogueUITests/Pods-Dialogue-DialogueUITests.release.xcconfig"; sourceTree = "<group>"; };
 		3D7A8E6F2371F4A000F16F22 /* NetworkHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkHelper.swift; sourceTree = "<group>"; };
 		3D7A8E742373589700F16F22 /* ProfileViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileViewController.swift; sourceTree = "<group>"; };
+		3D7A8E772373788800F16F22 /* DialogueSettingsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DialogueSettingsViewController.swift; sourceTree = "<group>"; };
 		3DB9DBC82358E8A30045F25C /* SignupViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignupViewController.swift; sourceTree = "<group>"; };
 		3DB9DBCA2358E9530045F25C /* Alerts.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Alerts.swift; sourceTree = "<group>"; };
 		3DBDA37F234650EF00CD8291 /* Podfile */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = Podfile; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.ruby; };
@@ -205,6 +207,7 @@
 				B8B81CD0236216860058056E /* FollowADialogueViewController.swift */,
 				B8B81CCE236207340058056E /* CreateDialogueViewController.swift */,
 				C33230DB236158E200359A84 /* FollowingDialoguesViewController.swift */,
+				3D7A8E772373788800F16F22 /* DialogueSettingsViewController.swift */,
 			);
 			path = Dialogue;
 			sourceTree = "<group>";
@@ -499,6 +502,7 @@
 				3DB9DBCB2358E9530045F25C /* Alerts.swift in Sources */,
 				3DF0B00E23413F4D00F99848 /* AppDelegate.swift in Sources */,
 				B8B81CD1236216860058056E /* FollowADialogueViewController.swift in Sources */,
+				3D7A8E782373788800F16F22 /* DialogueSettingsViewController.swift in Sources */,
 				3DB9DBC92358E8A30045F25C /* SignupViewController.swift in Sources */,
 				5706F1EC237251500080C689 /* ChatViewController.swift in Sources */,
 				3DCA9F0A235F80600078FD21 /* MyDialogueViewController.swift in Sources */,

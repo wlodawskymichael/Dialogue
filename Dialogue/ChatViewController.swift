@@ -15,22 +15,34 @@ class ChatViewController: MessagesViewController {
     
     private let db = Firestore.firestore()
     private var reference: CollectionReference?
-    private let storage = Storage.storage().reference()
 
     private var messages: [Message] = []
     private var messageListener: ListenerRegistration?
     
     private let user: User
-    private let channel: Channel
+    private let group: Group
 
     deinit {
       messageListener?.remove()
+    }
+    
+    init(user: User, group: Group) {
+      self.user = user
+      self.group = group
+      super.init(nibName: nil, bundle: nil)
+      
+      title = group.groupID
+    }
+    
+    required init?(coder aDecoder: NSCoder) {
+      fatalError("init(coder:) has not been implemented")
     }
     
     override func viewDidLoad() {
         super.viewDidLoad()
 
         // Do any additional setup after loading the view.
+        
     }
     
 

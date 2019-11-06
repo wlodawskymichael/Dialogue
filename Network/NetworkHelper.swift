@@ -45,6 +45,8 @@ struct Message: MessageType {
     var kind: MessageKind
 }
 
+class NetworkHelper {
+    
     private static let dbRef = Firestore.firestore()
     
     static func getGroup(groupID: String, completion:  @escaping (Group, Error?) -> Void) {
@@ -75,7 +77,6 @@ struct Message: MessageType {
                 }
             }
         }
-        return output
     }
     
     static func getMyGroups() -> [Group] {

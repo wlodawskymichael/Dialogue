@@ -196,6 +196,7 @@
                     <connections>
                         <outlet property="ConfirmPasswordTextField" destination="54E-mo-Jxo" id="qFs-hC-d96"/>
                         <outlet property="EmailTextField" destination="jSS-Zs-x9z" id="a3b-j4-opY"/>
+                        <outlet property="FullNameTextField" destination="v9g-yA-ZjL" id="NfQ-eN-YxI"/>
                         <outlet property="PasswordTextField" destination="Gfs-wM-0nx" id="gg5-iY-Frw"/>
                         <segue destination="c2B-Ga-MF3" kind="show" identifier="signupToDialogue" id="8q2-w5-9mC"/>
                     </connections>

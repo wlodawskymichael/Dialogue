@@ -95,19 +95,15 @@ struct Message: MessageType {
     }
 
     init?(document: QueryDocumentSnapshot) {
-        print("init from document")
         let data = document.data()
 
         guard let sentDate = (data["created"] as? Timestamp)?.dateValue() else {
-            print("1")
             return nil
         }
         guard let senderID = data["senderID"] as? String else {
-            print("2")
             return nil
         }
         guard let senderName = data["senderName"] as? String else {
-            print("3")
             return nil
         }
 
@@ -120,7 +116,6 @@ struct Message: MessageType {
             self.content = content
             kind = .text(content)
         } else {
-            print("4")
             return nil
         }
     }

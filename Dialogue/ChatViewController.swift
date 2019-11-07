@@ -76,9 +76,6 @@ class ChatViewController: MessagesViewController, MessagesDataSource {
         super.viewDidLoad()
         
         reference = db.collection(["groups", group.groupID, "thread"].joined(separator: "/"))
-        print("\n\nREF:\n")
-        print(reference)
-        print("\nEND\n\n")
         
         messageListener = reference?.addSnapshotListener { querySnapshot, error in
             guard let snapshot = querySnapshot else {
@@ -119,9 +116,7 @@ class ChatViewController: MessagesViewController, MessagesDataSource {
     // MARK: - Helpers
     
     func insertMessage(_ message: Message) {
-//        print(messageList)
         messageList.append(message)
-//        print(messageList)
         // Reload last section to update header/footer labels and insert a new one
         messagesCollectionView.performBatchUpdates({
             messagesCollectionView.insertSections([messageList.count - 1])
@@ -133,7 +128,6 @@ class ChatViewController: MessagesViewController, MessagesDataSource {
                 self?.messagesCollectionView.scrollToBottom(animated: true)
             }
         })
-//        print(messageList)
     }
     
     func isLastSectionVisible() -> Bool {
@@ -151,7 +145,7 @@ class ChatViewController: MessagesViewController, MessagesDataSource {
                 print("Error sending message: \(e.localizedDescription)")
                 return
             }
-            
+
             self.messagesCollectionView.scrollToBottom()
         }
     }
@@ -281,21 +275,11 @@ extension ChatViewController: InputBarAccessoryViewDelegate {
         }
     }
     
-    func messageInputBar(_ inputBar: MessageInputBar, didPressSendButtonWith text: String) {
-        
-        let message = Message(user: user, text: text)
-        
-        save(message)
-        
-        inputBar.inputTextView.text = ""
-    }
-    
-    
     private func insertMessages(_ data: [Any]) {
         for component in data {
             if let str = component as? String {
                 let message = Message(text: str, user: user, messageId: UUID().uuidString, date: Date())
-                insertMessage(message)
+                save(message)
             }/* else if let img = component as? UIImage {
              let message = Message(image: img, user: user, messageId: UUID().uuidString, date: Date())
              insertMessage(message)
@@ -304,17 +288,13 @@ extension ChatViewController: InputBarAccessoryViewDelegate {
     }
     private func handleDocumentChange(_ change: DocumentChange) {
         guard let message = Message(document: change.document) else {
-            print("returning")
             return
         }
-        print("here")
         switch change.type {
         case .added:
-            print("added")
             insertMessage(message)
             
         default:
-            print("default doc changef")
             break
         }
     }

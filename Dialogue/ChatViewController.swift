@@ -11,7 +11,6 @@ import MessageKit
 import InputBarAccessoryView
 import FirebaseFirestore
 
-/// A base class for the example controllers
 class ChatViewController: MessagesViewController, MessagesDataSource, MessageCellDelegate {
     
     override var preferredStatusBarStyle: UIStatusBarStyle {
@@ -47,23 +46,22 @@ class ChatViewController: MessagesViewController, MessagesDataSource, MessageCel
         messageListener?.remove()
     }
     
-    
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        // Setup messages listener
         reference = db.collection(["groups", group.groupID, "thread"].joined(separator: "/"))
-        
         messageListener = reference?.addSnapshotListener { querySnapshot, error in
             guard let snapshot = querySnapshot else {
                 print("Error listening for channel updates: \(error?.localizedDescription ?? "No error")")
                 return
             }
-            
             snapshot.documentChanges.forEach { change in
                 self.handleDocumentChange(change)
             }
         }
         
+        // Setup MessageView stuff
         configureMessageCollectionView()
         configureMessageInputBar()
     }
@@ -73,8 +71,7 @@ class ChatViewController: MessagesViewController, MessagesDataSource, MessageCel
         messagesCollectionView.messageCellDelegate = self
         messagesCollectionView.messagesLayoutDelegate = self
         messagesCollectionView.messagesDisplayDelegate = self
-        
-        scrollsToBottomOnKeyboardBeginsEditing = true // default false
+
         maintainPositionOnKeyboardFrameChanged = true // default false
     }
     
@@ -94,6 +91,7 @@ class ChatViewController: MessagesViewController, MessagesDataSource, MessageCel
         messageList.append(message)
         messageList.sort()
         messagesCollectionView.reloadData()
+        
         if !isLastSectionVisible() {
             DispatchQueue.main.async {
                 self.messagesCollectionView.scrollToBottom(animated: true)
@@ -115,7 +113,6 @@ class ChatViewController: MessagesViewController, MessagesDataSource, MessageCel
                 print("Error sending message: \(e.localizedDescription)")
                 return
             }
-
             self.messagesCollectionView.scrollToBottom()
         }
     }

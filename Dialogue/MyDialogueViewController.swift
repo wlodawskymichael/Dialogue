@@ -11,7 +11,6 @@ import FirebaseFirestore
 
 class MyDialogueViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
     
-    @IBOutlet weak var dialoguesTableView: UITableView!
     @IBOutlet weak var tableView: UITableView!
     
     private let db = Firestore.firestore()
@@ -68,8 +67,8 @@ class MyDialogueViewController: UIViewController, UITableViewDelegate, UITableVi
                 messageLabel.textAlignment = .center
                 messageLabel.sizeToFit()
                 messageLabel.text = "You don't have any Dialogues yet."
-                self.dialoguesTableView.backgroundView = messageLabel
-                self.dialoguesTableView.separatorStyle = .none
+                self.tableView.backgroundView = messageLabel
+                self.tableView.separatorStyle = .none
             } else {
                 self.tableView.reloadData()
             }

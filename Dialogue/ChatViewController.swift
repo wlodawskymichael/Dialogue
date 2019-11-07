@@ -6,37 +6,13 @@
 //  Copyright © 2019 CS371L. All rights reserved.
 //
 
-/*
- MIT License
- 
- Copyright (c) 2017-2019 MessageKit
- 
- Permission is hereby granted, free of charge, to any person obtaining a copy
- of this software and associated documentation files (the "Software"), to deal
- in the Software without restriction, including without limitation the rights
- to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
- copies of the Software, and to permit persons to whom the Software is
- furnished to do so, subject to the following conditions:
- 
- The above copyright notice and this permission notice shall be included in all
- copies or substantial portions of the Software.
- 
- THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
- IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
- FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
- AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
- LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
- OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
- SOFTWARE.
- */
-
 import UIKit
 import MessageKit
 import InputBarAccessoryView
 import FirebaseFirestore
 
 /// A base class for the example controllers
-class ChatViewController: MessagesViewController, MessagesDataSource {
+class ChatViewController: MessagesViewController, MessagesDataSource, MessageCellDelegate {
     
     override var preferredStatusBarStyle: UIStatusBarStyle {
         return .lightContent
@@ -93,7 +69,6 @@ class ChatViewController: MessagesViewController, MessagesDataSource {
     }
     
     func configureMessageCollectionView() {
-        
         messagesCollectionView.messagesDataSource = self
         messagesCollectionView.messageCellDelegate = self
         messagesCollectionView.messagesLayoutDelegate = self
@@ -117,21 +92,16 @@ class ChatViewController: MessagesViewController, MessagesDataSource {
     
     func insertMessage(_ message: Message) {
         messageList.append(message)
-        // Reload last section to update header/footer labels and insert a new one
-        messagesCollectionView.performBatchUpdates({
-            messagesCollectionView.insertSections([messageList.count - 1])
-            if messageList.count >= 2 {
-                messagesCollectionView.reloadSections([messageList.count - 2])
+        messageList.sort()
+        messagesCollectionView.reloadData()
+        if !isLastSectionVisible() {
+            DispatchQueue.main.async {
+                self.messagesCollectionView.scrollToBottom(animated: true)
             }
-        }, completion: { [weak self] _ in
-            if self?.isLastSectionVisible() == true {
-                self?.messagesCollectionView.scrollToBottom(animated: true)
-            }
-        })
+        }
     }
     
     func isLastSectionVisible() -> Bool {
-        
         guard !messageList.isEmpty else { return false }
         
         let lastIndexPath = IndexPath(item: 0, section: messageList.count - 1)
@@ -165,77 +135,9 @@ class ChatViewController: MessagesViewController, MessagesDataSource {
         return messageList[indexPath.section]
     }
     
-    func cellTopLabelAttributedText(for message: MessageType, at indexPath: IndexPath) -> NSAttributedString? {
-        if indexPath.section % 3 == 0 {
-            return NSAttributedString(string: MessageKitDateFormatter.shared.string(from: message.sentDate), attributes: [NSAttributedString.Key.font: UIFont.boldSystemFont(ofSize: 10), NSAttributedString.Key.foregroundColor: UIColor.darkGray])
-        }
-        return nil
-    }
-    
-    func cellBottomLabelAttributedText(for message: MessageType, at indexPath: IndexPath) -> NSAttributedString? {
-        
-        return NSAttributedString(string: "Read", attributes: [NSAttributedString.Key.font: UIFont.boldSystemFont(ofSize: 10), NSAttributedString.Key.foregroundColor: UIColor.darkGray])
-    }
-    
     func messageTopLabelAttributedText(for message: MessageType, at indexPath: IndexPath) -> NSAttributedString? {
         let name = message.sender.displayName
         return NSAttributedString(string: name, attributes: [NSAttributedString.Key.font: UIFont.preferredFont(forTextStyle: .caption1)])
-    }
-    
-    func messageBottomLabelAttributedText(for message: MessageType, at indexPath: IndexPath) -> NSAttributedString? {
-        
-        let dateString = formatter.string(from: message.sentDate)
-        return NSAttributedString(string: dateString, attributes: [NSAttributedString.Key.font: UIFont.preferredFont(forTextStyle: .caption2)])
-    }
-    
-}
-
-// MARK: - MessageCellDelegate
-
-extension ChatViewController: MessageCellDelegate {
-    
-    func didTapAvatar(in cell: MessageCollectionViewCell) {
-        print("Avatar tapped")
-    }
-    
-    func didTapMessage(in cell: MessageCollectionViewCell) {
-        print("Message tapped")
-    }
-    
-    func didTapCellTopLabel(in cell: MessageCollectionViewCell) {
-        print("Top cell label tapped")
-    }
-    
-    func didTapCellBottomLabel(in cell: MessageCollectionViewCell) {
-        print("Bottom cell label tapped")
-    }
-    
-    func didTapMessageTopLabel(in cell: MessageCollectionViewCell) {
-        print("Top message label tapped")
-    }
-    
-    func didTapMessageBottomLabel(in cell: MessageCollectionViewCell) {
-        print("Bottom label tapped")
-    }
-    
-    func didTapPlayButton(in cell: AudioMessageCell) {
-        print("Play button tapped")
-    }
-    
-    func didStartAudio(in cell: AudioMessageCell) {
-        print("Did start playing audio sound")
-    }
-    
-    func didPauseAudio(in cell: AudioMessageCell) {
-        print("Did pause audio sound")
-    }
-    
-    func didStopAudio(in cell: AudioMessageCell) {
-        print("Did stop audio sound")
-    }
-    
-    func didTapAccessoryView(in cell: MessageCollectionViewCell) {
-        print("Accessory view tapped")
     }
     
 }
@@ -246,16 +148,6 @@ extension ChatViewController: InputBarAccessoryViewDelegate {
     
     func inputBar(_ inputBar: InputBarAccessoryView, didPressSendButtonWith text: String) {
         
-        // Here we can parse for which substrings were autocompleted
-        let attributedText = messageInputBar.inputTextView.attributedText!
-        let range = NSRange(location: 0, length: attributedText.length)
-        attributedText.enumerateAttribute(.autocompleted, in: range, options: []) { (_, range, _) in
-            
-            let substring = attributedText.attributedSubstring(from: range)
-            let context = substring.attribute(.autocompletedContext, at: 0, effectiveRange: nil)
-            print("Autocompleted: `", substring, "` with context: ", context ?? [])
-        }
-        
         let components = inputBar.inputTextView.components
         messageInputBar.inputTextView.text = String()
         messageInputBar.invalidatePlugins()
@@ -264,8 +156,6 @@ extension ChatViewController: InputBarAccessoryViewDelegate {
         messageInputBar.sendButton.startAnimating()
         messageInputBar.inputTextView.placeholder = "Sending..."
         DispatchQueue.global(qos: .default).async {
-            // fake send request task
-            sleep(1)
             DispatchQueue.main.async { [weak self] in
                 self?.messageInputBar.sendButton.stopAnimating()
                 self?.messageInputBar.inputTextView.placeholder = "Aa"
@@ -275,17 +165,17 @@ extension ChatViewController: InputBarAccessoryViewDelegate {
         }
     }
     
+    // Handles messages being sent from the input bar by saving them remotely
     private func insertMessages(_ data: [Any]) {
         for component in data {
             if let str = component as? String {
                 let message = Message(text: str, user: user, messageId: UUID().uuidString, date: Date())
                 save(message)
-            }/* else if let img = component as? UIImage {
-             let message = Message(image: img, user: user, messageId: UUID().uuidString, date: Date())
-             insertMessage(message)
-             }*/
+            }
         }
     }
+    
+    // Handles new messages popping up remotely and loads them on screen
     private func handleDocumentChange(_ change: DocumentChange) {
         guard let message = Message(document: change.document) else {
             return
@@ -319,7 +209,7 @@ extension ChatViewController: MessagesDisplayDelegate {
     }
     
     func backgroundColor(for message: MessageType, at indexPath: IndexPath, in messagesCollectionView: MessagesCollectionView) -> UIColor {
-        return isFromCurrentSender(message: message) ? .primaryColor : UIColor(red: 230/255, green: 230/255, blue: 230/255, alpha: 1)
+        return isFromCurrentSender(message: message) ? .primaryColor : .incomingMessage
     }
     
     func messageStyle(for message: MessageType, at indexPath: IndexPath, in messagesCollectionView: MessagesCollectionView) -> MessageStyle {
@@ -333,22 +223,9 @@ extension ChatViewController: MessagesDisplayDelegate {
 
 extension ChatViewController: MessagesLayoutDelegate {
     
-    func cellTopLabelHeight(for message: MessageType, at indexPath: IndexPath, in messagesCollectionView: MessagesCollectionView) -> CGFloat {
-        return 18
-    }
-    
-    func cellBottomLabelHeight(for message: MessageType, at indexPath: IndexPath, in messagesCollectionView: MessagesCollectionView) -> CGFloat {
-        return 17
-    }
-    
     func messageTopLabelHeight(for message: MessageType, at indexPath: IndexPath, in messagesCollectionView: MessagesCollectionView) -> CGFloat {
         return 20
     }
-    
-    func messageBottomLabelHeight(for message: MessageType, at indexPath: IndexPath, in messagesCollectionView: MessagesCollectionView) -> CGFloat {
-        return 16
-    }
-    
 }
 
 // MARK: - UIColor Extension

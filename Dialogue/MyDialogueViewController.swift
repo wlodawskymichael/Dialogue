@@ -23,7 +23,6 @@ class MyDialogueViewController: UIViewController, UITableViewDelegate, UITableVi
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        print("Groups count: \(groups.count)")
         return groups.count
     }
     

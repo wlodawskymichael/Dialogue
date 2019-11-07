@@ -33,6 +33,7 @@
 import UIKit
 import MessageKit
 import InputBarAccessoryView
+import FirebaseFirestore
 
 /// A base class for the example controllers
 class ChatViewController: MessagesViewController, MessagesDataSource {
@@ -43,6 +44,10 @@ class ChatViewController: MessagesViewController, MessagesDataSource {
     var messageList: [Message] = []
     let user: UserStruct
     let group: GroupStruct
+    
+    private let db = Firestore.firestore()
+    private var reference: CollectionReference?
+    private var messageListener: ListenerRegistration?
     
     let refreshControl = UIRefreshControl()
     
@@ -58,63 +63,36 @@ class ChatViewController: MessagesViewController, MessagesDataSource {
         super.init(nibName: nil, bundle: nil)
         title = group.groupID
     }
-    
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
     
+    deinit {
+        messageListener?.remove()
+    }
+    
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        reference = db.collection(["groups", group.groupID, "thread"].joined(separator: "/"))
+        print("\n\nREF:\n")
+        print(reference)
+        print("\nEND\n\n")
+        
+        messageListener = reference?.addSnapshotListener { querySnapshot, error in
+            guard let snapshot = querySnapshot else {
+                print("Error listening for channel updates: \(error?.localizedDescription ?? "No error")")
+                return
+            }
+            
+            snapshot.documentChanges.forEach { change in
+                self.handleDocumentChange(change)
+            }
+        }
+        
         configureMessageCollectionView()
         configureMessageInputBar()
-        loadFirstMessages()
-    }
-    
-    override func viewDidAppear(_ animated: Bool) {
-        super.viewDidAppear(animated)
-        
-        //        MockSocket.shared.connect(with: [SampleData.shared.nathan, SampleData.shared.wu])
-        //            .onNewMessage { [weak self] message in
-        //                self?.insertMessage(message)
-        //        }
-    }
-    
-    override func viewDidDisappear(_ animated: Bool) {
-        super.viewDidDisappear(animated)
-        //        MockSocket.shared.disconnect()
-        //        audioController.stopAnyOngoingPlaying()
-    }
-    
-    func loadFirstMessages() {
-        print("load first messages")
-        var msg1 = Message(user: user, text: "a wholesome message")
-        self.messageList.insert(msg1, at: 0)
-        self.messagesCollectionView.reloadData()
-        //        DispatchQueue.global(qos: .userInitiated).async {
-        //            let count = UserDefaults.standard.mockMessagesCount()
-        //            SampleData.shared.getMessages(count: count) { messages in
-        //                DispatchQueue.main.async {
-        //                    self.messageList = messages
-        //                    self.messagesCollectionView.reloadData()
-        //                    self.messagesCollectionView.scrollToBottom()
-        //                }
-        //            }
-        //        }
-    }
-    
-    @objc
-    func loadMoreMessages() {
-        print("load more messages")
-        //        DispatchQueue.global(qos: .userInitiated).asyncAfter(deadline: .now() + 1) {
-        //            SampleData.shared.getMessages(count: 20) { messages in
-        //                DispatchQueue.main.async {
-        //                    self.messageList.insert(contentsOf: messages, at: 0)
-        //                    self.messagesCollectionView.reloadDataAndKeepOffset()
-        //                    self.refreshControl.endRefreshing()
-        //                }
-        //            }
-        //        }
     }
     
     func configureMessageCollectionView() {
@@ -126,9 +104,6 @@ class ChatViewController: MessagesViewController, MessagesDataSource {
         
         scrollsToBottomOnKeyboardBeginsEditing = true // default false
         maintainPositionOnKeyboardFrameChanged = true // default false
-        
-        messagesCollectionView.addSubview(refreshControl)
-        refreshControl.addTarget(self, action: #selector(loadMoreMessages), for: .valueChanged)
     }
     
     func configureMessageInputBar() {
@@ -144,9 +119,9 @@ class ChatViewController: MessagesViewController, MessagesDataSource {
     // MARK: - Helpers
     
     func insertMessage(_ message: Message) {
-        print(messageList)
+//        print(messageList)
         messageList.append(message)
-        print(messageList)
+//        print(messageList)
         // Reload last section to update header/footer labels and insert a new one
         messagesCollectionView.performBatchUpdates({
             messagesCollectionView.insertSections([messageList.count - 1])
@@ -158,7 +133,7 @@ class ChatViewController: MessagesViewController, MessagesDataSource {
                 self?.messagesCollectionView.scrollToBottom(animated: true)
             }
         })
-        print(messageList)
+//        print(messageList)
     }
     
     func isLastSectionVisible() -> Bool {
@@ -169,6 +144,18 @@ class ChatViewController: MessagesViewController, MessagesDataSource {
         
         return messagesCollectionView.indexPathsForVisibleItems.contains(lastIndexPath)
     }
+    
+    private func save(_ message: Message) {
+        reference?.addDocument(data: message.representation) { error in
+            if let e = error {
+                print("Error sending message: \(e.localizedDescription)")
+                return
+            }
+            
+            self.messagesCollectionView.scrollToBottom()
+        }
+    }
+    
     
     // MARK: - MessagesDataSource
     
@@ -239,28 +226,6 @@ extension ChatViewController: MessageCellDelegate {
     
     func didTapPlayButton(in cell: AudioMessageCell) {
         print("Play button tapped")
-        //        guard let indexPath = messagesCollectionView.indexPath(for: cell),
-        //            let message = messagesCollectionView.messagesDataSource?.messageForItem(at: indexPath, in: messagesCollectionView) else {
-        //                print("Failed to identify message when audio cell receive tap gesture")
-        //                return
-        //        }
-        //        guard audioController.state != .stopped else {
-        //            // There is no audio sound playing - prepare to start playing for given audio message
-        //            audioController.playSound(for: message, in: cell)
-        //            return
-        //        }
-        //        if audioController.playingMessage?.messageId == message.messageId {
-        //            // tap occur in the current cell that is playing audio sound
-        //            if audioController.state == .playing {
-        //                audioController.pauseSound(for: message, in: cell)
-        //            } else {
-        //                audioController.resumeSound()
-        //            }
-        //        } else {
-        //            // tap occur in a difference cell that the one is currently playing sound. First stop currently playing and start the sound for given message
-        //            audioController.stopAnyOngoingPlaying()
-        //            audioController.playSound(for: message, in: cell)
-        //        }
     }
     
     func didStartAudio(in cell: AudioMessageCell) {
@@ -277,44 +242,6 @@ extension ChatViewController: MessageCellDelegate {
     
     func didTapAccessoryView(in cell: MessageCollectionViewCell) {
         print("Accessory view tapped")
-    }
-    
-}
-
-// MARK: - MessageLabelDelegate
-
-extension ChatViewController: MessageLabelDelegate {
-    
-    func didSelectAddress(_ addressComponents: [String: String]) {
-        print("Address Selected: \(addressComponents)")
-    }
-    
-    func didSelectDate(_ date: Date) {
-        print("Date Selected: \(date)")
-    }
-    
-    func didSelectPhoneNumber(_ phoneNumber: String) {
-        print("Phone Number Selected: \(phoneNumber)")
-    }
-    
-    func didSelectURL(_ url: URL) {
-        print("URL Selected: \(url)")
-    }
-    
-    func didSelectTransitInformation(_ transitInformation: [String: String]) {
-        print("TransitInformation Selected: \(transitInformation)")
-    }
-    
-    func didSelectHashtag(_ hashtag: String) {
-        print("Hashtag selected: \(hashtag)")
-    }
-    
-    func didSelectMention(_ mention: String) {
-        print("Mention selected: \(mention)")
-    }
-    
-    func didSelectCustom(_ pattern: String, match: String?) {
-        print("Custom data detector patter selected: \(pattern)")
     }
     
 }
@@ -354,6 +281,16 @@ extension ChatViewController: InputBarAccessoryViewDelegate {
         }
     }
     
+    func messageInputBar(_ inputBar: MessageInputBar, didPressSendButtonWith text: String) {
+        
+        let message = Message(user: user, text: text)
+        
+        save(message)
+        
+        inputBar.inputTextView.text = ""
+    }
+    
+    
     private func insertMessages(_ data: [Any]) {
         for component in data {
             if let str = component as? String {
@@ -365,12 +302,26 @@ extension ChatViewController: InputBarAccessoryViewDelegate {
              }*/
         }
     }
+    private func handleDocumentChange(_ change: DocumentChange) {
+        guard let message = Message(document: change.document) else {
+            print("returning")
+            return
+        }
+        print("here")
+        switch change.type {
+        case .added:
+            print("added")
+            insertMessage(message)
+            
+        default:
+            print("default doc changef")
+            break
+        }
+    }
 }
 
 // MARK: - MessagesDisplayDelegate
 extension ChatViewController: MessagesDisplayDelegate {
-    
-    // MARK: - Text Messages
     
     func textColor(for message: MessageType, at indexPath: IndexPath, in messagesCollectionView: MessagesCollectionView) -> UIColor {
         return isFromCurrentSender(message: message) ? .white : .darkText
@@ -387,8 +338,6 @@ extension ChatViewController: MessagesDisplayDelegate {
         return [.url, .address, .phoneNumber, .date, .transitInformation, .mention, .hashtag]
     }
     
-    // MARK: - All Messages
-    
     func backgroundColor(for message: MessageType, at indexPath: IndexPath, in messagesCollectionView: MessagesCollectionView) -> UIColor {
         return isFromCurrentSender(message: message) ? .primaryColor : UIColor(red: 230/255, green: 230/255, blue: 230/255, alpha: 1)
     }
@@ -398,46 +347,6 @@ extension ChatViewController: MessagesDisplayDelegate {
         let tail: MessageStyle.TailCorner = isFromCurrentSender(message: message) ? .bottomRight : .bottomLeft
         return .bubbleTail(tail, .curved)
     }
-    
-//    func configureAvatarView(_ avatarView: AvatarView, for message: MessageType, at indexPath: IndexPath, in messagesCollectionView: MessagesCollectionView) {
-//        let avatar =
-//        avatarView.set(avatar: avatar)
-//    }
-    
-//     // MARK: - Location Messages
-//
-//    func annotationViewForLocation(message: MessageType, at indexPath: IndexPath, in messageCollectionView: MessagesCollectionView) -> MKAnnotationView? {
-//        let annotationView = MKAnnotationView(annotation: nil, reuseIdentifier: nil)
-//        let pinImage = #imageLiteral(resourceName: "ic_map_marker")
-//        annotationView.image = pinImage
-//        annotationView.centerOffset = CGPoint(x: 0, y: -pinImage.size.height / 2)
-//        return annotationView
-//    }
-//
-//    func animationBlockForLocation(message: MessageType, at indexPath: IndexPath, in messagesCollectionView: MessagesCollectionView) -> ((UIImageView) -> Void)? {
-//        return { view in
-//            view.layer.transform = CATransform3DMakeScale(2, 2, 2)
-//            UIView.animate(withDuration: 0.6, delay: 0, usingSpringWithDamping: 0.9, initialSpringVelocity: 0, options: [], animations: {
-//                view.layer.transform = CATransform3DIdentity
-//            }, completion: nil)
-//        }
-//    }
-//
-//    func snapshotOptionsForLocation(message: MessageType, at indexPath: IndexPath, in messagesCollectionView: MessagesCollectionView) -> LocationMessageSnapshotOptions {
-//
-//        return LocationMessageSnapshotOptions(showsBuildings: true, showsPointsOfInterest: true, span: MKCoordinateSpan(latitudeDelta: 10, longitudeDelta: 10))
-//    }
-//
-//    // MARK: - Audio Messages
-//
-//    func audioTintColor(for message: MessageType, at indexPath: IndexPath, in messagesCollectionView: MessagesCollectionView) -> UIColor {
-//        return isFromCurrentSender(message: message) ? .white : UIColor(red: 15/255, green: 135/255, blue: 255/255, alpha: 1.0)
-//    }
-//
-//    func configureAudioCell(_ cell: AudioMessageCell, message: MessageType) {
-//        audioController.configureAudioCell(cell, message: message) // this is needed especily when the cell is reconfigure while is playing sound
-//    }
-
 }
 
 // MARK: - MessagesLayoutDelegate

@@ -64,6 +64,18 @@ struct Message: MessageType {
     var kind: MessageKind
     var messageId: String
     let user: UserStruct
+    
+    var content: String?
+    
+    var representation: [String : Any] {
+        let rep: [String : Any] = [
+            "content": content ?? "*** NO CONTENT ***",
+            "created": sentDate,
+            "senderID": sender.senderId,
+            "senderName": sender.displayName
+        ]
+        return rep
+    }
 
     private init(kind: MessageKind, user: UserStruct, messageId: String, date: Date) {
         self.kind = kind
@@ -74,59 +86,46 @@ struct Message: MessageType {
     
     init(user: UserStruct, text: String) {
         self.init(kind: .text(text), user: user, messageId: UUID().uuidString, date: Date())
+        content = text
     }
 
     init(text: String, user: UserStruct, messageId: String, date: Date) {
         self.init(kind: .text(text), user: user, messageId: messageId, date: date)
+        content = text
     }
-//
-//    init?(document: QueryDocumentSnapshot) {
-//        let data = document.data()
-//
-//        guard let sentDate = data["created"] as? Date else {
-//            return nil
-//        }
-//        guard let senderID = data["senderID"] as? String else {
-//            return nil
-//        }
-//        guard let senderName = data["senderName"] as? String else {
-//            return nil
-//        }
-//
-//        id = document.documentID
-//
-//        self.sentDate = sentDate
-//        sender = Sender(id: senderID, displayName: senderName)
-//
-//        if let content = data["content"] as? String {
-//            self.content = content
-//            kind = MessageKind.text(content)
-//        } else {
-//            return nil
-//        }
-//    }
-//
-}
 
-//extension Message: DatabaseRepresentation {
-//
-//    var representation: [String : Any] {
-//        let rep: [String : Any] = [
-//            "content": content,
-//            "created": sentDate,
-//            "senderID": sender.senderId,
-//            "senderName": sender.displayName
-//        ]
-//
-//        //    if let url = downloadURL {
-//        //      rep["url"] = url.absoluteString
-//        //    } else {
-//        //      rep["content"] = content
-//        //    }
-//        //
-//        return rep
-//    }
-//}
+    init?(document: QueryDocumentSnapshot) {
+        print("init from document")
+        let data = document.data()
+
+        guard let sentDate = (data["created"] as? Timestamp)?.dateValue() else {
+            print("1")
+            return nil
+        }
+        guard let senderID = data["senderID"] as? String else {
+            print("2")
+            return nil
+        }
+        guard let senderName = data["senderName"] as? String else {
+            print("3")
+            return nil
+        }
+
+        messageId = document.documentID
+
+        self.sentDate = sentDate
+        user = UserStruct(userId: senderID, displayName: senderName, friendList: [], groupList: [])
+
+        if let content = data["content"] as? String {
+            self.content = content
+            kind = .text(content)
+        } else {
+            print("4")
+            return nil
+        }
+    }
+
+}
 
 extension Message: Comparable {
     

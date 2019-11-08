@@ -59,7 +59,13 @@ class CreateDialogueViewController: UIViewController, UITableViewDelegate, UITab
     }
 
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        selected.append(contacts[indexPath.row])
+        let contact = contacts[indexPath.row]
+        if selected.contains(contact) {
+            selected.removeAll{ $0 == contact }
+        }
+        else {
+            selected.append(contacts[indexPath.row])
+        }
     }
 
 }

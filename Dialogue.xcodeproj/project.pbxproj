@@ -28,7 +28,7 @@
 		5706F1EC237251500080C689 /* ChatViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5706F1EB237251500080C689 /* ChatViewController.swift */; };
 		5706F1F423725FB30080C689 /* DialogueTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5706F1F323725FB30080C689 /* DialogueTableViewCell.swift */; };
 		79179D25B707C29E181E1E8C /* Pods_DialogueTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 48228F2CE385DD55C1150BD9 /* Pods_DialogueTests.framework */; };
-		B8A390A72374E2CF00FB706B /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = B8A390A62374E2CF00FB706B /* GoogleService-Info.plist */; };
+		B866BFC2237F488300120157 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = B866BFC1237F488300120157 /* GoogleService-Info.plist */; };
 		B8A390A92374E39100FB706B /* ContactTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8A390A82374E39100FB706B /* ContactTableViewCell.swift */; };
 		B8B81CCF236207340058056E /* CreateDialogueViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8B81CCE236207340058056E /* CreateDialogueViewController.swift */; };
 		B8B81CD1236216860058056E /* FollowADialogueViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8B81CD0236216860058056E /* FollowADialogueViewController.swift */; };
@@ -86,7 +86,7 @@
 		5706F1F323725FB30080C689 /* DialogueTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DialogueTableViewCell.swift; sourceTree = "<group>"; };
 		6213E28C63618210CE64CE87 /* Pods-Dialogue.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Dialogue.debug.xcconfig"; path = "Target Support Files/Pods-Dialogue/Pods-Dialogue.debug.xcconfig"; sourceTree = "<group>"; };
 		A85DF578BB82003BADB74BF8 /* Pods-DialogueTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-DialogueTests.debug.xcconfig"; path = "Target Support Files/Pods-DialogueTests/Pods-DialogueTests.debug.xcconfig"; sourceTree = "<group>"; };
-		B8A390A62374E2CF00FB706B /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = "GoogleService-Info.plist"; path = "../../../../Downloads/GoogleService-Info.plist"; sourceTree = "<group>"; };
+		B866BFC1237F488300120157 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		B8A390A82374E39100FB706B /* ContactTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContactTableViewCell.swift; sourceTree = "<group>"; };
 		B8B81CCE236207340058056E /* CreateDialogueViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateDialogueViewController.swift; sourceTree = "<group>"; };
 		B8B81CD0236216860058056E /* FollowADialogueViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FollowADialogueViewController.swift; sourceTree = "<group>"; };
@@ -198,7 +198,7 @@
 		3DF0B00C23413F4D00F99848 /* Dialogue */ = {
 			isa = PBXGroup;
 			children = (
-				B8A390A62374E2CF00FB706B /* GoogleService-Info.plist */,
+				B866BFC1237F488300120157 /* GoogleService-Info.plist */,
 				3DF0B00D23413F4D00F99848 /* AppDelegate.swift */,
 				3DF0B00F23413F4D00F99848 /* ViewController.swift */,
 				3DF0B01423413F4E00F99848 /* Assets.xcassets */,
@@ -366,7 +366,7 @@
 			files = (
 				3DBDA380234650EF00CD8291 /* Podfile in Resources */,
 				3DF0B01823413F4E00F99848 /* LaunchScreen.storyboard in Resources */,
-				B8A390A72374E2CF00FB706B /* GoogleService-Info.plist in Resources */,
+				B866BFC2237F488300120157 /* GoogleService-Info.plist in Resources */,
 				3DF0B01523413F4E00F99848 /* Assets.xcassets in Resources */,
 				3DF0B01323413F4D00F99848 /* Main.storyboard in Resources */,
 			);

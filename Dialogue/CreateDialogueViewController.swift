@@ -67,5 +67,12 @@ class CreateDialogueViewController: UIViewController, UITableViewDelegate, UITab
             selected.append(contacts[indexPath.row])
         }
     }
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        
+        if let vc = segue.destination as? DialogueSettingsViewController {
+            vc.selectedContacts = selected
+        }
+    }
 
 }

@@ -563,7 +563,7 @@
                         <barButtonItem key="rightBarButtonItem" title="Next" id="6WH-Ip-1oZ">
                             <color key="tintColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             <connections>
-                                <segue destination="m1F-4t-FHS" kind="show" id="lgs-wq-nuI"/>
+                                <segue destination="m1F-4t-FHS" kind="show" identifier="dialogueSettingSegue" id="al3-wz-yrv"/>
                             </connections>
                         </barButtonItem>
                     </navigationItem>
@@ -696,6 +696,7 @@
         <image name="message.fill" width="64" height="56"/>
     </resources>
     <inferredMetricsTieBreakers>
+        <segue reference="al3-wz-yrv"/>
         <segue reference="8q2-w5-9mC"/>
         <segue reference="hkb-hK-h4D"/>
         <segue reference="YWD-Xt-4fO"/>

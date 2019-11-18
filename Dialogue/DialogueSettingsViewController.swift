@@ -11,6 +11,7 @@ import UIKit
 class DialogueSettingsViewController: UIViewController {
 
     @IBOutlet weak var GroupNameTextField: UITextField!
+    var selectedContacts:[SpeakerStruct] = []
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -23,7 +24,8 @@ class DialogueSettingsViewController: UIViewController {
                 return false
             } else {
                 let owner = SpeakerStruct(userID: NetworkHelper.getCurrentUser()!.uid, admin: true)
-                NetworkHelper.writeGroup(group: GroupStruct(groupID: GroupNameTextField.text!, speakers: [owner], spectators: [])) {
+                let speakers = [owner] + selectedContacts
+                NetworkHelper.writeGroup(group: GroupStruct(groupID: GroupNameTextField.text!, speakers: speakers, spectators: [])) { // TODO add spectators support
                     NetworkHelper.getUser(completion: { (user, error) in
                         var newUser = user
                         newUser.groupList.append(self.GroupNameTextField.text!)

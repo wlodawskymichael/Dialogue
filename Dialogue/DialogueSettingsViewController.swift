@@ -28,11 +28,14 @@ class DialogueSettingsViewController: UIViewController {
                 let owner = SpeakerStruct(userID: NetworkHelper.getCurrentUser()!.uid, admin: true)
                 let speakers = [owner] + selectedContacts
                 NetworkHelper.writeGroup(group: GroupStruct(groupID: GroupNameTextField.text!, speakers: speakers, spectators: [], followable: followable)) { // TODO add spectators support
-                    NetworkHelper.getUser(completion: { (user, error) in
-                        var newUser = user
-                        newUser.groupList.append(self.GroupNameTextField.text!)
-                        NetworkHelper.writeUser(user: newUser, completion: nil)
-                    })
+                    for speaker in speakers {
+                        print("HELLO +++>>>"+speaker.userID)
+                        NetworkHelper.getUser(userId: speaker.userID, completion: { (user, error) in
+                            var newUser = user
+                            newUser.groupList.append(self.GroupNameTextField.text!)
+                            NetworkHelper.writeUser(user: newUser, completion: nil)
+                        })
+                    }
                 }
                 return true
             }

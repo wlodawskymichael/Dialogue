@@ -165,7 +165,7 @@ class NetworkHelper {
     }
     
     static func writeUser(user: UserStruct, completion: (() -> Void)? = nil) {
-        dbRef.collection("users").document(getCurrentUser()!.uid).setData([
+        dbRef.collection("users").document(user.userId).setData([
             "displayName": user.displayName,
             "friendList": user.friendList,
             "groupList": user.groupList
@@ -215,11 +215,14 @@ class NetworkHelper {
     }
     
     static func getUser(completion: ((UserStruct, Error?) -> Void)? = nil) {
-        dbRef.collection("users").document(getCurrentUser()!.uid).getDocument { (snapshot, error) in
+        getUser(userId: getCurrentUser()!.uid, completion: completion)
+    }
+    
+    static func getUser(userId: String, completion: ((UserStruct, Error?) -> Void)? = nil) {
+        dbRef.collection("users").document(userId).getDocument { (snapshot, error) in
             if error != nil {
                 print("***ERROR: \(error ?? "Couldn't print error" as! Error)")
             } else {
-                let userId: String = getCurrentUser()!.uid
                 let displayName: String = snapshot?.get("displayName") as? String ?? userId
                 let friends: [String] = snapshot?.get("friendList") as? [String] ?? []
                 let groups: [String] = snapshot?.get("groupList") as? [String] ?? []
@@ -231,7 +234,11 @@ class NetworkHelper {
     }
     
     static func getUserFriendList(completion: (([String], Error?) -> Void)? = nil) {
-        dbRef.collection("users").document(getCurrentUser()!.uid).getDocument { (snapshot, error) in
+        getUserFriendList(userId: getCurrentUser()!.uid, completion: completion)
+    }
+    
+    static func getUserFriendList(userId: String, completion: (([String], Error?) -> Void)? = nil) {
+        dbRef.collection("users").document(userId).getDocument { (snapshot, error) in
             if error != nil {
                 print("***ERROR: \(error ?? "Couldn't print error" as! Error)")
             } else {
@@ -244,7 +251,11 @@ class NetworkHelper {
     }
     
     static func getUserGroupList(completion: (([String], Error?) -> Void)? = nil) {
-        dbRef.collection("users").document(getCurrentUser()!.uid).getDocument { (snapshot, error) in
+        getUserGroupList(userId: getCurrentUser()!.uid, completion: completion)
+    }
+    
+    static func getUserGroupList(userId: String, completion: (([String], Error?) -> Void)? = nil) {
+        dbRef.collection("users").document(userId).getDocument { (snapshot, error) in
             if error != nil {
                 print("***ERROR: \(error ?? "Couldn't print error" as! Error)")
             } else {
@@ -257,7 +268,11 @@ class NetworkHelper {
     }
     
     static func getUserDisplayName(completion: ((String, Error?) -> Void)? = nil) {
-        dbRef.collection("users").document(getCurrentUser()!.uid).getDocument { (snapshot, error) in
+        getUserDisplayName(userId: getCurrentUser()!.uid, completion: completion)
+    }
+    
+    static func getUserDisplayName(userId: String, completion: ((String, Error?) -> Void)? = nil) {
+        dbRef.collection("users").document(userId).getDocument { (snapshot, error) in
             if error != nil {
                 print("***ERROR: \(error ?? "Couldn't print error" as! Error)")
             } else {

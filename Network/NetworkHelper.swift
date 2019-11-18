@@ -27,11 +27,13 @@ struct GroupStruct {
     var groupID: String
     var speakers: [SpeakerStruct]
     var spectators: [String]
+    var followable: Bool
     
-    init(groupID: String, speakers: [SpeakerStruct], spectators: [String]) {
+    init(groupID: String, speakers: [SpeakerStruct], spectators: [String], followable: Bool) {
         self.groupID = groupID
         self.speakers = speakers
         self.spectators = spectators
+        self.followable = followable
     }
 }
 
@@ -149,7 +151,8 @@ class NetworkHelper {
         }
         dbRef.collection("groups").document(group.groupID).setData([
             "speakers": speakers,
-            "spectators": group.spectators
+            "spectators": group.spectators,
+            "followable": group.followable
         ]) { (error) in
             if error != nil {
                 print("***ERROR: \(error ?? "Couldn't print error" as! Error)")
@@ -178,7 +181,7 @@ class NetworkHelper {
     }
     
     static func getGroup(groupID: String, completion: ((GroupStruct, Error?) -> Void)? = nil) {
-        var group = GroupStruct(groupID: "None", speakers: [], spectators: [])
+        var group = GroupStruct(groupID: "None", speakers: [], spectators: [], followable: false)
         self.dbRef.collection("groups").getDocuments { (snapshot, error) in
             if error != nil {
                 print("***ERROR: \(error ?? "Couldn't print error" as! Error)")
@@ -189,6 +192,8 @@ class NetworkHelper {
                         var speakers: [SpeakerStruct] = []
                         var spectators: [String] = []
                         
+                        let followable = document["followable"] as? Bool ?? false
+                        
                         let speakerData = document["speakers"] as? [NSDictionary]
                         for speaker in speakerData ?? [] {
                             let admin: Bool = speaker["admin"] as? Bool ?? false
@@ -197,7 +202,7 @@ class NetworkHelper {
                         }
                         spectators = document["spectators"] as? [String] ?? []
                         
-                        group = GroupStruct(groupID: document.documentID, speakers: speakers, spectators: spectators)
+                        group = GroupStruct(groupID: document.documentID, speakers: speakers, spectators: spectators, followable: followable)
                         
                         // Call completion handler
                         if completion != nil {

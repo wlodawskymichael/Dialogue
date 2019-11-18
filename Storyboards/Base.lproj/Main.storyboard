@@ -594,6 +594,9 @@
                                 <state key="normal" title="Leave Group">
                                     <color key="titleColor" systemColor="systemRedColor" red="1" green="0.23137254900000001" blue="0.18823529410000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 </state>
+                                <connections>
+                                    <action selector="leaveGroupWithSender:" destination="m1F-4t-FHS" eventType="touchUpInside" id="nOb-Wr-5mn"/>
+                                </connections>
                             </button>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="94Z-Mx-foh">
                                 <rect key="frame" x="20" y="171" width="374" height="489"/>

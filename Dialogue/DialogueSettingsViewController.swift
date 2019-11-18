@@ -45,7 +45,21 @@ class DialogueSettingsViewController: UIViewController {
     
     @IBAction func followableChanged(sender: UISwitch) {
         followable = sender.isOn
-        print(followable)
+    }
+    
+    @IBAction func leaveGroup(sender: UIButton) {
+        print("Leaving group...")
+        NetworkHelper.getUser(completion: { (user, error) in
+            var newUser = user
+            if let index = newUser.groupList.firstIndex(of: self.GroupNameTextField.text!) {
+                newUser.groupList.remove(at: index)
+            }
+            NetworkHelper.writeUser(user: newUser, completion: nil)
+        })
+    }
+    
+    @IBAction func deleteGroup(sender: UIButton) {
+        print("Delete group triggered")
     }
 
 }

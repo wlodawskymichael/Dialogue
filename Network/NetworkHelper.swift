@@ -53,6 +53,7 @@ struct UserStruct: SenderType, Equatable {
         self.displayName = displayName
         self.friendList = friendList
         self.groupList = groupList
+        
     }
 }
 
@@ -231,6 +232,27 @@ class NetworkHelper {
                 }
             }
         }
+    }
+    
+    static func getAllUsers(completion: (([UserStruct], Error?) -> Void)? = nil) {
+        dbRef.collection("users").getDocuments { (snapshot, error) in
+            if error != nil {
+               print("***ERROR: \(error ?? "Couldn't print error" as! Error)")
+           } else {
+                var usersToDisplay: [UserStruct] = []
+                for document in snapshot!.documents {
+                    print("\(document.documentID) => \(document.data())")
+                    if document.get("displayName") != nil {
+                        let displayName: String = (document.get("displayName") as? String)!
+                        let friends: [String] = document.get("friendList") as? [String] ?? []
+                        let groups: [String] = document.get("groupList") as? [String] ?? []
+                        let userId: String = document.documentID
+                        usersToDisplay.append(UserStruct(userId: userId, displayName: displayName, friendList: friends, groupList: groups))
+                    }
+                }
+                completion!(usersToDisplay, nil)
+           }
+       }
     }
     
     static func getUserFriendList(completion: (([String], Error?) -> Void)? = nil) {

@@ -28,27 +28,7 @@ class CreateDialogueViewController: UIViewController, UITableViewDelegate, UITab
     }
 
     func initTableView() {
-//        NetworkHelper.getUser(completion: { (user, error) in
-//            self.contacts = user.friendList
-//            if self.contacts.count < 1 {
-//                let frame = CGRect(origin: CGPoint(x: 0,y :0), size: CGSize(width: self.view.bounds.size.width, height: self.view.bounds.size.height))
-//                let messageLabel = UILabel(frame: frame)
-//                messageLabel.textColor = UIColor.black
-//                messageLabel.numberOfLines = 0
-//                messageLabel.textAlignment = .center
-//                        messageLabel.sizeToFit()
-//                messageLabel.text = "There are no contacts to add at this time, coming soon!"
-//
-//                self.tableView.backgroundView = messageLabel
-//                self.tableView.separatorStyle = .none
-//            } else {
-//                self.tableView.reloadData()
-//            }
-//        })
         NetworkHelper.getAllUsers { (users, error) in
-            print("in create dialogue controller")
-            print("users are")
-            print("\(users)")
             self.contacts = users
             if self.contacts.count < 1 {
                 let frame = CGRect(origin: CGPoint(x: 0,y :0), size: CGSize(width: self.view.bounds.size.width, height: self.view.bounds.size.height))
@@ -56,9 +36,8 @@ class CreateDialogueViewController: UIViewController, UITableViewDelegate, UITab
                 messageLabel.textColor = UIColor.black
                 messageLabel.numberOfLines = 0
                 messageLabel.textAlignment = .center
-                        messageLabel.sizeToFit()
+                messageLabel.sizeToFit()
                 messageLabel.text = "There are no contacts to add at this time, coming soon!"
-
                 self.tableView.backgroundView = messageLabel
                 self.tableView.separatorStyle = .none
             } else {

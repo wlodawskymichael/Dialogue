@@ -55,6 +55,10 @@ struct UserStruct: SenderType, Equatable {
         self.groupList = groupList
         
     }
+    
+    static func == (lhs: UserStruct, rhs: UserStruct) -> Bool {
+        return lhs.userId == rhs.userId
+    }
 }
 
 // MARK: - Message

@@ -10,18 +10,23 @@ import UIKit
 import FirebaseAuth
 import FirebaseFirestore
 
-class CreateDialogueViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
+class CreateDialogueViewController: UIViewController, UITableViewDelegate, UITableViewDataSource, UISearchBarDelegate {
 
+    @IBOutlet weak var searchBar: UISearchBar!
     @IBOutlet weak var tableView: UITableView!
     private let db = Firestore.firestore()
     private var contacts:[UserStruct] = []
-    private var selected:[String] = []
+    private var selected:[UserStruct] = []
+    
+    var filteredUsers: [UserStruct]!
 
     override func viewDidLoad() {
         super.viewDidLoad()
 
         tableView.delegate = self
         tableView.dataSource = self
+        searchBar.delegate = self
+        filteredUsers = []
 
         // Do any additional setup after loading the view.
         initTableView()
@@ -30,6 +35,7 @@ class CreateDialogueViewController: UIViewController, UITableViewDelegate, UITab
     func initTableView() {
         NetworkHelper.getAllUsers { (users, error) in
             self.contacts = users
+            self.filteredUsers = self.contacts
             if self.contacts.count < 1 {
                 let frame = CGRect(origin: CGPoint(x: 0,y :0), size: CGSize(width: self.view.bounds.size.width, height: self.view.bounds.size.height))
                 let messageLabel = UILabel(frame: frame)
@@ -47,33 +53,66 @@ class CreateDialogueViewController: UIViewController, UITableViewDelegate, UITab
     }
 
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return contacts.count
+        return filteredUsers.count
     }
 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: ContactTableViewCell.identifier, for: indexPath as IndexPath) as! ContactTableViewCell
-        cell.titleLabel?.text = contacts[indexPath.row].displayName
+        cell.titleLabel?.text = filteredUsers[indexPath.row].displayName
         // TODO: Added icon and contact picture
         return cell
     }
 
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        let contact = contacts[indexPath.row].userId
-        if selected.contains(contact) {
-            selected.removeAll{ $0 == contact }
+        let contact = filteredUsers[indexPath.row]
+        if !selected.contains(contact) {
+            selected.append(filteredUsers[indexPath.row])
         }
-        else {
-            selected.append(contacts[indexPath.row].userId)
+    }
+    
+    func tableView(_ tableView: UITableView, didDeselectRowAt indexPath: IndexPath) {
+        let contact = filteredUsers[indexPath.row]
+        if selected.contains(contact) {
+            selected.removeAll {$0 == contact}
+        }
+    }
+    
+    func updateSelectedStates() {
+        let selectedCellDisplayNames = selected.map {$0.displayName}
+        for cell in tableView.visibleCells {
+            let contactCell = cell as! ContactTableViewCell
+            if selectedCellDisplayNames.contains(contactCell.titleLabel!.text!) {
+                let indexPath = tableView.indexPath(for: cell)
+                tableView.selectRow(at: indexPath, animated: true, scrollPosition: .top)
+            }
         }
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        print(selected)
         if let vc = segue.destination as? DialogueSettingsViewController {
             vc.selectedContacts = []
-            for speakerName in selected {
-                vc.selectedContacts.append(SpeakerStruct.init(userID: speakerName, admin: true)) // TODO add support for not having speakers as admins
+            for speaker in selected {
+                vc.selectedContacts.append(SpeakerStruct.init(userID: speaker.userId, admin: true)) // TODO add support for not having speakers as admins
             }
         }
+    }
+    
+    // This method updates filteredData based on the text in the Search Box
+    func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
+        // When there is no text, filteredData is the same as the original data
+        // When user has entered text into the search box
+        // Use the filter method to iterate over all items in the data array
+        // For each item, return true if the item should be included and false if the
+        // item should NOT be included
+        print("in search bar method")
+        filteredUsers = searchText.isEmpty ? contacts : contacts.filter { (item: UserStruct) -> Bool in
+            // If dataItem matches the searchText, return true to include it
+            return item.displayName.range(of: searchText, options: .caseInsensitive, range: nil, locale: nil) != nil
+        }
+
+        tableView.reloadData()
+        updateSelectedStates()
     }
 
 }

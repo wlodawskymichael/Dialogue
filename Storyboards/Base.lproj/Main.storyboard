@@ -281,11 +281,11 @@
             <objects>
                 <viewController modalPresentationStyle="fullScreen" id="VOE-yw-kns" customClass="ProfileViewController" customModule="Dialogue" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="R6f-QJ-DrS">
-                        <rect key="frame" x="0.0" y="0.0" width="414" height="736"/>
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="716"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="yLg-9n-aAZ">
-                                <rect key="frame" x="75" y="38" width="264" height="264"/>
+                                <rect key="frame" x="75" y="94" width="264" height="264"/>
                                 <constraints>
                                     <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="264" id="0fw-5J-HpA"/>
                                     <constraint firstAttribute="width" constant="264" id="CKm-LH-k3T"/>
@@ -298,7 +298,7 @@
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="i6p-eg-vON">
-                                <rect key="frame" x="75" y="323" width="264" height="35"/>
+                                <rect key="frame" x="75" y="379" width="264" height="35"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="19"/>
                                 <state key="normal" title="Button">
                                     <color key="titleColor" cocoaTouchSystemColor="darkTextColor"/>
@@ -308,13 +308,13 @@
                                 </connections>
                             </button>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Notifications" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="l2B-L5-2xp">
-                                <rect key="frame" x="137" y="425" width="140" height="21"/>
+                                <rect key="frame" x="137" y="481" width="140" height="21"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" on="YES" translatesAutoresizingMaskIntoConstraints="NO" id="aAp-oZ-zXn">
-                                <rect key="frame" x="184" y="454" width="49" height="31"/>
+                                <rect key="frame" x="184" y="510" width="49" height="31"/>
                                 <color key="tintColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <color key="onTintColor" white="0.33333333333333331" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <connections>
@@ -322,7 +322,7 @@
                                 </connections>
                             </switch>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="DVB-mJ-J9p">
-                                <rect key="frame" x="161" y="542" width="93" height="30"/>
+                                <rect key="frame" x="161" y="598" width="93" height="30"/>
                                 <state key="normal" title="Logout"/>
                                 <connections>
                                     <action selector="onLogout:" destination="VOE-yw-kns" eventType="touchUpInside" id="cZz-sx-aoB"/>
@@ -432,11 +432,11 @@
             <objects>
                 <viewController modalPresentationStyle="fullScreen" id="WQd-7m-53j" customClass="MyDialogueViewController" customModule="Dialogue" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="MXA-0H-LCA">
-                        <rect key="frame" x="0.0" y="0.0" width="414" height="736"/>
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="716"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="70" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="lPA-t6-Zsi">
-                                <rect key="frame" x="0.0" y="0.0" width="414" height="736"/>
+                                <rect key="frame" x="0.0" y="56" width="414" height="611"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <prototypes>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="DialogueTableViewCell" id="Aug-UP-ppx" customClass="DialogueTableViewCell" customModule="Dialogue">
@@ -513,15 +513,15 @@
             <objects>
                 <viewController title="Create a Dialogue" modalPresentationStyle="fullScreen" id="y5z-3U-2yE" customClass="CreateDialogueViewController" customModule="Dialogue" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="4TH-hy-8zk">
-                        <rect key="frame" x="0.0" y="0.0" width="414" height="736"/>
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="716"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <searchBar contentMode="redraw" text="" translatesAutoresizingMaskIntoConstraints="NO" id="tP9-8l-amP">
-                                <rect key="frame" x="0.0" y="0.0" width="414" height="56"/>
+                                <rect key="frame" x="0.0" y="56" width="414" height="56"/>
                                 <textInputTraits key="textInputTraits"/>
                             </searchBar>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" allowsMultipleSelection="YES" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="NlX-yA-9VV">
-                                <rect key="frame" x="0.0" y="56" width="414" height="680"/>
+                                <rect key="frame" x="0.0" y="112" width="414" height="555"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <prototypes>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="ContactTableViewCell" rowHeight="70" id="yJ5-fs-e1X" customClass="ContactTableViewCell" customModule="Dialogue" customModuleProvider="target">
@@ -585,11 +585,11 @@
             <objects>
                 <viewController modalPresentationStyle="fullScreen" id="m1F-4t-FHS" customClass="DialogueSettingsViewController" customModule="Dialogue" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="ogX-xc-5GX">
-                        <rect key="frame" x="0.0" y="0.0" width="414" height="736"/>
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="716"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Group Name" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="Enf-g5-620">
-                                <rect key="frame" x="20" y="58" width="374" height="34"/>
+                                <rect key="frame" x="20" y="114" width="374" height="34"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits"/>
                             </textField>
@@ -709,7 +709,7 @@
         <scene sceneID="oZ4-4O-IYJ">
             <objects>
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" modalPresentationStyle="fullScreen" id="SFs-2S-bca" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" title="My Dialogues" image="message.fill" id="92N-gX-tl3"/>
+                    <tabBarItem key="tabBarItem" title="My Dialogues" image="message.fill" catalog="system" id="92N-gX-tl3"/>
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="zxZ-MZ-iGo">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="56"/>
@@ -730,7 +730,7 @@
         <scene sceneID="8y2-ic-Opc">
             <objects>
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" modalPresentationStyle="fullScreen" id="vff-Ql-qLS" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" title="Following" image="eye.fill" id="heH-LY-1Dx"/>
+                    <tabBarItem key="tabBarItem" title="Following" image="eye.fill" catalog="system" id="heH-LY-1Dx"/>
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="u9I-UU-JxA">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="56"/>
@@ -750,13 +750,13 @@
     </scenes>
     <resources>
         <image name="blank-user" width="720" height="720"/>
-        <image name="eye.fill" width="64" height="38"/>
+        <image name="eye.fill" catalog="system" width="64" height="38"/>
         <image name="logo" width="602" height="402"/>
-        <image name="message.fill" width="64" height="56"/>
+        <image name="message.fill" catalog="system" width="64" height="56"/>
     </resources>
     <inferredMetricsTieBreakers>
         <segue reference="8q2-w5-9mC"/>
-        <segue reference="hkb-hK-h4D"/>
+        <segue reference="BW8-bJ-MLI"/>
         <segue reference="CZR-1v-44W"/>
     </inferredMetricsTieBreakers>
 </document>

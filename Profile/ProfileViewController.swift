@@ -11,14 +11,20 @@ import FirebaseAuth
 
 class ProfileViewController: UIViewController {
 
+    @IBOutlet weak var displayNameLabel: UILabel!
     @IBOutlet weak var DisplayNameButton: UIButton!
-
+    @IBOutlet weak var settingsButton: UIButton!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
         NetworkHelper.getUserDisplayName { (displayName, error) in
-            self.DisplayNameButton.setTitle(displayName, for: .normal)
+            self.displayNameLabel?.text = displayName
         }
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        settingsButton.layer.cornerRadius = 20
     }
     
     @IBAction func onProfilePic(_ sender: Any) {
@@ -38,7 +44,7 @@ class ProfileViewController: UIViewController {
         do {
             try Auth.auth().signOut()
         } catch {
-            print("Failed to singout user")
+            print("Failed to sign-out user")
         }
     }
     

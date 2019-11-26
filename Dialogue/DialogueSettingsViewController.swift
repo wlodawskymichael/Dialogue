@@ -8,15 +8,32 @@
 
 import UIKit
 
-class DialogueSettingsViewController: UIViewController {
-
-    @IBOutlet weak var GroupNameTextField: UITextField!
+class DialogueSettingsViewController: UIViewController, UITableViewDataSource, UITableViewDelegate {
+    // TODOs:
+    // Add profile image to cell
     
-    var selectedContacts:[SpeakerStruct] = []
-    var followable:Bool = true
+    @IBOutlet weak var GroupNameTextField: UITextField!
+    @IBOutlet weak var groupMembersTableView: UITableView!
+    
+    var selectedContacts: [UserStruct] = []
+    var followable: Bool = true
+    
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        groupMembersTableView.delegate = self
+        groupMembersTableView.dataSource = self
+        groupMembersTableView.rowHeight = 104
+    }
+    
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return selectedContacts.count
+    }
+    
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let cell = tableView.dequeueReusableCell(withIdentifier: GroupMemberSettingTableViewCell.identifier, for: indexPath as IndexPath) as! GroupMemberSettingTableViewCell
+        cell.memberDisplayName?.text = selectedContacts[indexPath.row].displayName
+        return cell
     }
     
     override func shouldPerformSegue(withIdentifier identifier: String, sender: Any?) -> Bool {
@@ -26,7 +43,14 @@ class DialogueSettingsViewController: UIViewController {
                 return false
             } else {
                 let owner = SpeakerStruct(userID: NetworkHelper.getCurrentUser()!.uid, admin: true)
-                let speakers = [owner] + selectedContacts
+                var speakers = [owner]
+                for cell in groupMembersTableView.visibleCells {
+                    let groupMemberCell = cell as! GroupMemberSettingTableViewCell
+                    let indexPath = groupMembersTableView.indexPath(for: cell)
+                    let groupMember = selectedContacts[indexPath!.row]
+                    speakers.append(SpeakerStruct(userID: groupMember.userId, admin: groupMemberCell.memberAdminToggle.isOn))
+                }
+                print(speakers)
                 NetworkHelper.writeGroup(group: GroupStruct(groupID: GroupNameTextField.text!, speakers: speakers, spectators: [], followable: followable)) { // TODO add spectators support
                     for speaker in speakers {
                         print("HELLO +++>>>"+speaker.userID)
@@ -61,5 +85,7 @@ class DialogueSettingsViewController: UIViewController {
     @IBAction func deleteGroup(sender: UIButton) {
         print("Delete group triggered")
     }
+    
+    
 
 }

@@ -34,6 +34,7 @@
 		B8B81CD1236216860058056E /* FollowADialogueViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8B81CD0236216860058056E /* FollowADialogueViewController.swift */; };
 		BB06189D16819EB6B1508528 /* Pods_Dialogue_DialogueUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 51D0B961DEA6953D5B239C1F /* Pods_Dialogue_DialogueUITests.framework */; };
 		C33230DC236158E200359A84 /* FollowingDialoguesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C33230DB236158E200359A84 /* FollowingDialoguesViewController.swift */; };
+		C35B7242238B810E0044B956 /* GroupMemberSettingTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C35B7241238B810E0044B956 /* GroupMemberSettingTableViewCell.swift */; };
 		C3CFB2E22360FF3D001D0FA3 /* Loading.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3CFB2E12360FF3C001D0FA3 /* Loading.swift */; };
 /* End PBXBuildFile section */
 
@@ -91,6 +92,7 @@
 		B8B81CCE236207340058056E /* CreateDialogueViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateDialogueViewController.swift; sourceTree = "<group>"; };
 		B8B81CD0236216860058056E /* FollowADialogueViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FollowADialogueViewController.swift; sourceTree = "<group>"; };
 		C33230DB236158E200359A84 /* FollowingDialoguesViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FollowingDialoguesViewController.swift; sourceTree = "<group>"; };
+		C35B7241238B810E0044B956 /* GroupMemberSettingTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GroupMemberSettingTableViewCell.swift; sourceTree = "<group>"; };
 		C3CFB2E12360FF3C001D0FA3 /* Loading.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Loading.swift; sourceTree = "<group>"; };
 		D3C922888D594B4BE0FE60B8 /* Pods_Dialogue.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Dialogue.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
@@ -211,6 +213,7 @@
 				B8B81CCE236207340058056E /* CreateDialogueViewController.swift */,
 				C33230DB236158E200359A84 /* FollowingDialoguesViewController.swift */,
 				3D7A8E772373788800F16F22 /* DialogueSettingsViewController.swift */,
+				C35B7241238B810E0044B956 /* GroupMemberSettingTableViewCell.swift */,
 				B8A390A82374E39100FB706B /* ContactTableViewCell.swift */,
 			);
 			path = Dialogue;
@@ -521,6 +524,7 @@
 				5706F1F423725FB30080C689 /* DialogueTableViewCell.swift in Sources */,
 				3D7A8E752373589700F16F22 /* ProfileViewController.swift in Sources */,
 				C3CFB2E22360FF3D001D0FA3 /* Loading.swift in Sources */,
+				C35B7242238B810E0044B956 /* GroupMemberSettingTableViewCell.swift in Sources */,
 				3DF163F32358E27E00A49BAC /* SigninViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

@@ -11,6 +11,7 @@ target 'Dialogue' do
   pod 'KVLoading', '~> 2.0.3'
   pod 'Firebase/Firestore'
   pod 'Firebase/Core'
+  pod 'Firebase/Storage'
 
 
   target 'DialogueTests' do

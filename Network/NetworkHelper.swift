@@ -48,10 +48,11 @@ struct UserStruct: SenderType, Equatable {
     var hasProfilePicture: Bool
     var followingNotifications: Bool
     var myNotifications: Bool
+    var followingList: [String]
     
     let userId: String
     
-    init(userId: String, displayName: String, friendList: [String], groupList: [String]) {
+    init(userId: String, displayName: String, friendList: [String], groupList: [String], followList: [String]) {
         self.userId = userId
         self.displayName = displayName
         self.friendList = friendList
@@ -60,6 +61,7 @@ struct UserStruct: SenderType, Equatable {
         self.followingNotifications = true
         self.myNotifications = true
         
+        self.followingList = followList
     }
     
     static func == (lhs: UserStruct, rhs: UserStruct) -> Bool {
@@ -142,7 +144,7 @@ struct Message: MessageType {
         messageId = document.documentID
 
         self.sentDate = sentDate
-        user = UserStruct(userId: senderID, displayName: senderName, friendList: [], groupList: [])
+        user = UserStruct(userId: senderID, displayName: senderName, friendList: [], groupList: [], followList: [])
 
         if let content = data["content"] as? String {
             self.content = content
@@ -239,6 +241,7 @@ class NetworkHelper {
             "hasProfilePicture": user.hasProfilePicture,
             "followingNotifications": user.followingNotifications,
             "myNotifications": user.myNotifications
+            "followingList": user.followingList
         ]) { (error) in
             if error != nil {
                 print("***ERROR: \(error ?? "Couldn't print error" as! Error)")
@@ -284,6 +287,27 @@ class NetworkHelper {
         }
     }
     
+    static func getAllGroups(completion: (([GroupStruct], Error?) -> Void)? = nil) {
+        dbRef.collection("groups").getDocuments { (snapshot, error) in
+            if error != nil {
+               print("***ERROR: \(error ?? "Couldn't print error" as! Error)")
+           } else {
+                var groupsToDisplay: [GroupStruct] = []
+                for document in snapshot!.documents {
+                    print("\(document.documentID) => \(document.data())")
+                    if document.get("displayName") != nil {
+                        let groupId: String = document.documentID
+                        let speakers: [SpeakerStruct] = document.get("speakers") as? [SpeakerStruct] ?? []
+                        let spectators: [String] = document.get("spectators") as? [String] ?? []
+                        let followable: Bool = document.get("followable") as? Bool ?? false
+                        groupsToDisplay.append(GroupStruct(groupID: groupId, speakers: speakers, spectators: spectators, followable: followable))
+                    }
+                }
+                completion!(groupsToDisplay, nil)
+           }
+       }
+    }
+    
     static func getUser(completion: ((UserStruct, Error?) -> Void)? = nil) {
         getUser(userId: getCurrentUser()!.uid, completion: completion)
     }
@@ -296,8 +320,9 @@ class NetworkHelper {
                 let displayName: String = snapshot?.get("displayName") as? String ?? userId
                 let friends: [String] = snapshot?.get("friendList") as? [String] ?? []
                 let groups: [String] = snapshot?.get("groupList") as? [String] ?? []
+                let following: [String] = snapshot?.get("followingList") as? [String] ?? []
                 if completion != nil {
-                    completion!(UserStruct(userId: userId, displayName: displayName, friendList: friends, groupList: groups), nil)
+                    completion!(UserStruct(userId: userId, displayName: displayName, friendList: friends, groupList: groups, followList: following), nil)
                 }
             }
         }
@@ -315,8 +340,9 @@ class NetworkHelper {
                         let displayName: String = (document.get("displayName") as? String)!
                         let friends: [String] = document.get("friendList") as? [String] ?? []
                         let groups: [String] = document.get("groupList") as? [String] ?? []
+                        let following: [String] = document.get("followingList") as? [String] ?? []
                         let userId: String = document.documentID
-                        usersToDisplay.append(UserStruct(userId: userId, displayName: displayName, friendList: friends, groupList: groups))
+                        usersToDisplay.append(UserStruct(userId: userId, displayName: displayName, friendList: friends, groupList: groups, followList: following))
                     }
                 }
                 completion!(usersToDisplay, nil)
@@ -355,6 +381,24 @@ class NetworkHelper {
                     completion!(groups, nil)
                 }
             }
+        }
+    }
+    
+    static func getUserFollowingList(completion: (([String], Error?) -> Void)? = nil) {
+        getUserFollowingList(userId: getCurrentUser()!.uid, completion: completion)
+    }
+    
+    static func getUserFollowingList(userId: String, completion: (([String], Error?) -> Void)? = nil) {
+        dbRef.collection("users").document(userId).getDocument { (snapshot, error) in
+            if error != nil {
+                print("***ERROR: \(error ?? "Couldn't print error" as! Error)")
+            } else {
+                let following: [String] = snapshot?.get("followingList") as? [String] ?? []
+                if completion != nil {
+                    completion!(following, nil)
+                }
+            }
+
         }
     }
     

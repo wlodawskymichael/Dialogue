@@ -502,7 +502,7 @@
                         <rect key="frame" x="0.0" y="0.0" width="414" height="716"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="yLg-9n-aAZ">
+                            <button opaque="NO" contentMode="scaleToFill" ambiguous="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="yLg-9n-aAZ">
                                 <rect key="frame" x="75" y="38" width="264" height="264"/>
                                 <constraints>
                                     <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="264" id="0fw-5J-HpA"/>
@@ -1025,7 +1025,6 @@
     </resources>
     <inferredMetricsTieBreakers>
         <segue reference="KHz-g8-Ep8"/>
-        <segue reference="nll-he-P0t"/>
         <segue reference="hkb-hK-h4D"/>
         <segue reference="CZR-1v-44W"/>
     </inferredMetricsTieBreakers>

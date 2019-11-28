@@ -45,6 +45,9 @@ struct UserStruct: SenderType, Equatable {
     var displayName: String
     var friendList: [String]
     var groupList: [String]
+    var hasProfilePicture: Bool
+    var followingNotifications: Bool
+    var myNotifications: Bool
     
     let userId: String
     
@@ -53,12 +56,34 @@ struct UserStruct: SenderType, Equatable {
         self.displayName = displayName
         self.friendList = friendList
         self.groupList = groupList
+        self.hasProfilePicture = false
+        self.followingNotifications = true
+        self.myNotifications = true
         
     }
     
     static func == (lhs: UserStruct, rhs: UserStruct) -> Bool {
         return lhs.userId == rhs.userId
     }
+}
+
+class InAppCurrentUser {
+    var displayName: String
+    var profilePicture: UIImage?
+    var userOptions: (hasProfilePicture: Bool, followingNotifications: Bool, myNotifications: Bool)
+    
+    init(displayName: String, profilePicture: UIImage?, userOptions: (hasProfilePicture: Bool, followingNotifications: Bool, myNotifications: Bool)) {
+        self.displayName = displayName
+        self.profilePicture = profilePicture
+        self.userOptions = userOptions
+    }
+    
+    func update(displayName: String, profilePicture: UIImage?, userOptions: (hasProfilePicture: Bool, followingNotifications: Bool, myNotifications: Bool)) {
+        self.displayName = displayName
+        self.profilePicture = profilePicture
+        self.userOptions = userOptions
+    }
+    
 }
 
 // MARK: - Message
@@ -145,6 +170,43 @@ extension Message: Comparable {
 class NetworkHelper {
     
     private static let dbRef = Firestore.firestore()
+    private static let pictureStorageRef = Storage.storage().reference(withPath: "profiles")
+    public static var currentInAppUserData: InAppCurrentUser?
+    
+    static func getUserProfilePicture(completion: ((UIImage?, Error?) -> Void)? = nil) {
+        getUserProfilePicture(userId: getCurrentUser()!.uid, completion: completion)
+    }
+    
+    static func getUserProfilePicture(userId: String, completion: ((UIImage?, Error?) -> Void)? = nil) {
+        let userImageRef = pictureStorageRef.child("\(userId).jpg")
+        userImageRef.getData(maxSize: 5 * 1024 * 1024) { data, error in
+            if completion != nil {
+                if let error = error {
+                    print("Error downloading profile image")
+                    completion!(nil, error)
+                }
+                else {
+                    completion!(UIImage(data: data!)!, nil)
+                }
+            }
+        }
+    }
+    
+    static func setProfilePicture(image: UIImage, completion: (() -> Void)? = nil) {
+        setProfilePicture(image: image, userId: getCurrentUser()!.uid, completion: completion)
+    }
+    
+    static func setProfilePicture(image: UIImage, userId: String, completion: (() -> Void)? = nil) {
+        let userImageRef = pictureStorageRef.child("\(userId).jpg")
+        let data = image.pngData()
+        userImageRef.putData(data!, metadata: nil) { (metadata, error) in
+            guard metadata != nil else {
+                print("error in upload")
+                return
+            }
+            self.updateCurrentInAppUser()
+        }
+    }
     
     static func writeGroup(group: GroupStruct, completion: (() -> Void)? = nil) {
         var speakers: [[String: Any]] = []
@@ -173,7 +235,10 @@ class NetworkHelper {
         dbRef.collection("users").document(user.userId).setData([
             "displayName": user.displayName,
             "friendList": user.friendList,
-            "groupList": user.groupList
+            "groupList": user.groupList,
+            "hasProfilePicture": user.hasProfilePicture,
+            "followingNotifications": user.followingNotifications,
+            "myNotifications": user.myNotifications
         ]) { (error) in
             if error != nil {
                 print("***ERROR: \(error ?? "Couldn't print error" as! Error)")
@@ -310,6 +375,26 @@ class NetworkHelper {
         }
     }
     
+    static func getUserOptions(completion: (((hasProfilePicture: Bool, followingNotifications: Bool, myNotifications: Bool), Error?) -> Void)? = nil) {
+        getUserOptions(userId: getCurrentUser()!.uid, completion: completion)
+    }
+    
+    static func getUserOptions(userId: String, completion: (((hasProfilePicture: Bool, followingNotifications: Bool, myNotifications: Bool), Error?) -> Void)? = nil) {
+        dbRef.collection("users").document(userId).getDocument { (snapshot, error) in
+            if error != nil {
+                print("***ERROR: \(error ?? "Couldn't print error" as! Error)")
+            } else {
+                let profPic: Bool = snapshot?.get("hasProfilePicture") as? Bool ?? false
+                let followNotifs: Bool = snapshot?.get("followingNotifications") as? Bool ?? false
+                let myNotifs: Bool = snapshot?.get("myNotifications") as? Bool ?? false
+                let userOptions = (hasProfilePicture: profPic, followingNotifications: followNotifs, myNotifications: myNotifs)
+                if completion != nil {
+                    completion!(userOptions, nil)
+                }
+            }
+        }
+    }
+    
     static func getCurrentUser() -> User? {
         var out = Auth.auth().currentUser
         if out == nil {
@@ -320,6 +405,26 @@ class NetworkHelper {
             }
         }
         return out
+    }
+    
+    static func updateCurrentInAppUser() {
+        if getCurrentUser() != nil {
+            var displayName: String?
+            var userOptions: (hasProfilePicture: Bool, followingNotifications: Bool, myNotifications: Bool)?
+            var profilePicture: UIImage?
+            getUserDisplayName() { fetchedName, error in
+                displayName = fetchedName
+                getUserOptions() { fetchedOptions, error in
+                    userOptions = fetchedOptions
+                    if userOptions!.hasProfilePicture {
+                        getUserProfilePicture() { fetchedImage, error in
+                            profilePicture = fetchedImage
+                            self.currentInAppUserData = InAppCurrentUser(displayName: displayName!, profilePicture: profilePicture, userOptions: userOptions!)
+                        }
+                    }
+                }
+            }
+        }
     }
     
     static func isUserSignedIn() -> Bool {

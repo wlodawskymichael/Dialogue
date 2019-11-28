@@ -36,6 +36,8 @@
 		C33230DC236158E200359A84 /* FollowingDialoguesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C33230DB236158E200359A84 /* FollowingDialoguesViewController.swift */; };
 		C350CD99238CBE12008C2C99 /* SettingsTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C350CD98238CBE12008C2C99 /* SettingsTableViewController.swift */; };
 		C35B7242238B810E0044B956 /* GroupMemberSettingTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C35B7241238B810E0044B956 /* GroupMemberSettingTableViewCell.swift */; };
+		C38B7E06238F9538003D0698 /* NotificationSettingsTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C38B7E05238F9538003D0698 /* NotificationSettingsTableViewController.swift */; };
+		C3A5C3AB238F2AF20031766C /* EditProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3A5C3AA238F2AF20031766C /* EditProfileViewController.swift */; };
 		C3CFB2E22360FF3D001D0FA3 /* Loading.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3CFB2E12360FF3C001D0FA3 /* Loading.swift */; };
 /* End PBXBuildFile section */
 
@@ -95,6 +97,8 @@
 		C33230DB236158E200359A84 /* FollowingDialoguesViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FollowingDialoguesViewController.swift; sourceTree = "<group>"; };
 		C350CD98238CBE12008C2C99 /* SettingsTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsTableViewController.swift; sourceTree = "<group>"; };
 		C35B7241238B810E0044B956 /* GroupMemberSettingTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GroupMemberSettingTableViewCell.swift; sourceTree = "<group>"; };
+		C38B7E05238F9538003D0698 /* NotificationSettingsTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationSettingsTableViewController.swift; sourceTree = "<group>"; };
+		C3A5C3AA238F2AF20031766C /* EditProfileViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditProfileViewController.swift; sourceTree = "<group>"; };
 		C3CFB2E12360FF3C001D0FA3 /* Loading.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Loading.swift; sourceTree = "<group>"; };
 		D3C922888D594B4BE0FE60B8 /* Pods_Dialogue.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Dialogue.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
@@ -150,6 +154,8 @@
 			isa = PBXGroup;
 			children = (
 				3D7A8E742373589700F16F22 /* ProfileViewController.swift */,
+				C38B7E05238F9538003D0698 /* NotificationSettingsTableViewController.swift */,
+				C3A5C3AA238F2AF20031766C /* EditProfileViewController.swift */,
 				C350CD98238CBE12008C2C99 /* SettingsTableViewController.swift */,
 			);
 			path = Profile;
@@ -515,10 +521,12 @@
 				B8B81CCF236207340058056E /* CreateDialogueViewController.swift in Sources */,
 				C33230DC236158E200359A84 /* FollowingDialoguesViewController.swift in Sources */,
 				3DF0B01023413F4D00F99848 /* ViewController.swift in Sources */,
+				C38B7E06238F9538003D0698 /* NotificationSettingsTableViewController.swift in Sources */,
 				3D7A8E702371F4A000F16F22 /* NetworkHelper.swift in Sources */,
 				B8A390A92374E39100FB706B /* ContactTableViewCell.swift in Sources */,
 				3DB9DBCB2358E9530045F25C /* Alerts.swift in Sources */,
 				3DF0B00E23413F4D00F99848 /* AppDelegate.swift in Sources */,
+				C3A5C3AB238F2AF20031766C /* EditProfileViewController.swift in Sources */,
 				B8B81CD1236216860058056E /* FollowADialogueViewController.swift in Sources */,
 				C350CD99238CBE12008C2C99 /* SettingsTableViewController.swift in Sources */,
 				3D7A8E782373788800F16F22 /* DialogueSettingsViewController.swift in Sources */,
@@ -708,6 +716,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = BWKNAPT58K;
 				INFOPLIST_FILE = Dialogue/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -727,6 +736,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = BWKNAPT58K;
 				INFOPLIST_FILE = Dialogue/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",

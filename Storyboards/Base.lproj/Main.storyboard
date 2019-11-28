@@ -2,7 +2,6 @@
 <document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="15400" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="BYZ-38-t0r">
     <device id="retina5_5" orientation="portrait" appearance="light"/>
     <dependencies>
-        <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="15404"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
@@ -281,7 +280,7 @@
             <objects>
                 <tableViewController id="SCt-VM-nhH" customClass="SettingsTableViewController" customModule="Dialogue" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="static" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" id="S5S-Wt-1i7">
-                        <rect key="frame" x="0.0" y="0.0" width="414" height="736"/>
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="716"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                         <sections>
@@ -339,7 +338,8 @@
                         <barButtonItem key="leftBarButtonItem" title="Back" id="J8T-3Q-hzc">
                             <color key="tintColor" red="0.090196078430000007" green="0.1647058824" blue="0.2274509804" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                             <connections>
-                                <segue destination="c2B-Ga-MF3" kind="showDetail" id="nll-he-P0t"/>
+                                <action selector="backPressed:" destination="SCt-VM-nhH" id="dPJ-Ek-fx0"/>
+                                <segue destination="c2B-Ga-MF3" kind="showDetail" id="KHz-g8-Ep8"/>
                             </connections>
                         </barButtonItem>
                     </navigationItem>
@@ -351,9 +351,9 @@
         <!--Notification Settings-->
         <scene sceneID="PHr-hD-OMJ">
             <objects>
-                <tableViewController id="vcB-Kf-hRH" sceneMemberID="viewController">
+                <tableViewController id="vcB-Kf-hRH" customClass="NotificationSettingsTableViewController" customModule="Dialogue" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="static" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" id="KEO-2N-m7g">
-                        <rect key="frame" x="0.0" y="0.0" width="414" height="736"/>
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="716"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                         <sections>
@@ -410,6 +410,10 @@
                         </connections>
                     </tableView>
                     <navigationItem key="navigationItem" title="Notification Settings" id="CY7-M2-Bwa"/>
+                    <connections>
+                        <outlet property="followingDialoguesSwitch" destination="go6-QD-5Ii" id="NNc-Et-OMH"/>
+                        <outlet property="myDialoguesSwitch" destination="go6-QD-5Ii" id="ezv-rs-RVs"/>
+                    </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="IgS-uq-52R" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
@@ -418,9 +422,9 @@
         <!--Edit profile-->
         <scene sceneID="8vi-gn-UTn">
             <objects>
-                <viewController id="y1P-9O-W6e" sceneMemberID="viewController">
+                <viewController id="y1P-9O-W6e" customClass="EditProfileViewController" customModule="Dialogue" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="4vg-TX-whv">
-                        <rect key="frame" x="0.0" y="0.0" width="414" height="736"/>
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="716"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="WIx-9Q-Kgc">
@@ -438,6 +442,9 @@
                                 <rect key="frame" x="124" y="94" width="147" height="30"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <state key="normal" title="Change display name"/>
+                                <connections>
+                                    <action selector="changeDisplayNamePressed:" destination="y1P-9O-W6e" eventType="touchUpInside" id="A0V-eQ-rCs"/>
+                                </connections>
                             </button>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Current profile picture:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="PGo-at-wZy">
                                 <rect key="frame" x="20" y="151" width="174" height="21"/>
@@ -450,12 +457,19 @@
                                 <rect key="frame" x="121" y="471" width="153" height="30"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <state key="normal" title="Change profile picture"/>
+                                <connections>
+                                    <action selector="changeProfilePicturePressed:" destination="y1P-9O-W6e" eventType="touchUpInside" id="bdz-uG-NaF"/>
+                                </connections>
                             </button>
                         </subviews>
                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                         <viewLayoutGuide key="safeArea" id="Hnp-2o-g7h"/>
                     </view>
                     <navigationItem key="navigationItem" title="Edit profile" id="mbq-5V-6g1"/>
+                    <connections>
+                        <outlet property="displayNameLabel" destination="cqY-Lz-xvG" id="Lk9-X0-v3N"/>
+                        <outlet property="profilePictureImageView" destination="WIx-9Q-Kgc" id="iBP-Nl-jCr"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="fcT-ox-Uir" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
@@ -483,26 +497,13 @@
         <!--Profile View Controller-->
         <scene sceneID="9Di-AK-Qqn">
             <objects>
-                <viewController id="VOE-yw-kns" customClass="ProfileViewController" customModule="Dialogue" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController modalTransitionStyle="flipHorizontal" id="VOE-yw-kns" customClass="ProfileViewController" customModule="Dialogue" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="R6f-QJ-DrS">
-                        <rect key="frame" x="0.0" y="0.0" width="414" height="736"/>
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="716"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="yLg-9n-aAZ">
-                                <rect key="frame" x="75" y="82" width="264" height="264"/>
-                                <constraints>
-                                    <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="264" id="0fw-5J-HpA"/>
-                                    <constraint firstAttribute="width" constant="264" id="CKm-LH-k3T"/>
-                                    <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="264" id="HFo-Bd-0St"/>
-                                    <constraint firstAttribute="height" constant="264" id="ooR-1W-vD5"/>
-                                </constraints>
-                                <state key="normal" title="Button" image="blank-user"/>
-                                <connections>
-                                    <action selector="onProfilePic:" destination="VOE-yw-kns" eventType="touchUpInside" id="fbs-B5-Qw9"/>
-                                </connections>
-                            </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="DVB-mJ-J9p">
-                                <rect key="frame" x="161" y="603" width="93" height="30"/>
+                                <rect key="frame" x="161" y="632" width="93" height="30"/>
                                 <state key="normal" title="Logout">
                                     <color key="titleColor" systemColor="systemRedColor" red="1" green="0.23137254900000001" blue="0.18823529410000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 </state>
@@ -512,35 +513,41 @@
                                 </connections>
                             </button>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Name" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="JwC-7c-Qkk">
-                                <rect key="frame" x="20" y="372" width="374" height="33"/>
+                                <rect key="frame" x="20" y="328" width="374" height="33"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="27"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="PmT-TG-8JC">
-                                <rect key="frame" x="161" y="464" width="93" height="39"/>
+                                <rect key="frame" x="161" y="420" width="93" height="39"/>
                                 <color key="backgroundColor" red="0.090196078431372548" green="0.16470588235294117" blue="0.22745098039215686" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="39" id="YoB-Dt-1gm"/>
                                 </constraints>
                                 <state key="normal" title="Settings"/>
                                 <connections>
-                                    <segue destination="Z0Q-DM-u71" kind="showDetail" identifier="showSettingsPage" id="KeN-M5-xBR"/>
+                                    <segue destination="Z0Q-DM-u71" kind="show" identifier="showSettingsPage" id="KeN-M5-xBR"/>
                                 </connections>
                             </button>
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="blank-user" translatesAutoresizingMaskIntoConstraints="NO" id="EyV-UT-QYr">
+                                <rect key="frame" x="75" y="47" width="264" height="264"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="264" id="GG2-HD-7E9"/>
+                                    <constraint firstAttribute="width" constant="264" id="MHj-eq-Gpw"/>
+                                </constraints>
+                            </imageView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
                             <constraint firstItem="hak-e1-8Jr" firstAttribute="trailing" secondItem="DVB-mJ-J9p" secondAttribute="trailing" constant="160" id="1ry-ID-q8G"/>
                             <constraint firstItem="PmT-TG-8JC" firstAttribute="top" secondItem="JwC-7c-Qkk" secondAttribute="bottom" constant="59" id="AuF-DX-c5A"/>
                             <constraint firstItem="PmT-TG-8JC" firstAttribute="leading" secondItem="hak-e1-8Jr" secondAttribute="leading" constant="161" id="Ept-GM-5GU"/>
-                            <constraint firstItem="JwC-7c-Qkk" firstAttribute="top" secondItem="yLg-9n-aAZ" secondAttribute="bottom" constant="26" id="LhX-MZ-Irq"/>
+                            <constraint firstItem="EyV-UT-QYr" firstAttribute="centerX" secondItem="hak-e1-8Jr" secondAttribute="centerX" id="LCI-bg-8hw"/>
+                            <constraint firstItem="JwC-7c-Qkk" firstAttribute="top" secondItem="EyV-UT-QYr" secondAttribute="bottom" constant="17" id="Nyv-av-u30"/>
                             <constraint firstItem="hak-e1-8Jr" firstAttribute="trailing" secondItem="JwC-7c-Qkk" secondAttribute="trailing" constant="20" id="Obu-sq-A7q"/>
+                            <constraint firstItem="EyV-UT-QYr" firstAttribute="top" secondItem="hak-e1-8Jr" secondAttribute="top" constant="47" id="ROY-lW-6fn"/>
                             <constraint firstItem="DVB-mJ-J9p" firstAttribute="leading" secondItem="hak-e1-8Jr" secondAttribute="leading" constant="161" id="UPd-Vi-rQj"/>
-                            <constraint firstItem="hak-e1-8Jr" firstAttribute="trailing" secondItem="yLg-9n-aAZ" secondAttribute="trailing" constant="75" id="W55-0B-ILc"/>
-                            <constraint firstItem="yLg-9n-aAZ" firstAttribute="top" secondItem="hak-e1-8Jr" secondAttribute="top" constant="38" id="aYb-KJ-qt3"/>
                             <constraint firstItem="JwC-7c-Qkk" firstAttribute="leading" secondItem="hak-e1-8Jr" secondAttribute="leading" constant="20" id="b1M-Lc-g0G"/>
-                            <constraint firstItem="yLg-9n-aAZ" firstAttribute="leading" secondItem="hak-e1-8Jr" secondAttribute="leading" constant="75" id="cvI-2D-GOy"/>
                             <constraint firstItem="hak-e1-8Jr" firstAttribute="bottom" secondItem="DVB-mJ-J9p" secondAttribute="bottom" constant="54" id="m1e-uZ-ynV"/>
                             <constraint firstItem="hak-e1-8Jr" firstAttribute="trailing" secondItem="PmT-TG-8JC" secondAttribute="trailing" constant="160" id="vUz-Vg-sla"/>
                         </constraints>
@@ -551,12 +558,13 @@
                     </navigationItem>
                     <connections>
                         <outlet property="displayNameLabel" destination="JwC-7c-Qkk" id="ObI-X3-sqo"/>
+                        <outlet property="profileImageView" destination="EyV-UT-QYr" id="sAR-CJ-3L3"/>
                         <outlet property="settingsButton" destination="PmT-TG-8JC" id="AQR-IN-HYD"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="eIh-33-u4a" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1853.6231884057972" y="1385.8695652173915"/>
+            <point key="canvasLocation" x="1794" y="1388"/>
         </scene>
         <!--FollowA Dialogue View Controller-->
         <scene sceneID="59o-cn-PSI">
@@ -954,8 +962,7 @@
         <image name="message.fill" catalog="system" width="64" height="56"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="OR4-IC-5hz"/>
-        <segue reference="nll-he-P0t"/>
+        <segue reference="KHz-g8-Ep8"/>
         <segue reference="hkb-hK-h4D"/>
         <segue reference="YWD-Xt-4fO"/>
     </inferredMetricsTieBreakers>

@@ -11,8 +11,8 @@ import FirebaseAuth
 
 class ProfileViewController: UIViewController {
 
+    @IBOutlet weak var profileImageView: UIImageView!
     @IBOutlet weak var displayNameLabel: UILabel!
-    @IBOutlet weak var DisplayNameButton: UIButton!
     @IBOutlet weak var settingsButton: UIButton!
     
     override func viewDidLoad() {
@@ -20,6 +20,10 @@ class ProfileViewController: UIViewController {
         
         NetworkHelper.getUserDisplayName { (displayName, error) in
             self.displayNameLabel?.text = displayName
+        }
+        
+        if let profilePicture = NetworkHelper.currentInAppUserData?.profilePicture {
+            self.profileImageView.image = profilePicture
         }
     }
     

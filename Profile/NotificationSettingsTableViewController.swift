@@ -10,6 +10,9 @@ import UIKit
 
 class NotificationSettingsTableViewController: UITableViewController {
 
+    @IBOutlet weak var followingDialoguesSwitch: UISwitch!
+    @IBOutlet weak var myDialoguesSwitch: UISwitch!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -19,17 +22,24 @@ class NotificationSettingsTableViewController: UITableViewController {
         // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
         // self.navigationItem.rightBarButtonItem = self.editButtonItem
     }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        followingDialoguesSwitch.setOn(NetworkHelper.currentInAppUserData!.userOptions.followingNotifications, animated: false)
+        myDialoguesSwitch.setOn(NetworkHelper.currentInAppUserData!.userOptions.myNotifications, animated: false)
+    }
 
     // MARK: - Table view data source
 
     override func numberOfSections(in tableView: UITableView) -> Int {
-        // #warning Incomplete implementation, return the number of sections
-        return 0
+        return 1
     }
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        // #warning Incomplete implementation, return the number of rows
-        return 0
+        return 2
+    }
+    
+    override func viewWillDisappear(_ animated: Bool) {
+        <#code#>
     }
 
     /*

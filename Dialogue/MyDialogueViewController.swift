@@ -47,7 +47,7 @@ class MyDialogueViewController: UIViewController, UITableViewDelegate, UITableVi
         
         tableView.delegate = self
         tableView.dataSource = self
-        
+        NetworkHelper.updateCurrentInAppUser()
         // Do any additional setup after loading the view.
         initTableView()
     }

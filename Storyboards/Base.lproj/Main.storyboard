@@ -1024,11 +1024,8 @@
         <image name="message.fill" catalog="system" width="64" height="56"/>
     </resources>
     <inferredMetricsTieBreakers>
-<<<<<<< HEAD
         <segue reference="KHz-g8-Ep8"/>
-=======
         <segue reference="nll-he-P0t"/>
->>>>>>> d7947b6184260613e67b6e4093752dd60c86508b
         <segue reference="hkb-hK-h4D"/>
         <segue reference="CZR-1v-44W"/>
     </inferredMetricsTieBreakers>

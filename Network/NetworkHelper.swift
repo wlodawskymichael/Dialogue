@@ -240,7 +240,7 @@ class NetworkHelper {
             "groupList": user.groupList,
             "hasProfilePicture": user.hasProfilePicture,
             "followingNotifications": user.followingNotifications,
-            "myNotifications": user.myNotifications
+            "myNotifications": user.myNotifications,
             "followingList": user.followingList
         ]) { (error) in
             if error != nil {

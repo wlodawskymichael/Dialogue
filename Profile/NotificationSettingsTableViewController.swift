@@ -38,9 +38,9 @@ class NotificationSettingsTableViewController: UITableViewController {
         return 2
     }
     
-    override func viewWillDisappear(_ animated: Bool) {
-        <#code#>
-    }
+//    override func viewWillDisappear(_ animated: Bool) {
+//        <#code#>
+//    }
 
     /*
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {

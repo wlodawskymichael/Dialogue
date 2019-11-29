@@ -12,6 +12,7 @@ target 'Dialogue' do
   pod 'Firebase/Firestore'
   pod 'Firebase/Core'
   pod 'Firebase/Storage'
+  pod 'Firebase/Messaging'
 
 
   target 'DialogueTests' do

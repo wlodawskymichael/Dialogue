@@ -596,7 +596,7 @@
                                 <rect key="frame" x="0.0" y="100" width="414" height="587"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <prototypes>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" restorationIdentifier="FollowDialogueTableViewCell" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" rowHeight="87" id="fxe-8V-TtK" customClass="FollowDialogueTableViewCell" customModule="Dialogue" customModuleProvider="target">
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="FollowDialogueTableViewCell" rowHeight="87" id="fxe-8V-TtK" customClass="FollowDialogueTableViewCell" customModule="Dialogue" customModuleProvider="target">
                                         <rect key="frame" x="0.0" y="28" width="414" height="87"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="fxe-8V-TtK" id="ENo-v6-aCD">
@@ -1025,8 +1025,9 @@
         <image name="message.fill" catalog="system" width="64" height="56"/>
     </resources>
     <inferredMetricsTieBreakers>
+        <segue reference="al3-wz-yrv"/>
         <segue reference="KHz-g8-Ep8"/>
         <segue reference="hkb-hK-h4D"/>
-        <segue reference="ZJO-mz-ihf"/>
+        <segue reference="YWD-Xt-4fO"/>
     </inferredMetricsTieBreakers>
 </document>

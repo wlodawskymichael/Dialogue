@@ -31,8 +31,8 @@
 		B8A390A92374E39100FB706B /* ContactTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8A390A82374E39100FB706B /* ContactTableViewCell.swift */; };
 		B8B81CCF236207340058056E /* CreateDialogueViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8B81CCE236207340058056E /* CreateDialogueViewController.swift */; };
 		B8B81CD1236216860058056E /* FollowADialogueViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8B81CD0236216860058056E /* FollowADialogueViewController.swift */; };
-		B8D6590A238F41B900B2DFDD /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = B8D65909238F41B900B2DFDD /* GoogleService-Info.plist */; };
 		B8D6590C238F556200B2DFDD /* FollowDialogueTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8D6590B238F556200B2DFDD /* FollowDialogueTableViewCell.swift */; };
+		B8D6590E2391CAB900B2DFDD /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = B8D6590D2391CAB900B2DFDD /* GoogleService-Info.plist */; };
 		BB06189D16819EB6B1508528 /* Pods_Dialogue_DialogueUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 51D0B961DEA6953D5B239C1F /* Pods_Dialogue_DialogueUITests.framework */; };
 		C33230DC236158E200359A84 /* FollowingDialoguesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C33230DB236158E200359A84 /* FollowingDialoguesViewController.swift */; };
 		C350CD99238CBE12008C2C99 /* SettingsTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C350CD98238CBE12008C2C99 /* SettingsTableViewController.swift */; };
@@ -94,8 +94,8 @@
 		B8A390A82374E39100FB706B /* ContactTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContactTableViewCell.swift; sourceTree = "<group>"; };
 		B8B81CCE236207340058056E /* CreateDialogueViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateDialogueViewController.swift; sourceTree = "<group>"; };
 		B8B81CD0236216860058056E /* FollowADialogueViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FollowADialogueViewController.swift; sourceTree = "<group>"; };
-		B8D65909238F41B900B2DFDD /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		B8D6590B238F556200B2DFDD /* FollowDialogueTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FollowDialogueTableViewCell.swift; sourceTree = "<group>"; };
+		B8D6590D2391CAB900B2DFDD /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		C33230DB236158E200359A84 /* FollowingDialoguesViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FollowingDialoguesViewController.swift; sourceTree = "<group>"; };
 		C350CD98238CBE12008C2C99 /* SettingsTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsTableViewController.swift; sourceTree = "<group>"; };
 		C35B7241238B810E0044B956 /* GroupMemberSettingTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GroupMemberSettingTableViewCell.swift; sourceTree = "<group>"; };
@@ -214,7 +214,7 @@
 			children = (
 				3DF0B00D23413F4D00F99848 /* AppDelegate.swift */,
 				3DF0B00F23413F4D00F99848 /* ViewController.swift */,
-				B8D65909238F41B900B2DFDD /* GoogleService-Info.plist */,
+				B8D6590D2391CAB900B2DFDD /* GoogleService-Info.plist */,
 				3DF0B01423413F4E00F99848 /* Assets.xcassets */,
 				3DF0B01923413F4E00F99848 /* Info.plist */,
 				5706F1EB237251500080C689 /* ChatViewController.swift */,
@@ -389,7 +389,7 @@
 			files = (
 				3DBDA380234650EF00CD8291 /* Podfile in Resources */,
 				3DF0B01823413F4E00F99848 /* LaunchScreen.storyboard in Resources */,
-				B8D6590A238F41B900B2DFDD /* GoogleService-Info.plist in Resources */,
+				B8D6590E2391CAB900B2DFDD /* GoogleService-Info.plist in Resources */,
 				3DF0B01523413F4E00F99848 /* Assets.xcassets in Resources */,
 				3DF0B01323413F4D00F99848 /* Main.storyboard in Resources */,
 			);

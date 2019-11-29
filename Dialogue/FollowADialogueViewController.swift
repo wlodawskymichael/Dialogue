@@ -63,9 +63,9 @@ class FollowADialogueViewController: UIViewController, UITableViewDelegate, UITa
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: ContactTableViewCell.identifier, for: indexPath as IndexPath) as! ContactTableViewCell
+        let cell = tableView.dequeueReusableCell(withIdentifier: FollowDialogueTableViewCell.identifier, for: indexPath as IndexPath) as! FollowDialogueTableViewCell
         cell.titleLabel?.text = filteredGroups[indexPath.row].groupID
-        // TODO: Added icon and contact picture
+        // TODO: Added icon and group picture
         return cell
     }
     
@@ -77,8 +77,8 @@ class FollowADialogueViewController: UIViewController, UITableViewDelegate, UITa
                 newUser.followingList.append(group.groupID)
                 NetworkHelper.writeUser(user: newUser, completion: nil)
                 self.followingList = newUser.followingList
+                group.spectators.append(newUser.userId)
             })
-            group.spectators.append((NetworkHelper.getCurrentUser()!.displayName!))
             NetworkHelper.writeGroup(group: GroupStruct(groupID: group.groupID, speakers: group.speakers, spectators: group.spectators, followable: group.followable))
         }
         
@@ -92,8 +92,8 @@ class FollowADialogueViewController: UIViewController, UITableViewDelegate, UITa
                 newUser.followingList.removeAll {$0 == group.groupID}
                 NetworkHelper.writeUser(user: newUser, completion: nil)
                 self.followingList = newUser.followingList
+                group.spectators.removeAll {$0 == newUser.userId}
             })
-            group.spectators.removeAll {$0 == NetworkHelper.getCurrentUser()!.displayName!}
             NetworkHelper.writeGroup(group: GroupStruct(groupID: group.groupID, speakers: group.speakers, spectators: group.spectators, followable: group.followable))
         }
     }

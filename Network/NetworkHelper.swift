@@ -339,13 +339,11 @@ class NetworkHelper {
                 var groupsToDisplay: [GroupStruct] = []
                 for document in snapshot!.documents {
                     print("\(document.documentID) => \(document.data())")
-                    if document.get("displayName") != nil {
-                        let groupId: String = document.documentID
-                        let speakers: [SpeakerStruct] = document.get("speakers") as? [SpeakerStruct] ?? []
-                        let spectators: [String] = document.get("spectators") as? [String] ?? []
-                        let followable: Bool = document.get("followable") as? Bool ?? false
-                        groupsToDisplay.append(GroupStruct(groupID: groupId, speakers: speakers, spectators: spectators, followable: followable))
-                    }
+                    let groupId: String = document.documentID 
+                    let speakers: [SpeakerStruct] = document.get("speakers") as? [SpeakerStruct] ?? []
+                    let spectators: [String] = document.get("spectators") as? [String] ?? []
+                    let followable: Bool = document.get("followable") as? Bool ?? false
+                    groupsToDisplay.append(GroupStruct(groupID: groupId, speakers: speakers, spectators: spectators, followable: followable))
                 }
                 completion!(groupsToDisplay, nil)
            }

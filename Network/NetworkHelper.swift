@@ -206,7 +206,53 @@ class NetworkHelper {
                 print("error in upload")
                 return
             }
-            self.updateCurrentInAppUser()
+            NetworkHelper.setNewUserOption((field: "hasProfilePicture", value: true)) {
+                self.updateCurrentInAppUser()
+            }
+
+            if completion != nil {
+                completion!()
+            }
+        }
+    }
+    
+    static func setNewUserOption(_ newOption: (field: String, value: Bool), completion: (() -> Void)? = nil) {
+        setNewUserOption(userId: getCurrentUser()!.uid, newOption, completion: completion)
+    }
+    
+    static func setNewUserOption(userId: String, _ newOption: (field: String, value: Bool), completion: (() -> Void)? = nil) {
+        dbRef.collection("users").document(userId).setData([
+            newOption.field: newOption.value
+        ], merge: true) { (error) in
+            if error != nil {
+                print("***ERROR: \(error ?? "Couldn't print error" as! Error)")
+            } else {
+                if completion != nil {
+                    completion!()
+                }
+                self.updateCurrentInAppUser()
+            }
+        }
+    }
+    
+    static func setNewUserOptions(newOptions: (hasProfilePicture: Bool, followingNotifications: Bool, myNotifications: Bool), completion: (() -> Void)? = nil) {
+        setNewUserOptions(userId: getCurrentUser()!.uid, newOptions: newOptions, completion: completion)
+    }
+    
+    static func setNewUserOptions(userId: String, newOptions: (hasProfilePicture: Bool, followingNotifications: Bool, myNotifications: Bool), completion: (() -> Void)? = nil) {
+        dbRef.collection("users").document(userId).setData([
+            "hasProfilePicture": newOptions.hasProfilePicture,
+            "followingNotifications": newOptions.followingNotifications,
+            "myNotifications": newOptions.myNotifications
+        ], merge: true) { (error) in
+            if error != nil {
+                print("***ERROR: \(error ?? "Couldn't print error" as! Error)")
+            } else {
+                if completion != nil {
+                    completion!()
+                }
+                self.updateCurrentInAppUser()
+            }
         }
     }
     
@@ -249,6 +295,25 @@ class NetworkHelper {
                 if completion != nil {
                     completion!()
                 }
+            }
+        }
+    }
+    
+    static func changeUserDisplayName(newDisplayName: String, completion: (() -> Void)? = nil) {
+        changeUserDisplayName(userId: getCurrentUser()!.uid, newDisplayName: newDisplayName, completion: completion)
+    }
+    
+    static func changeUserDisplayName(userId: String, newDisplayName: String, completion: (() -> Void)? = nil) {
+        dbRef.collection("users").document(userId).setData([
+            "displayName": newDisplayName
+        ], merge: true) { (error) in
+            if error != nil {
+                print("***ERROR: \(error ?? "Couldn't print error" as! Error)")
+            } else {
+                if completion != nil {
+                    completion!()
+                }
+                updateCurrentInAppUser()
             }
         }
     }
@@ -451,19 +516,32 @@ class NetworkHelper {
         return out
     }
     
-    static func updateCurrentInAppUser() {
+    static func updateCurrentInAppUser(completion: (() -> Void)? = nil) {
         if getCurrentUser() != nil {
             var displayName: String?
             var userOptions: (hasProfilePicture: Bool, followingNotifications: Bool, myNotifications: Bool)?
             var profilePicture: UIImage?
             getUserDisplayName() { fetchedName, error in
+                print("got display name")
                 displayName = fetchedName
                 getUserOptions() { fetchedOptions, error in
+                    print("got user options")
                     userOptions = fetchedOptions
                     if userOptions!.hasProfilePicture {
                         getUserProfilePicture() { fetchedImage, error in
+                            print("fetched image")
                             profilePicture = fetchedImage
                             self.currentInAppUserData = InAppCurrentUser(displayName: displayName!, profilePicture: profilePicture, userOptions: userOptions!)
+                            if completion != nil {
+                                print("about to do completion")
+                                completion!()
+                            }
+                        }
+                    } else {
+                        self.currentInAppUserData = InAppCurrentUser(displayName: displayName!, profilePicture: nil, userOptions: userOptions!)
+                        if completion != nil {
+                            print("about to do completion")
+                            completion!()
                         }
                     }
                 }

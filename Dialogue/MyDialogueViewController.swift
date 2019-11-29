@@ -16,6 +16,7 @@ class MyDialogueViewController: UIViewController, UITableViewDelegate, UITableVi
     private let db = Firestore.firestore()
     private var userSnapshotListener:ListenerRegistration?
     private var groups:[String] = []
+    private var updated: Bool = false
     
     deinit {
         userSnapshotListener?.remove()
@@ -80,6 +81,31 @@ class MyDialogueViewController: UIViewController, UITableViewDelegate, UITableVi
             Alerts.singleChoiceAlert(title: "Login Status", message: "\(userEmail) is logged in.", vc: self)
         } else {
             Alerts.singleChoiceAlert(title: "Error", message: "The user is not logged in!", vc: self)
+        }
+    }
+    
+//    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+//        if segue.identifier == "fromMyDialoguesToProfile" {
+//            Loading.show()
+//            while (!self.updated) {
+//                NetworkHelper.updateCurrentInAppUser() {
+//                    self.updated = true
+//                    Loading.hide()
+//                }
+//            }
+//            self.updated = false
+//        }
+//    }
+    @IBAction func profileButtonClicked(_ sender: Any) {
+//        do {
+//            try Auth.auth().signOut()
+//        } catch {
+//            print("Failed to sign-out user")
+//        }
+        Loading.show()
+        NetworkHelper.updateCurrentInAppUser() {
+            Loading.hide()
+            self.performSegue(withIdentifier: "manualFromMyDialoguesToProfile", sender: nil)
         }
     }
 }

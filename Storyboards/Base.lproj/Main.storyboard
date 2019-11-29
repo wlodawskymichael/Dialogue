@@ -258,7 +258,7 @@
                         <barButtonItem key="leftBarButtonItem" title="Profile" id="xqV-IM-C7j">
                             <connections>
                                 <action selector="profileButtonPressed:" destination="Ff9-VT-5th" id="is8-3J-NYx"/>
-                                <segue destination="VOE-yw-kns" kind="show" id="YWD-Xt-4fO"/>
+                                <segue destination="VOE-yw-kns" kind="show" identifier="fromFollowingDialoguesToProfile" id="YWD-Xt-4fO"/>
                             </connections>
                         </barButtonItem>
                         <barButtonItem key="rightBarButtonItem" systemItem="add" id="tsp-yT-xmF">
@@ -427,42 +427,56 @@
                         <rect key="frame" x="0.0" y="0.0" width="414" height="716"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="WIx-9Q-Kgc">
-                                <rect key="frame" x="37" y="180" width="321" height="283"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                            </imageView>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Current display name: " textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="cqY-Lz-xvG">
-                                <rect key="frame" x="20" y="65" width="172" height="21"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Current display name: " textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="cqY-Lz-xvG">
+                                <rect key="frame" x="20" y="65" width="374" height="21"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="d9s-9k-ZqS">
-                                <rect key="frame" x="124" y="94" width="147" height="30"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="d9s-9k-ZqS">
+                                <rect key="frame" x="133.66666666666666" y="94" width="146.99999999999997" height="49"/>
                                 <state key="normal" title="Change display name"/>
                                 <connections>
                                     <action selector="changeDisplayNamePressed:" destination="y1P-9O-W6e" eventType="touchUpInside" id="A0V-eQ-rCs"/>
                                 </connections>
                             </button>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Current profile picture:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="PGo-at-wZy">
-                                <rect key="frame" x="20" y="151" width="174" height="21"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Current profile picture:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="PGo-at-wZy">
+                                <rect key="frame" x="20" y="170" width="174" height="21"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="S8d-RZ-Cs2">
-                                <rect key="frame" x="121" y="471" width="153" height="30"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            <button opaque="NO" contentMode="scaleToFill" verticalHuggingPriority="252" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="S8d-RZ-Cs2">
+                                <rect key="frame" x="121" y="471" width="172" height="30"/>
                                 <state key="normal" title="Change profile picture"/>
                                 <connections>
                                     <action selector="changeProfilePicturePressed:" destination="y1P-9O-W6e" eventType="touchUpInside" id="bdz-uG-NaF"/>
                                 </connections>
                             </button>
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="blank-user" translatesAutoresizingMaskIntoConstraints="NO" id="WIx-9Q-Kgc">
+                                <rect key="frame" x="75" y="199" width="264" height="264"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="264" id="FW4-wK-JB5"/>
+                                    <constraint firstAttribute="height" constant="264" id="nGd-h5-baR"/>
+                                </constraints>
+                            </imageView>
                         </subviews>
                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                        <constraints>
+                            <constraint firstItem="WIx-9Q-Kgc" firstAttribute="centerX" secondItem="S8d-RZ-Cs2" secondAttribute="centerX" id="0yT-DF-Edn"/>
+                            <constraint firstItem="PGo-at-wZy" firstAttribute="top" secondItem="d9s-9k-ZqS" secondAttribute="bottom" constant="27" id="4ZY-Cm-bot"/>
+                            <constraint firstItem="S8d-RZ-Cs2" firstAttribute="top" secondItem="WIx-9Q-Kgc" secondAttribute="bottom" constant="8" id="7Mt-Zy-7SF"/>
+                            <constraint firstItem="d9s-9k-ZqS" firstAttribute="top" secondItem="cqY-Lz-xvG" secondAttribute="bottom" constant="8" id="Biw-gg-az9"/>
+                            <constraint firstItem="cqY-Lz-xvG" firstAttribute="trailing" secondItem="4vg-TX-whv" secondAttribute="trailingMargin" id="FiI-LM-Ici"/>
+                            <constraint firstItem="cqY-Lz-xvG" firstAttribute="leading" secondItem="PGo-at-wZy" secondAttribute="leading" id="Fmq-ru-ahv"/>
+                            <constraint firstItem="cqY-Lz-xvG" firstAttribute="top" secondItem="Hnp-2o-g7h" secondAttribute="top" constant="9" id="MeJ-M7-kFv"/>
+                            <constraint firstItem="cqY-Lz-xvG" firstAttribute="leading" secondItem="4vg-TX-whv" secondAttribute="leadingMargin" id="QuL-je-zGG"/>
+                            <constraint firstItem="d9s-9k-ZqS" firstAttribute="centerX" secondItem="WIx-9Q-Kgc" secondAttribute="centerX" id="Tba-3i-ZWk"/>
+                            <constraint firstItem="S8d-RZ-Cs2" firstAttribute="leading" secondItem="Hnp-2o-g7h" secondAttribute="leading" constant="121" id="TfE-nK-mA8"/>
+                            <constraint firstItem="WIx-9Q-Kgc" firstAttribute="top" secondItem="PGo-at-wZy" secondAttribute="bottom" constant="8" id="UVA-uh-Uac"/>
+                            <constraint firstItem="WIx-9Q-Kgc" firstAttribute="centerX" secondItem="Hnp-2o-g7h" secondAttribute="centerX" id="cGS-RA-OBD"/>
+                            <constraint firstItem="Hnp-2o-g7h" firstAttribute="bottom" secondItem="S8d-RZ-Cs2" secondAttribute="bottom" constant="215" id="yGr-g3-NWw"/>
+                        </constraints>
                         <viewLayoutGuide key="safeArea" id="Hnp-2o-g7h"/>
                     </view>
                     <navigationItem key="navigationItem" title="Edit profile" id="mbq-5V-6g1"/>
@@ -473,7 +487,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="fcT-ox-Uir" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="4372" y="1183"/>
+            <point key="canvasLocation" x="4371.0144927536239" y="1182.8804347826087"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="dDH-zR-viw">
@@ -502,19 +516,6 @@
                         <rect key="frame" x="0.0" y="0.0" width="414" height="716"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <button opaque="NO" contentMode="scaleToFill" ambiguous="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="yLg-9n-aAZ">
-                                <rect key="frame" x="75" y="38" width="264" height="264"/>
-                                <constraints>
-                                    <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="264" id="0fw-5J-HpA"/>
-                                    <constraint firstAttribute="width" constant="264" id="CKm-LH-k3T"/>
-                                    <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="264" id="HFo-Bd-0St"/>
-                                    <constraint firstAttribute="height" constant="264" id="ooR-1W-vD5"/>
-                                </constraints>
-                                <state key="normal" title="Button" image="blank-user"/>
-                                <connections>
-                                    <action selector="onProfilePic:" destination="VOE-yw-kns" eventType="touchUpInside" id="fbs-B5-Qw9"/>
-                                </connections>
-                            </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="DVB-mJ-J9p">
                                 <rect key="frame" x="161" y="632" width="93" height="30"/>
                                 <state key="normal" title="Logout">
@@ -758,8 +759,7 @@
                         <barButtonItem key="leftBarButtonItem" title="Profile" id="dJt-o0-XFN">
                             <color key="tintColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             <connections>
-                                <action selector="onProfile:" destination="WQd-7m-53j" id="phf-hh-Xes"/>
-                                <segue destination="VOE-yw-kns" kind="show" id="CZR-1v-44W"/>
+                                <action selector="profileButtonClicked:" destination="WQd-7m-53j" id="0di-Ji-ucu"/>
                             </connections>
                         </barButtonItem>
                         <barButtonItem key="rightBarButtonItem" systemItem="compose" id="imf-9E-raf">
@@ -771,6 +771,7 @@
                     </navigationItem>
                     <connections>
                         <outlet property="tableView" destination="lPA-t6-Zsi" id="yvy-WG-6K9"/>
+                        <segue destination="VOE-yw-kns" kind="show" identifier="manualFromMyDialoguesToProfile" id="ZJO-mz-ihf"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="q4P-Fd-eV8" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -1026,6 +1027,6 @@
     <inferredMetricsTieBreakers>
         <segue reference="KHz-g8-Ep8"/>
         <segue reference="hkb-hK-h4D"/>
-        <segue reference="CZR-1v-44W"/>
+        <segue reference="ZJO-mz-ihf"/>
     </inferredMetricsTieBreakers>
 </document>

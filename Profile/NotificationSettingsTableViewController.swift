@@ -10,8 +10,8 @@ import UIKit
 
 class NotificationSettingsTableViewController: UITableViewController {
 
-    @IBOutlet weak var followingDialoguesSwitch: UISwitch!
     @IBOutlet weak var myDialoguesSwitch: UISwitch!
+    @IBOutlet weak var followingDialoguesSwitch: UISwitch!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -38,9 +38,12 @@ class NotificationSettingsTableViewController: UITableViewController {
         return 2
     }
     
-//    override func viewWillDisappear(_ animated: Bool) {
-//        <#code#>
-//    }
+    override func viewDidDisappear(_ animated: Bool) {
+        print("my dialogues switch \(myDialoguesSwitch.isOn)")
+        print("following dialogues switch \(followingDialoguesSwitch.isOn)")
+        NetworkHelper.setNewUserOption(("followingNotifications", followingDialoguesSwitch.isOn))
+        NetworkHelper.setNewUserOption(("myNotifications", myDialoguesSwitch.isOn))
+    }
 
     /*
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {

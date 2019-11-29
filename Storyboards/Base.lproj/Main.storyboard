@@ -412,7 +412,7 @@
                     <navigationItem key="navigationItem" title="Notification Settings" id="CY7-M2-Bwa"/>
                     <connections>
                         <outlet property="followingDialoguesSwitch" destination="go6-QD-5Ii" id="NNc-Et-OMH"/>
-                        <outlet property="myDialoguesSwitch" destination="go6-QD-5Ii" id="ezv-rs-RVs"/>
+                        <outlet property="myDialoguesSwitch" destination="aVw-pi-qD5" id="efB-yL-Q0I"/>
                     </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="IgS-uq-52R" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>

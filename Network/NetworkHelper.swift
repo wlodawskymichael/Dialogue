@@ -227,31 +227,10 @@ class NetworkHelper {
             if error != nil {
                 print("***ERROR: \(error ?? "Couldn't print error" as! Error)")
             } else {
+                self.updateCurrentInAppUser()
                 if completion != nil {
                     completion!()
                 }
-                self.updateCurrentInAppUser()
-            }
-        }
-    }
-    
-    static func setNewUserOptions(newOptions: (hasProfilePicture: Bool, followingNotifications: Bool, myNotifications: Bool), completion: (() -> Void)? = nil) {
-        setNewUserOptions(userId: getCurrentUser()!.uid, newOptions: newOptions, completion: completion)
-    }
-    
-    static func setNewUserOptions(userId: String, newOptions: (hasProfilePicture: Bool, followingNotifications: Bool, myNotifications: Bool), completion: (() -> Void)? = nil) {
-        dbRef.collection("users").document(userId).setData([
-            "hasProfilePicture": newOptions.hasProfilePicture,
-            "followingNotifications": newOptions.followingNotifications,
-            "myNotifications": newOptions.myNotifications
-        ], merge: true) { (error) in
-            if error != nil {
-                print("***ERROR: \(error ?? "Couldn't print error" as! Error)")
-            } else {
-                if completion != nil {
-                    completion!()
-                }
-                self.updateCurrentInAppUser()
             }
         }
     }

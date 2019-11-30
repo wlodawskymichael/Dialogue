@@ -17,6 +17,7 @@ class CreateDialogueViewController: UIViewController, UITableViewDelegate, UITab
     private let db = Firestore.firestore()
     private var contacts:[UserStruct] = []
     private var selected:[UserStruct] = []
+    @IBOutlet weak var nextBarButton: UIBarButtonItem!
     
     var filteredUsers: [UserStruct]!
 
@@ -27,7 +28,7 @@ class CreateDialogueViewController: UIViewController, UITableViewDelegate, UITab
         tableView.dataSource = self
         searchBar.delegate = self
         filteredUsers = []
-
+        nextBarButton.isEnabled = false
         // Do any additional setup after loading the view.
         initTableView()
     }
@@ -59,6 +60,11 @@ class CreateDialogueViewController: UIViewController, UITableViewDelegate, UITab
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: ContactTableViewCell.identifier, for: indexPath as IndexPath) as! ContactTableViewCell
         cell.titleLabel?.text = filteredUsers[indexPath.row].displayName
+        NetworkHelper.getUserProfilePicture(userId: filteredUsers[indexPath.row].userId) { image, error in
+            if image != nil {
+                cell.profilePicture.image = image
+            }
+        }
         // TODO: Added icon and contact picture
         return cell
     }
@@ -68,12 +74,16 @@ class CreateDialogueViewController: UIViewController, UITableViewDelegate, UITab
         if !selected.contains(contact) {
             selected.append(filteredUsers[indexPath.row])
         }
+        nextBarButton.isEnabled = true
     }
     
     func tableView(_ tableView: UITableView, didDeselectRowAt indexPath: IndexPath) {
         let contact = filteredUsers[indexPath.row]
         if selected.contains(contact) {
             selected.removeAll {$0 == contact}
+        }
+        if selected.isEmpty {
+            nextBarButton.isEnabled = false
         }
     }
     
@@ -102,7 +112,6 @@ class CreateDialogueViewController: UIViewController, UITableViewDelegate, UITab
         // Use the filter method to iterate over all items in the data array
         // For each item, return true if the item should be included and false if the
         // item should NOT be included
-        print("in search bar method")
         filteredUsers = searchText.isEmpty ? contacts : contacts.filter { (item: UserStruct) -> Bool in
             // If dataItem matches the searchText, return true to include it
             return item.displayName.range(of: searchText, options: .caseInsensitive, range: nil, locale: nil) != nil

@@ -258,18 +258,13 @@ class NetworkHelper {
                     snapshot.documentChanges.forEach { change in
                         messages.append(Message(document: change.document)!)
                     }
-                    print("snapshot change observed for group \(group)")
-                    print("notification record is \(self.notificationRecord[group])")
+                    
                     if self.notificationRecord[group] == nil {
                         self.notificationRecord[group] = messages.count
                     }
-                    print("notification record after nil check is \(self.notificationRecord[group])")
-                    print("messages.count is \(messages.count)")
+                    
                     if messages.count > self.notificationRecord[group] ?? messages.count {
                         let sortedMessages = messages.sorted()
-                        sortedMessages.forEach { message in
-                            print(message.content)
-                        }
                         notificationRecord[group] = messages.count
                         print(notificationRecord)
                         if sortedMessages.last?.sender.senderId != getCurrentUser()?.uid {
@@ -289,13 +284,11 @@ class NetworkHelper {
     }
         
     static func handleDocumentChange(groupName: String, message: Message) {
-        print("handling document change")
         let senderName = message.sender.displayName
         let content = message.content
         let notification = UNMutableNotificationContent()
         notification.title = "New message in \(groupName)"
         notification.body = "\(senderName): \(content ?? "")"
-        print(notificationRecord)
         // set up the notification to trigger after a delay of "seconds"
         let notificationTrigger = UNTimeIntervalNotificationTrigger(timeInterval: 1, repeats: false)
         
@@ -501,7 +494,9 @@ class NetworkHelper {
                         let groups: [String] = document.get("groupList") as? [String] ?? []
                         let following: [String] = document.get("followingList") as? [String] ?? []
                         let userId: String = document.documentID
-                        usersToDisplay.append(UserStruct(userId: userId, displayName: displayName, friendList: friends, groupList: groups, followList: following))
+                        if userId != getCurrentUser()?.uid {
+                            usersToDisplay.append(UserStruct(userId: userId, displayName: displayName, friendList: friends, groupList: groups, followList: following))
+                        }
                     }
                 }
                 completion!(usersToDisplay, nil)

@@ -33,6 +33,11 @@ class DialogueSettingsViewController: UIViewController, UITableViewDataSource, U
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: GroupMemberSettingTableViewCell.identifier, for: indexPath as IndexPath) as! GroupMemberSettingTableViewCell
         cell.memberDisplayName?.text = selectedContacts[indexPath.row].displayName
+        NetworkHelper.getUserProfilePicture(userId: selectedContacts[indexPath.row].userId) { image, error in
+            if image != nil {
+                cell.memberProfilePicture.image = image
+            }
+        }
         return cell
     }
     

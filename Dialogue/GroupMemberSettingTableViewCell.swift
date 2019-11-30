@@ -11,6 +11,7 @@ import UIKit
 class GroupMemberSettingTableViewCell: UITableViewCell {
     @IBOutlet weak var memberDisplayName: UILabel!
     @IBOutlet weak var memberAdminToggle: UISwitch!
+    @IBOutlet weak var memberProfilePicture: UIImageView!
     
     static let identifier:String = "groupMemberCell"
     

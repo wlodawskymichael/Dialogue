@@ -12,7 +12,8 @@ class ContactTableViewCell: UITableViewCell {
     static let identifier:String = "ContactTableViewCell"
 
     @IBOutlet weak var titleLabel: UILabel!
-
+    @IBOutlet weak var profilePicture: UIImageView!
+    
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code

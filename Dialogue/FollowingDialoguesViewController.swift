@@ -7,32 +7,74 @@
 //
 
 import UIKit
+import FirebaseAuth
+import FirebaseFirestore
 
-class FollowingDialoguesViewController: UIViewController {
-
+class FollowingDialoguesViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
     
     @IBOutlet weak var tableView: UITableView!
+    
+    private let db = Firestore.firestore()
+    private var userSnapshotListener:ListenerRegistration?
+    private var following:[String] = []
+    private var updated: Bool = false
     
     override func viewDidLoad() {
         super.viewDidLoad()
 
+        tableView.delegate = self
+        tableView.dataSource = self
+        NetworkHelper.updateCurrentInAppUser()
+        
         // Do any additional setup after loading the view.
         initTableView()
     }
     
+    override func viewDidAppear(_ animated: Bool) {
+        initTableView()
+    }
+    
     func initTableView() {
-        let rect = CGRect(origin: CGPoint(x: 0,y :0), size: CGSize(width: self.view.bounds.size.width, height: self.view.bounds.size.height))
-        let messageLabel = UILabel(frame: rect)
-        messageLabel.textColor = UIColor.black
-        messageLabel.numberOfLines = 0
-        messageLabel.textAlignment = .center
-        messageLabel.sizeToFit()
-        messageLabel.text = "You aren't following any Dialogues yet."
-        
-        tableView.backgroundView = messageLabel
-        tableView.separatorStyle = .none
+        NetworkHelper.getUser(completion: { (user, error) in
+            self.following = user.followingList
+            if self.following.count < 1 {
+                let rect = CGRect(origin: CGPoint(x: 0,y :0), size: CGSize(width: self.view.bounds.size.width, height: self.view.bounds.size.height))
+                let messageLabel = UILabel(frame: rect)
+                messageLabel.textColor = UIColor.black
+                messageLabel.numberOfLines = 0
+                messageLabel.textAlignment = .center
+                messageLabel.sizeToFit()
+                messageLabel.text = "You aren't following any Dialogues yet."
+                
+                self.tableView.backgroundView = messageLabel
+                self.tableView.separatorStyle = .none
+            } else {
+                self.tableView.reloadData()
+            }
+        })
     }
 
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return following.count
+    }
+    
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let cell = tableView.dequeueReusableCell(withIdentifier: DialogueTableViewCell.identifier, for: indexPath as IndexPath) as! DialogueTableViewCell
+        cell.titleLabel?.text = following[indexPath.row]
+        // TODO: In future show preview of conversation
+        cell.subLabel?.text = "Tap to see messages!"
+        return cell
+    }
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        NetworkHelper.getGroup(groupID: following[indexPath.row]) { (group, error) in
+            NetworkHelper.getUser { (user, error) in
+                let vc = ChatViewController(user: user, group: group)
+                self.navigationController?.pushViewController(vc, animated: true)
+            }
+        }
+    }
+    
     /*
     // MARK: - Navigation
 

@@ -316,36 +316,80 @@ class NetworkHelper {
                 "admin": speaker.admin
             ])
         }
-        dbRef.collection("groups").document(group.groupID).setData([
-            "speakers": speakers,
-            "spectators": group.spectators,
-            "followable": group.followable
-        ]) { (error) in
-            if error != nil {
-                print("***ERROR: \(error ?? "Couldn't print error" as! Error)")
-            } else {
-                if completion != nil  {
-                    completion!()
+        let docRef = dbRef.collection("groups").document(group.groupID)
+        docRef.getDocument { (document, error) in
+            if let document = document, document.exists {
+                dbRef.collection("groups").document(group.groupID).updateData([
+                    "speakers": speakers,
+                    "spectators": group.spectators,
+                    "followable": group.followable
+                ]) { (error) in
+                    if error != nil {
+                        print("***ERROR: \(error ?? "Couldn't print error" as! Error)")
+                    } else {
+                        if completion != nil  {
+                            completion!()
+                        }
+                    }
+                }
+            }
+            else {
+                dbRef.collection("groups").document(group.groupID).setData([
+                    "speakers": speakers,
+                    "spectators": group.spectators,
+                    "followable": group.followable
+                ]) { (error) in
+                    if error != nil {
+                        print("***ERROR: \(error ?? "Couldn't print error" as! Error)")
+                    } else {
+                        if completion != nil  {
+                            completion!()
+                        }
+                    }
                 }
             }
         }
     }
     
     static func writeUser(user: UserStruct, completion: (() -> Void)? = nil) {
-        dbRef.collection("users").document(user.userId).setData([
-            "displayName": user.displayName,
-            "friendList": user.friendList,
-            "groupList": user.groupList,
-            "hasProfilePicture": user.hasProfilePicture,
-            "followingNotifications": user.followingNotifications,
-            "myNotifications": user.myNotifications,
-            "followingList": user.followingList
-        ]) { (error) in
-            if error != nil {
-                print("***ERROR: \(error ?? "Couldn't print error" as! Error)")
-            } else {
-                if completion != nil {
-                    completion!()
+        let docRef = dbRef.collection("users").document(user.userId)
+        docRef.getDocument { (document, error) in
+            if let document = document, document.exists {
+                dbRef.collection("users").document(user.userId).updateData([
+                    "displayName": user.displayName,
+                    "friendList": user.friendList,
+                    "groupList": user.groupList,
+                    "hasProfilePicture": user.hasProfilePicture,
+                    "followingNotifications": user.followingNotifications,
+                    "myNotifications": user.myNotifications,
+                    "followingList": user.followingList
+                ]) { (error) in
+                    if error != nil {
+                        print("***ERROR: \(error ?? "Couldn't print error" as! Error)")
+                    } else {
+                        if completion != nil {
+                            completion!()
+                        }
+                    }
+                }
+            }
+            else {
+                dbRef.collection("users").document(user.userId).setData([
+                    "displayName": user.displayName,
+                    "friendList": user.friendList,
+                    "groupList": user.groupList,
+                    "hasProfilePicture": user.hasProfilePicture,
+                    "followingNotifications": user.followingNotifications,
+                    "myNotifications": user.myNotifications,
+                    "followingList": user.followingList
+                ]) { (error) in
+                    if error != nil {
+                        print("***ERROR: \(error ?? "Couldn't print error" as! Error)")
+                    } else {
+                        if completion != nil {
+                            completion!()
+                        }
+                    }
                 }
             }
         }
@@ -412,13 +456,11 @@ class NetworkHelper {
                 var groupsToDisplay: [GroupStruct] = []
                 for document in snapshot!.documents {
                     print("\(document.documentID) => \(document.data())")
-                    if document.get("displayName") != nil {
-                        let groupId: String = document.documentID
-                        let speakers: [SpeakerStruct] = document.get("speakers") as? [SpeakerStruct] ?? []
-                        let spectators: [String] = document.get("spectators") as? [String] ?? []
-                        let followable: Bool = document.get("followable") as? Bool ?? false
-                        groupsToDisplay.append(GroupStruct(groupID: groupId, speakers: speakers, spectators: spectators, followable: followable))
-                    }
+                    let groupId: String = document.documentID 
+                    let speakers: [SpeakerStruct] = document.get("speakers") as? [SpeakerStruct] ?? []
+                    let spectators: [String] = document.get("spectators") as? [String] ?? []
+                    let followable: Bool = document.get("followable") as? Bool ?? false
+                    groupsToDisplay.append(GroupStruct(groupID: groupId, speakers: speakers, spectators: spectators, followable: followable))
                 }
                 completion!(groupsToDisplay, nil)
            }

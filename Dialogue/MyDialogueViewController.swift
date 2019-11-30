@@ -68,6 +68,7 @@ class MyDialogueViewController: UIViewController, UITableViewDelegate, UITableVi
                 messageLabel.textAlignment = .center
                 messageLabel.sizeToFit()
                 messageLabel.text = "You don't have any Dialogues yet."
+                
                 self.tableView.backgroundView = messageLabel
                 self.tableView.separatorStyle = .none
             } else {

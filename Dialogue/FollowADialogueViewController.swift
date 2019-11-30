@@ -32,10 +32,10 @@ class FollowADialogueViewController: UIViewController, UITableViewDelegate, UITa
         
         NetworkHelper.getUserFollowingList { (following, error) in
             self.followingList = following
+            self.initTableView()
         }
 
         // Do any additional setup after loading the view.
-        initTableView()
     }
     
     func initTableView() {
@@ -64,7 +64,11 @@ class FollowADialogueViewController: UIViewController, UITableViewDelegate, UITa
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: FollowDialogueTableViewCell.identifier, for: indexPath as IndexPath) as! FollowDialogueTableViewCell
-        cell.titleLabel?.text = filteredGroups[indexPath.row].groupID
+        let groupID = filteredGroups[indexPath.row].groupID
+        cell.titleLabel?.text = groupID
+        if followingList.contains(groupID) {
+            tableView.selectRow(at: indexPath, animated: false, scrollPosition: .none)
+        }
         // TODO: Added icon and group picture
         return cell
     }
@@ -78,8 +82,9 @@ class FollowADialogueViewController: UIViewController, UITableViewDelegate, UITa
                 NetworkHelper.writeUser(user: newUser, completion: nil)
                 self.followingList = newUser.followingList
                 group.spectators.append(newUser.userId)
+                NetworkHelper.writeGroup(group: GroupStruct(groupID: group.groupID, speakers: group.speakers, spectators: group.spectators, followable: group.followable))
             })
-            NetworkHelper.writeGroup(group: GroupStruct(groupID: group.groupID, speakers: group.speakers, spectators: group.spectators, followable: group.followable))
+            
         }
         
     }
@@ -93,8 +98,9 @@ class FollowADialogueViewController: UIViewController, UITableViewDelegate, UITa
                 NetworkHelper.writeUser(user: newUser, completion: nil)
                 self.followingList = newUser.followingList
                 group.spectators.removeAll {$0 == newUser.userId}
+                NetworkHelper.writeGroup(group: GroupStruct(groupID: group.groupID, speakers: group.speakers, spectators: group.spectators, followable: group.followable))
             })
-            NetworkHelper.writeGroup(group: GroupStruct(groupID: group.groupID, speakers: group.speakers, spectators: group.spectators, followable: group.followable))
+            
         }
     }
     

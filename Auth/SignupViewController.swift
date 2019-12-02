@@ -65,7 +65,7 @@ class SignupViewController: UIViewController {
                 Alerts.singleChoiceAlert(title: "Error", message: "Error signing up.", vc: vc)
                 return
             } else {
-                NetworkHelper.writeUser(user: UserStruct(userId: NetworkHelper.getCurrentUser()!.uid, displayName: self.FullNameTextField.text!, friendList: [], groupList: [], followList: []), completion: {
+                NetworkHelper.writeUser(user: UserStruct(userId: NetworkHelper.getCurrentUser()!.uid, displayName: self.FullNameTextField.text!, groupList: [], followList: []), completion: {
                     self.performSegue(withIdentifier: "signupToDialogue", sender: self)
                 })
             }

@@ -38,7 +38,6 @@ class SettingsTableViewCell: UITableViewCell {
     
     override func layoutSubviews() {
         super.layoutSubviews()
-        print("whee")
 
         nameLabel.translatesAutoresizingMaskIntoConstraints = false
         adminToggle.translatesAutoresizingMaskIntoConstraints = false

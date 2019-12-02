@@ -29,10 +29,6 @@ class DialogueSettingsViewController:  UIViewController, UITableViewDataSource, 
         super.init(coder: coder)
     }
     
-    deinit {
-        print("DEINIT")
-    }
-    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -139,7 +135,6 @@ class DialogueSettingsViewController:  UIViewController, UITableViewDataSource, 
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        print("hm...")
         let cell = tableView.dequeueReusableCell(withIdentifier: SettingsTableViewCell.identifier, for: indexPath) as! SettingsTableViewCell
         
         NetworkHelper.getUserDisplayName(userId: selectedContacts[indexPath.row].userId, completion: { (name, error) in
@@ -205,8 +200,6 @@ class DialogueSettingsViewController:  UIViewController, UITableViewDataSource, 
     //    }
     
     @IBAction func saveTapped() {
-        print("saveTapped")
-        
         if groupNameLabel.text?.isEmpty ?? true {
             Alerts.singleChoiceAlert(title: "Error", message: "Group Name cannot be empty or a duplicate.", vc: self)
         } else {

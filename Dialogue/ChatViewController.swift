@@ -79,7 +79,7 @@ class ChatViewController: MessagesViewController, MessagesDataSource, MessageCel
         configureMessageInputBar()
 
         if userIsAdmin {
-            navigationItem.rightBarButtonItem = UIBarButtonItem(image: UIImage(systemName: "ellipsis"), style: .plain, target: self, action: #selector(addTapped))
+            navigationItem.rightBarButtonItem = UIBarButtonItem(image: UIImage(systemName: "ellipsis"), style: .plain, target: self, action: #selector(settingsTapped))
         }
     }
     
@@ -150,22 +150,12 @@ class ChatViewController: MessagesViewController, MessagesDataSource, MessageCel
         }
     }
     
-    @IBAction private func addTapped() {
-        print("HERE WE ARE")
-//        let vc = self.storyboard?.instantiateViewController(identifier: "dialogueSettingsVC") as! DialogueSettingsViewController
-//        vc.selectedContacts = group.speakers
-//        let vc = DialogueSettingsViewController(selectedContacts: group.speakers)
-//        nc?.pushViewController(vc, animated: false)
-        
-
-
+    @IBAction private func settingsTapped() {
         let storyBoard : UIStoryboard = UIStoryboard(name: "Main", bundle:nil)
         let resultViewController = storyBoard.instantiateViewController(withIdentifier: "settingsVC") as! DialogueSettingsViewController
         resultViewController.setVariables(groupId: group.groupID, selectedContacts: group.speakers, followable: group.followable/*, userId: user.userId, userIsAdmin: self.userIsAdmin*/)
         resultViewController.delegate = self
         self.navigationController?.pushViewController(resultViewController, animated: true)
-
-
     }
     
     // MARK: - MessagesDataSource

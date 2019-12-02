@@ -20,8 +20,6 @@ class SettingsTableViewCell: UITableViewCell {
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
         
-        print("hilo")
-        
         contentView.addSubview(nameLabel)
         contentView.addSubview(adminToggle)
         contentView.addSubview(userImage)

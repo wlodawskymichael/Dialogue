@@ -448,9 +448,14 @@ class NetworkHelper {
            } else {
                 var groupsToDisplay: [GroupStruct] = []
                 for document in snapshot!.documents {
-                    print("\(document.documentID) => \(document.data())")
-                    let groupId: String = document.documentID 
-                    let speakers: [SpeakerStruct] = document.get("speakers") as? [SpeakerStruct] ?? []
+                    let groupId: String = document.documentID
+                    var speakers: [SpeakerStruct] = []
+                    let speakerData = document["speakers"] as? [NSDictionary]
+                    for speaker in speakerData ?? [] {
+                        let admin: Bool = speaker["admin"] as? Bool ?? false
+                        let userID: String = speaker["userID"] as? String ?? "None"
+                        speakers.append(SpeakerStruct(userID: userID, admin: admin))
+                    }
                     let spectators: [String] = document.get("spectators") as? [String] ?? []
                     let followable: Bool = document.get("followable") as? Bool ?? false
                     groupsToDisplay.append(GroupStruct(groupID: groupId, speakers: speakers, spectators: spectators, followable: followable))
@@ -487,7 +492,6 @@ class NetworkHelper {
            } else {
                 var usersToDisplay: [UserStruct] = []
                 for document in snapshot!.documents {
-                    print("\(document.documentID) => \(document.data())")
                     if document.get("displayName") != nil {
                         let displayName: String = (document.get("displayName") as? String)!
                         let friends: [String] = document.get("friendList") as? [String] ?? []

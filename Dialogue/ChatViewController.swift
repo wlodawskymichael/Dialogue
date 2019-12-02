@@ -16,13 +16,16 @@ class ChatViewController: MessagesViewController, MessagesDataSource, MessageCel
     override var preferredStatusBarStyle: UIStatusBarStyle {
         return .lightContent
     }
+    var nc: UINavigationController?
     var messageList: [Message] = []
     let user: UserStruct
-    let group: GroupStruct
+    var group: GroupStruct
     
     private let db = Firestore.firestore()
     private var reference: CollectionReference?
     private var messageListener: ListenerRegistration?
+    
+    private var userIsAdmin:Bool
     
     let refreshControl = UIRefreshControl()
     
@@ -35,6 +38,16 @@ class ChatViewController: MessagesViewController, MessagesDataSource, MessageCel
     init(user: UserStruct, group: GroupStruct) {
         self.user = user
         self.group = group
+        
+        userIsAdmin = false
+        for speaker in group.speakers {
+            if speaker.userId == user.userId {
+                if speaker.admin {
+                    userIsAdmin = true
+                }
+            }
+        }
+        
         super.init(nibName: nil, bundle: nil)
         title = group.groupID
     }
@@ -64,6 +77,10 @@ class ChatViewController: MessagesViewController, MessagesDataSource, MessageCel
         // Setup MessageView stuff
         configureMessageCollectionView()
         configureMessageInputBar()
+
+        if userIsAdmin {
+            navigationItem.rightBarButtonItem = UIBarButtonItem(image: UIImage(systemName: "ellipsis"), style: .plain, target: self, action: #selector(addTapped))
+        }
     }
     
     func configureMessageCollectionView() {
@@ -83,7 +100,7 @@ class ChatViewController: MessagesViewController, MessagesDataSource, MessageCel
     func configureMessageInputBar() {
         var contains:Bool = false
         for speaker in group.speakers {
-            if speaker.userID == user.userId {
+            if speaker.userId == user.userId {
                 contains = true
             }
         }
@@ -133,6 +150,23 @@ class ChatViewController: MessagesViewController, MessagesDataSource, MessageCel
         }
     }
     
+    @IBAction private func addTapped() {
+        print("HERE WE ARE")
+//        let vc = self.storyboard?.instantiateViewController(identifier: "dialogueSettingsVC") as! DialogueSettingsViewController
+//        vc.selectedContacts = group.speakers
+//        let vc = DialogueSettingsViewController(selectedContacts: group.speakers)
+//        nc?.pushViewController(vc, animated: false)
+        
+
+
+        let storyBoard : UIStoryboard = UIStoryboard(name: "Main", bundle:nil)
+        let resultViewController = storyBoard.instantiateViewController(withIdentifier: "settingsVC") as! DialogueSettingsViewController
+        resultViewController.setVariables(groupId: group.groupID, selectedContacts: group.speakers, followable: group.followable/*, userId: user.userId, userIsAdmin: self.userIsAdmin*/)
+        resultViewController.delegate = self
+        self.navigationController?.pushViewController(resultViewController, animated: true)
+
+
+    }
     
     // MARK: - MessagesDataSource
     

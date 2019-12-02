@@ -100,8 +100,12 @@ class CreateDialogueViewController: UIViewController, UITableViewDelegate, UITab
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         print(selected)
-        if let vc = segue.destination as? DialogueSettingsViewController {
-            vc.selectedContacts = self.selected
+        if let vc = segue.destination as? DialogueCreationViewController {
+            var speakers:[SpeakerStruct] = []
+            for user in self.selected {
+                speakers.append(SpeakerStruct(userId: user.userId, admin: true))
+            }
+            vc.selectedContacts = speakers
         }
     }
     

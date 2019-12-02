@@ -14,10 +14,10 @@ import MessageKit
 // MARK: - SpeakerStruct
 struct SpeakerStruct {
     var admin: Bool
-    var userID: String
+    var userId: String
     
-    init(userID: String, admin: Bool) {
-        self.userID = userID
+    init(userId: String, admin: Bool) {
+        self.userId = userId
         self.admin = admin
     }
 }
@@ -303,7 +303,7 @@ class NetworkHelper {
         var speakers: [[String: Any]] = []
         for speaker in group.speakers {
             speakers.append([
-                "userID": speaker.userID,
+                "userID": speaker.userId,
                 "admin": speaker.admin
             ])
         }
@@ -384,6 +384,26 @@ class NetworkHelper {
         }
     }
     
+//    static func changeUserAdminStatus(groupID: String, speakers: [SpeakerStruct], userID: String, newStatus: Bool, completion: (() -> Void)? = nil) {
+//        for var speaker in speakers {
+//            if speaker.userID == userID {
+//                speaker.admin = newStatus
+//            }
+//        }
+//        
+//        dbRef.collection("groups").document(groupID).setData([
+//            "speakers": speakers
+//        ], merge: true) { (error) in
+//            if error != nil {
+//                print("***ERROR: \(error ?? "Couldn't print error" as! Error)")
+//            } else {
+//                if completion != nil {
+//                    completion!()
+//                }
+//            }
+//        }
+//    }
+    
     static func changeUserDisplayName(newDisplayName: String, completion: (() -> Void)? = nil) {
         changeUserDisplayName(userId: getCurrentUser()!.uid, newDisplayName: newDisplayName, completion: completion)
     }
@@ -421,7 +441,7 @@ class NetworkHelper {
                         for speaker in speakerData ?? [] {
                             let admin: Bool = speaker["admin"] as? Bool ?? false
                             let userID: String = speaker["userID"] as? String ?? "None"
-                            speakers.append(SpeakerStruct(userID: userID, admin: admin))
+                            speakers.append(SpeakerStruct(userId: userID, admin: admin))
                         }
                         spectators = document["spectators"] as? [String] ?? []
                         
@@ -450,7 +470,7 @@ class NetworkHelper {
                     for speaker in speakerData ?? [] {
                         let admin: Bool = speaker["admin"] as? Bool ?? false
                         let userID: String = speaker["userID"] as? String ?? "None"
-                        speakers.append(SpeakerStruct(userID: userID, admin: admin))
+                        speakers.append(SpeakerStruct(userId: userID, admin: admin))
                     }
                     let spectators: [String] = document.get("spectators") as? [String] ?? []
                     let followable: Bool = document.get("followable") as? Bool ?? false

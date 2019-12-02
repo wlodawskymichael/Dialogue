@@ -73,6 +73,11 @@ class ChatViewController: MessagesViewController, MessagesDataSource, MessageCel
         messagesCollectionView.messagesDisplayDelegate = self
 
         maintainPositionOnKeyboardFrameChanged = true // default false
+        
+        if let layout = messagesCollectionView.collectionViewLayout as? MessagesCollectionViewFlowLayout {
+            layout.setMessageIncomingAvatarSize(.zero)
+            layout.setMessageOutgoingAvatarSize(.zero)
+        }
     }
     
     func configureMessageInputBar() {
@@ -224,6 +229,9 @@ extension ChatViewController: MessagesDisplayDelegate {
         
         let tail: MessageStyle.TailCorner = isFromCurrentSender(message: message) ? .bottomRight : .bottomLeft
         return .bubbleTail(tail, .curved)
+    }
+    func configureAvatarView(_ avatarView: AvatarView, for message: MessageType, at indexPath: IndexPath, in messagesCollectionView: MessagesCollectionView) {
+      avatarView.isHidden = true
     }
 }
 

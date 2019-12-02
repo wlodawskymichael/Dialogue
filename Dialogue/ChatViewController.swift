@@ -76,13 +76,24 @@ class ChatViewController: MessagesViewController, MessagesDataSource, MessageCel
     }
     
     func configureMessageInputBar() {
-        messageInputBar.delegate = self
-        messageInputBar.inputTextView.tintColor = .primaryColor
-        messageInputBar.sendButton.setTitleColor(.primaryColor, for: .normal)
-        messageInputBar.sendButton.setTitleColor(
-            UIColor.primaryColor.withAlphaComponent(0.3),
-            for: .highlighted
-        )
+        var contains:Bool = false
+        for speaker in group.speakers {
+            if speaker.userID == user.userId {
+                contains = true
+            }
+        }
+        
+        if contains {
+            messageInputBar.delegate = self
+            messageInputBar.inputTextView.tintColor = .primaryColor
+            messageInputBar.sendButton.setTitleColor(.primaryColor, for: .normal)
+            messageInputBar.sendButton.setTitleColor(
+                UIColor.primaryColor.withAlphaComponent(0.3),
+                for: .highlighted
+            )
+        } else {
+            messageInputBar.isHidden = true
+        }
     }
     
     // MARK: - Helpers

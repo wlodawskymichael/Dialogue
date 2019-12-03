@@ -14,12 +14,12 @@ class MyDialogueViewController: UIViewController, UITableViewDelegate, UITableVi
     @IBOutlet weak var tableView: UITableView!
     
     private let db = Firestore.firestore()
-    private var userSnapshotListener:ListenerRegistration?
+    private var groupListener : ListenerRegistration? = nil
     private var groups:[String] = []
     private var updated: Bool = false
     
     deinit {
-        userSnapshotListener?.remove()
+        groupListener?.remove()
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -49,33 +49,34 @@ class MyDialogueViewController: UIViewController, UITableViewDelegate, UITableVi
         
         tableView.delegate = self
         tableView.dataSource = self
+        
         NetworkHelper.updateCurrentInAppUser()
-        // Do any additional setup after loading the view.
-        initTableView()
-    }
-    
-    override func viewDidAppear(_ animated: Bool) {
-        initTableView()
-    }
-    
-    func initTableView() {
-        NetworkHelper.getUser(completion: { (user, error) in
-            self.groups = user.groupList
-            if self.groups.count < 1 {
-                let rect = CGRect(origin: CGPoint(x: 0,y :0), size: CGSize(width: self.view.bounds.size.width, height: self.view.bounds.size.height))
-                let messageLabel = UILabel(frame: rect)
-                messageLabel.textColor = UIColor.black
-                messageLabel.numberOfLines = 0
-                messageLabel.textAlignment = .center
-                messageLabel.sizeToFit()
-                messageLabel.text = "You don't have any Dialogues yet."
-                
-                self.tableView.backgroundView = messageLabel
-                self.tableView.separatorStyle = .none
-            } else {
-                self.tableView.reloadData()
+        
+        groupListener = db.document("users/"+NetworkHelper.getCurrentUser()!.uid).addSnapshotListener { snapshot, error in
+            guard let document = snapshot else {
+                print("ERROR fetching user document for group listener")
+                return
             }
-        })
+            self.groups =  document.get("groupList") as! [String]
+            self.reloadTableView()
+        }
+    }
+    
+    func reloadTableView() {
+        if self.groups.count < 1 {
+            let rect = CGRect(origin: CGPoint(x: 0,y :0), size: CGSize(width: self.view.bounds.size.width, height: self.view.bounds.size.height))
+            let messageLabel = UILabel(frame: rect)
+            messageLabel.textColor = UIColor.black
+            messageLabel.numberOfLines = 0
+            messageLabel.textAlignment = .center
+            messageLabel.sizeToFit()
+            messageLabel.text = "You don't have any Dialogues yet."
+            
+            self.tableView.backgroundView = messageLabel
+            self.tableView.separatorStyle = .none
+        } else {
+            self.tableView.reloadData()
+        }
     }
     
     @IBAction func onProfile(_ sender: Any) {
@@ -86,18 +87,6 @@ class MyDialogueViewController: UIViewController, UITableViewDelegate, UITableVi
         }
     }
     
-//    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-//        if segue.identifier == "fromMyDialoguesToProfile" {
-//            Loading.show()
-//            while (!self.updated) {
-//                NetworkHelper.updateCurrentInAppUser() {
-//                    self.updated = true
-//                    Loading.hide()
-//                }
-//            }
-//            self.updated = false
-//        }
-//    }
     @IBAction func profileButtonClicked(_ sender: Any) {
 //        do {
 //            try Auth.auth().signOut()

@@ -39,13 +39,6 @@
                                     <action selector="onFacebookSignin:" destination="BYZ-38-t0r" eventType="touchUpInside" id="c3W-gM-Up5"/>
                                 </connections>
                             </button>
-                            <button opaque="NO" contentMode="scaleToFill" ambiguous="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="DAU-ft-FBz">
-                                <rect key="frame" x="0.0" y="502" width="414" height="30"/>
-                                <state key="normal" title="Login with Google"/>
-                                <connections>
-                                    <action selector="onGoogleSignin:" destination="BYZ-38-t0r" eventType="touchUpInside" id="gIY-eW-6er"/>
-                                </connections>
-                            </button>
                             <textField opaque="NO" contentMode="scaleToFill" ambiguous="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Email" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="Bk5-zH-UFZ">
                                 <rect key="frame" x="20" y="324" width="374" height="34"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
@@ -70,12 +63,20 @@
                                     <segue destination="JjL-gu-cqE" kind="presentation" id="qkR-Aj-Ld4"/>
                                 </connections>
                             </button>
+                            <view contentMode="scaleToFill" ambiguous="YES" translatesAutoresizingMaskIntoConstraints="NO" id="r6r-q4-DVX" customClass="GIDSignInButton">
+                                <rect key="frame" x="40" y="504" width="334" height="30"/>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="30" id="dxB-df-MpD"/>
+                                </constraints>
+                                <connections>
+                                    <action selector="onGoogleSignin:" destination="BYZ-38-t0r" eventType="valueChanged" id="U7c-GB-2xy"/>
+                                </connections>
+                            </view>
                         </subviews>
                         <color key="backgroundColor" red="0.45882352939999999" green="0.86666666670000003" blue="0.86666666670000003" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
-                            <constraint firstItem="4GP-bg-HB1" firstAttribute="top" secondItem="DAU-ft-FBz" secondAttribute="bottom" constant="8" id="0zn-O1-ZQ2"/>
                             <constraint firstItem="ve8-ZR-kNo" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" id="5WN-6q-VRv"/>
-                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="DAU-ft-FBz" secondAttribute="trailing" id="71u-6Z-UMk"/>
                             <constraint firstItem="IYH-Xe-dEN" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" id="9eQ-NN-Vgg"/>
                             <constraint firstItem="A5z-sp-233" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" id="9io-Ra-7ad"/>
                             <constraint firstItem="I79-cQ-I2w" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" id="A5w-eG-SlK"/>
@@ -85,16 +86,18 @@
                             <constraint firstItem="dfx-Ia-j7W" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="100" id="JIz-Mh-Rhz"/>
                             <constraint firstItem="IYH-Xe-dEN" firstAttribute="top" secondItem="ve8-ZR-kNo" secondAttribute="bottom" constant="15" id="K9W-iM-bbs"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="bottom" relation="greaterThanOrEqual" secondItem="A5z-sp-233" secondAttribute="bottom" priority="250" constant="60" id="N7w-ze-uQu"/>
+                            <constraint firstItem="4GP-bg-HB1" firstAttribute="top" secondItem="r6r-q4-DVX" secondAttribute="bottom" constant="8" id="NYo-KH-EzW"/>
                             <constraint firstItem="Bk5-zH-UFZ" firstAttribute="top" relation="greaterThanOrEqual" secondItem="I79-cQ-I2w" secondAttribute="bottom" constant="20" id="Pa4-Om-Lq7"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="ve8-ZR-kNo" secondAttribute="trailing" id="WJv-Am-4pM"/>
-                            <constraint firstItem="DAU-ft-FBz" firstAttribute="top" secondItem="IYH-Xe-dEN" secondAttribute="bottom" constant="8" id="WaH-W9-x8u"/>
                             <constraint firstItem="Bk5-zH-UFZ" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="20" id="Xxl-hY-JFP"/>
                             <constraint firstItem="I79-cQ-I2w" firstAttribute="top" relation="greaterThanOrEqual" secondItem="dfx-Ia-j7W" secondAttribute="bottom" constant="30" id="aB0-2x-sbs"/>
                             <constraint firstItem="dfx-Ia-j7W" firstAttribute="top" relation="greaterThanOrEqual" secondItem="6Tk-OE-BBY" secondAttribute="top" priority="750" constant="60" id="c2B-92-nLM"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="A5z-sp-233" secondAttribute="trailing" id="dWp-nr-MQg"/>
+                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="r6r-q4-DVX" secondAttribute="trailing" constant="40" id="fwa-vo-IgC"/>
                             <constraint firstItem="r0S-BI-aXc" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="20" id="hFz-j1-xc9"/>
-                            <constraint firstItem="DAU-ft-FBz" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" id="hUP-RK-Jo1"/>
+                            <constraint firstItem="r6r-q4-DVX" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="40" id="jVV-PQ-qTh"/>
                             <constraint firstItem="ve8-ZR-kNo" firstAttribute="top" relation="greaterThanOrEqual" secondItem="r0S-BI-aXc" secondAttribute="bottom" constant="15" id="mMm-Oh-Ot5"/>
+                            <constraint firstItem="r6r-q4-DVX" firstAttribute="top" secondItem="IYH-Xe-dEN" secondAttribute="bottom" constant="8" id="oXu-FP-SYo"/>
                             <constraint firstItem="r0S-BI-aXc" firstAttribute="top" secondItem="Bk5-zH-UFZ" secondAttribute="bottom" constant="8" id="ogB-MC-cEz"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="Bk5-zH-UFZ" secondAttribute="trailing" constant="20" id="qMA-9N-JVt"/>
                             <constraint firstItem="A5z-sp-233" firstAttribute="top" relation="greaterThanOrEqual" secondItem="4GP-bg-HB1" secondAttribute="bottom" priority="750" constant="15" id="sDe-sb-fpE"/>

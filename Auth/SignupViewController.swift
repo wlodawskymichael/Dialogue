@@ -8,8 +8,9 @@
 
 import UIKit
 import FirebaseAuth
+import GoogleSignIn
 
-class SignupViewController: UIViewController {
+class SignupViewController: UIViewController, GIDSignInDelegate {
 
     @IBOutlet weak var FullNameTextField: UITextField!
     @IBOutlet weak var EmailTextField: UITextField!
@@ -19,14 +20,20 @@ class SignupViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        // Initialize sign-in
+        GIDSignIn.sharedInstance().clientID = "164974850189-b94nh3lgsjp0vrtrkqjq49q84u3t362j.apps.googleusercontent.com"
+        GIDSignIn.sharedInstance().delegate = self
         
     }
     
+
+    
     @IBAction func onGoogleSignup(_ sender: Any) {
-        Loading.mockLoading(wait: 3.5) {
-            Alerts.notImplementedAlert(functionalityDescription: "This button will allow users to signup with Google in future releases.", vc: self)
-        }
+        GIDSignIn.sharedInstance()?.signIn()
     }
+    
+    
+
     
     @IBAction func onFacebookSignup(_ sender: Any) {
         Loading.mockLoading(wait: 3.5) {
@@ -74,6 +81,33 @@ class SignupViewController: UIViewController {
 
     @IBAction func onCancel(_ sender: Any) {
         self.dismiss(animated: true, completion: nil)
+    }
+    
+    func sign(_ signIn: GIDSignIn!, didSignInFor user: GIDGoogleUser!,
+              withError error: Error!) {
+        if let error = error {
+            if (error as NSError).code == GIDSignInErrorCode.hasNoAuthInKeychain.rawValue {
+                print("The user has not signed in before or they have since signed out.")
+            } else {
+                print("\(error.localizedDescription)")
+            }
+            return
+        }
+        // Perform any operations on signed in user here.
+        guard let authentication = user.authentication else { return }
+        let credential = GoogleAuthProvider.credential(withIDToken: authentication.idToken,
+                                                          accessToken: authentication.accessToken)
+
+        Auth.auth().signIn(with: credential) { (authResult, error) in
+          if let error = error {
+            // ...
+            return
+          }
+          // User is signed in
+          // ...
+            self.performSegue(withIdentifier: "signinToDialogue", sender: self)
+            
+        }
     }
     
     // code to dismiss keyboard when user clicks on background

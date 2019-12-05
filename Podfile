@@ -13,6 +13,7 @@ target 'Dialogue' do
   pod 'Firebase/Core'
   pod 'Firebase/Storage'
   pod 'Firebase/Messaging'
+  pod 'GoogleSignIn'
 
 
   target 'DialogueTests' do

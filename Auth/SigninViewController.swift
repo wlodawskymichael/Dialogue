@@ -8,6 +8,7 @@
 
 import UIKit
 import FirebaseAuth
+import GoogleSignIn
 
 class SigninViewController: UIViewController {
 
@@ -20,13 +21,15 @@ class SigninViewController: UIViewController {
         if UserDefaults.standard.object(forKey: "user_uid_key") != nil {
             self.performSegue(withIdentifier: "signinToDialogue", sender: nil)
         }
-    }
-    
-    @IBAction func onGoogleSignin(_ sender: Any) {
-        Loading.mockLoading(wait: 3.5) {
-            Alerts.notImplementedAlert(functionalityDescription: "This button will signin the user with Google in future releases.", vc: self)
-        }
         
+        GIDSignIn.sharedInstance()?.presentingViewController = self
+
+        // Automatically sign in the user.
+        GIDSignIn.sharedInstance()?.restorePreviousSignIn()
+
+    }
+    @IBAction func onGoogleSignin(_ sender: Any) {
+        GIDSignIn.sharedInstance()?.signIn()
     }
     
     @IBAction func onFacebookSignin(_ sender: Any) {

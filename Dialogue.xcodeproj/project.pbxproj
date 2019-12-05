@@ -29,6 +29,7 @@
 		5706F1F423725FB30080C689 /* DialogueTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5706F1F323725FB30080C689 /* DialogueTableViewCell.swift */; };
 		572DBF092394BE3B00DA7408 /* DialogueSettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 572DBF082394BE3B00DA7408 /* DialogueSettingsViewController.swift */; };
 		572DBF0B239593F200DA7408 /* SettingsTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 572DBF0A239593F200DA7408 /* SettingsTableViewCell.swift */; };
+		572DBF0D2395BE6C00DA7408 /* credentials.plist in Resources */ = {isa = PBXBuildFile; fileRef = 572DBF0C2395BE6C00DA7408 /* credentials.plist */; };
 		79179D25B707C29E181E1E8C /* Pods_DialogueTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 48228F2CE385DD55C1150BD9 /* Pods_DialogueTests.framework */; };
 		B8A390A92374E39100FB706B /* ContactTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8A390A82374E39100FB706B /* ContactTableViewCell.swift */; };
 		B8B81CCF236207340058056E /* CreateDialogueViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8B81CCE236207340058056E /* CreateDialogueViewController.swift */; };
@@ -93,6 +94,7 @@
 		5706F1F323725FB30080C689 /* DialogueTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DialogueTableViewCell.swift; sourceTree = "<group>"; };
 		572DBF082394BE3B00DA7408 /* DialogueSettingsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = DialogueSettingsViewController.swift; path = Dialogue/DialogueSettingsViewController.swift; sourceTree = SOURCE_ROOT; };
 		572DBF0A239593F200DA7408 /* SettingsTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsTableViewCell.swift; sourceTree = "<group>"; };
+		572DBF0C2395BE6C00DA7408 /* credentials.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = credentials.plist; sourceTree = "<group>"; };
 		6213E28C63618210CE64CE87 /* Pods-Dialogue.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Dialogue.debug.xcconfig"; path = "Target Support Files/Pods-Dialogue/Pods-Dialogue.debug.xcconfig"; sourceTree = "<group>"; };
 		A85DF578BB82003BADB74BF8 /* Pods-DialogueTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-DialogueTests.debug.xcconfig"; path = "Target Support Files/Pods-DialogueTests/Pods-DialogueTests.debug.xcconfig"; sourceTree = "<group>"; };
 		B8A390A82374E39100FB706B /* ContactTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContactTableViewCell.swift; sourceTree = "<group>"; };
@@ -218,9 +220,6 @@
 			children = (
 				3DF0B00D23413F4D00F99848 /* AppDelegate.swift */,
 				3DF0B00F23413F4D00F99848 /* ViewController.swift */,
-				B8D6590D2391CAB900B2DFDD /* GoogleService-Info.plist */,
-				3DF0B01423413F4E00F99848 /* Assets.xcassets */,
-				3DF0B01923413F4E00F99848 /* Info.plist */,
 				572DBF082394BE3B00DA7408 /* DialogueSettingsViewController.swift */,
 				572DBF0A239593F200DA7408 /* SettingsTableViewCell.swift */,
 				5706F1EB237251500080C689 /* ChatViewController.swift */,
@@ -233,6 +232,10 @@
 				C35B7241238B810E0044B956 /* GroupMemberSettingTableViewCell.swift */,
 				B8A390A82374E39100FB706B /* ContactTableViewCell.swift */,
 				B8D6590B238F556200B2DFDD /* FollowDialogueTableViewCell.swift */,
+				3DF0B01423413F4E00F99848 /* Assets.xcassets */,
+				3DF0B01923413F4E00F99848 /* Info.plist */,
+				572DBF0C2395BE6C00DA7408 /* credentials.plist */,
+				B8D6590D2391CAB900B2DFDD /* GoogleService-Info.plist */,
 			);
 			path = Dialogue;
 			sourceTree = "<group>";
@@ -296,6 +299,7 @@
 				3DF0B00723413F4D00F99848 /* Frameworks */,
 				3DF0B00823413F4D00F99848 /* Resources */,
 				7AF995EAF2890C552239D49B /* [CP] Embed Pods Frameworks */,
+				C3F1DBD87DEEFEEDAEB2802A /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -334,6 +338,7 @@
 				3DF0B02623413F4E00F99848 /* Frameworks */,
 				3DF0B02723413F4E00F99848 /* Resources */,
 				5DA1C2E2DDD9FD3EE34C9166 /* [CP] Embed Pods Frameworks */,
+				41447556CC2F84C6D8E29958 /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -394,6 +399,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				3DBDA380234650EF00CD8291 /* Podfile in Resources */,
+				572DBF0D2395BE6C00DA7408 /* credentials.plist in Resources */,
 				3DF0B01823413F4E00F99848 /* LaunchScreen.storyboard in Resources */,
 				B8D6590E2391CAB900B2DFDD /* GoogleService-Info.plist in Resources */,
 				3DF0B01523413F4E00F99848 /* Assets.xcassets in Resources */,
@@ -420,6 +426,23 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
+		41447556CC2F84C6D8E29958 /* [CP] Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-Dialogue-DialogueUITests/Pods-Dialogue-DialogueUITests-resources-${CONFIGURATION}-input-files.xcfilelist",
+			);
+			name = "[CP] Copy Pods Resources";
+			outputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-Dialogue-DialogueUITests/Pods-Dialogue-DialogueUITests-resources-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-Dialogue-DialogueUITests/Pods-Dialogue-DialogueUITests-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
 		5DA1C2E2DDD9FD3EE34C9166 /* [CP] Embed Pods Frameworks */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
@@ -452,6 +475,23 @@
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-Dialogue/Pods-Dialogue-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		C3F1DBD87DEEFEEDAEB2802A /* [CP] Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-Dialogue/Pods-Dialogue-resources-${CONFIGURATION}-input-files.xcfilelist",
+			);
+			name = "[CP] Copy Pods Resources";
+			outputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-Dialogue/Pods-Dialogue-resources-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-Dialogue/Pods-Dialogue-resources.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 		C4F9CB82C22C134E2128CCB2 /* [CP] Check Pods Manifest.lock */ = {

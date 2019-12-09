@@ -34,6 +34,9 @@ class ProfileViewController: UIViewController {
     override func viewWillAppear(_ animated: Bool) {
         settingsButton.layer.cornerRadius = 20
         logoutButton.layer.cornerRadius = 20
+        
+        settingsButton.translatesAutoresizingMaskIntoConstraints = false
+        settingsButton.centerXAnchor.constraint(equalTo: self.view.centerXAnchor).isActive = true
     }
     
     @IBAction func onLogout(_ sender: Any) {

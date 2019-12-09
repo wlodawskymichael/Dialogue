@@ -18,15 +18,15 @@ import FBSDKShareKit
 
 class SigninViewController: UIViewController, LoginButtonDelegate {
     
-
+    
     @IBOutlet weak var EmailTextField: UITextField!
     @IBOutlet weak var PasswordTextField: UITextField!
-
+    
     @IBOutlet weak var FacebookButton: FBLoginButton!
     @IBOutlet weak var loginButton: UIButton!
     @IBOutlet weak var signUpButton: UIButton!
     @IBOutlet weak var googleLoginButton: GIDSignInButton!
-
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -35,21 +35,50 @@ class SigninViewController: UIViewController, LoginButtonDelegate {
         }
         
         GIDSignIn.sharedInstance()?.presentingViewController = self
-
+        
         // Automatically sign in the user.
         GIDSignIn.sharedInstance()?.restorePreviousSignIn()
         
         FacebookButton.delegate = self
-
-
+        
+        
     }
     
-
+    
     override func viewWillAppear(_ animated: Bool) {
         loginButton.layer.cornerRadius = 20
         signUpButton.layer.cornerRadius = 20
         googleLoginButton.layer.cornerRadius = 20
         FacebookButton.layer.cornerRadius = 20
+        
+        
+        let frame = self.view.safeAreaLayoutGuide.layoutFrame
+        let margins = view.layoutMarginsGuide
+        
+        FacebookButton.translatesAutoresizingMaskIntoConstraints = false
+        googleLoginButton.translatesAutoresizingMaskIntoConstraints = false
+        
+        for lc in FacebookButton.constraints {
+            if (lc.constant == 28) {
+                lc.isActive = false
+                break
+            }
+        }
+        
+        FacebookButton.frame.size = CGSize(width: frame.width * 0.75, height: 40)
+        //        googleLoginButton.frame.size = CGSize(width: frame.width * 0.75, height: 30)
+        
+        NSLayoutConstraint.activate([
+            FacebookButton.leadingAnchor.constraint(equalTo: margins.leadingAnchor, constant: 40),
+            FacebookButton.trailingAnchor.constraint(equalTo: margins.trailingAnchor, constant: -40),
+            //            FacebookButton.widthAnchor.constraint(equalToConstant: frame.width * 0.75),
+            FacebookButton.heightAnchor.constraint(equalToConstant: 40),
+            
+            googleLoginButton.leadingAnchor.constraint(equalTo: margins.leadingAnchor, constant: 36),
+            googleLoginButton.trailingAnchor.constraint(equalTo: margins.trailingAnchor, constant: -36)//,
+            //            googleLoginButton.widthAnchor.constraint(equalToConstant: frame.width * 0.75),
+            //            googleLoginButton.heightAnchor.constraint(equalToConstant: 30)
+        ])
     }
     
     @IBAction func onGoogleSignin(_ sender: Any) {
@@ -79,20 +108,20 @@ class SigninViewController: UIViewController, LoginButtonDelegate {
                         if userExists {
                             // Set Your home view controller Here as root View Controller
                             let storyboard = UIStoryboard(name: "Main", bundle: nil)
-
+                            
                             // instantiate your desired ViewController
                             let rootController = storyboard.instantiateViewController(withIdentifier: "DialogueTabBarController")
-
+                            
                             self.present(rootController, animated: true, completion: nil)
                         } else {
                             NetworkHelper.writeUser(user: UserStruct(userId: NetworkHelper.getCurrentUser()!.uid, displayName: "Facebook User", groupList: [], followList: []), completion: {
-                               // Set Your home view controller Here as root View Controller
-                               let storyboard = UIStoryboard(name: "Main", bundle: nil)
-
-                               // instantiate your desired ViewController
-                               let rootController = storyboard.instantiateViewController(withIdentifier: "DialogueTabBarController")
-
-                               self.present(rootController, animated: true, completion: nil)
+                                // Set Your home view controller Here as root View Controller
+                                let storyboard = UIStoryboard(name: "Main", bundle: nil)
+                                
+                                // instantiate your desired ViewController
+                                let rootController = storyboard.instantiateViewController(withIdentifier: "DialogueTabBarController")
+                                
+                                self.present(rootController, animated: true, completion: nil)
                             })
                         }
                     }
@@ -104,7 +133,7 @@ class SigninViewController: UIViewController, LoginButtonDelegate {
     }
     
     func loginButtonDidLogOut(_ loginButton: FBLoginButton) {}
-
+    
     
     
     @IBAction func onSignin(_ sender: Any) {
@@ -126,9 +155,9 @@ class SigninViewController: UIViewController, LoginButtonDelegate {
         }
     }
     
-
+    
     // code to dismiss keyboard when user clicks on background
-
+    
     func textFieldShouldReturn(textField:UITextField) -> Bool {
         textField.resignFirstResponder()
         return true

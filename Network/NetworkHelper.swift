@@ -347,6 +347,7 @@ class NetworkHelper {
         let docRef = dbRef.collection("users").document(user.userId)
         docRef.getDocument { (document, error) in
             if let document = document, document.exists {
+                print("Doc exists "+user.userId)
                 dbRef.collection("users").document(user.userId).updateData([
                     "displayName": user.displayName,
                     "groupList": user.groupList,
@@ -365,6 +366,8 @@ class NetworkHelper {
                 }
             }
             else {
+                print("Doc DNE, creation "+user.userId)
+                print(user.displayName)
                 dbRef.collection("users").document(user.userId).setData([
                     "displayName": user.displayName,
                     "groupList": user.groupList,
@@ -495,21 +498,26 @@ class NetworkHelper {
             }
         }
     }
-    
-    static func getUser(completion: ((UserStruct, Error?) -> Void)? = nil) {
+
+    static func getUser(completion: ((UserStruct?, Error?) -> Void)? = nil) {
         getUser(userId: getCurrentUser()!.uid, completion: completion)
     }
     
-    static func getUser(userId: String, completion: ((UserStruct, Error?) -> Void)? = nil) {
+    static func getUser(userId: String, completion: ((UserStruct?, Error?) -> Void)? = nil) {
         dbRef.collection("users").document(userId).getDocument { (snapshot, error) in
             if error != nil {
                 print("***ERROR: \(error ?? "Couldn't print error" as! Error)")
             } else {
-                let displayName: String = snapshot?.get("displayName") as? String ?? userId
-                let groups: [String] = snapshot?.get("groupList") as? [String] ?? []
-                let following: [String] = snapshot?.get("followingList") as? [String] ?? []
-                if completion != nil {
-                    completion!(UserStruct(userId: userId, displayName: displayName, groupList: groups, followList: following), nil)
+                if !(snapshot?.exists ?? false) && completion != nil {
+                    let error_str:[String: Any] = ["User not in database":userId]
+                    completion!(nil, NSError.init(domain: "", code: 401, userInfo: error_str))
+                } else {
+                    let displayName: String = snapshot?.get("displayName") as? String ?? userId
+                    let groups: [String] = snapshot?.get("groupList") as? [String] ?? []
+                    let following: [String] = snapshot?.get("followingList") as? [String] ?? []
+                    if completion != nil {
+                        completion!(UserStruct(userId: userId, displayName: displayName, groupList: groups, followList: following), nil)
+                    }
                 }
             }
         }

@@ -77,7 +77,7 @@ class FollowADialogueViewController: UIViewController, UITableViewDelegate, UITa
         var group = filteredGroups[indexPath.row]
         if !followingList.contains(group.groupID) {
             NetworkHelper.getUser(userId: NetworkHelper.getCurrentUser()!.uid, completion: { (user, error) in
-                var newUser = user
+                var newUser = user!
                 newUser.followingList.append(group.groupID)
                 NetworkHelper.writeUser(user: newUser, completion: nil)
                 self.followingList = newUser.followingList
@@ -93,7 +93,7 @@ class FollowADialogueViewController: UIViewController, UITableViewDelegate, UITa
         var group = filteredGroups[indexPath.row]
         if followingList.contains(group.groupID) {
             NetworkHelper.getUser(userId: NetworkHelper.getCurrentUser()!.uid, completion: { (user, error) in
-                var newUser = user
+                var newUser = user!
                 newUser.followingList.removeAll {$0 == group.groupID}
                 NetworkHelper.writeUser(user: newUser, completion: nil)
                 self.followingList = newUser.followingList

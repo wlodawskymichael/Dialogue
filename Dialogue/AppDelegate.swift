@@ -73,18 +73,32 @@ class AppDelegate: UIResponder, UIApplicationDelegate, GIDSignInDelegate {
                 print("\(error.localizedDescription)")
             }
             return
-        }
-        // Perform any operations on signed in user here.
-        guard let authentication = user.authentication else { return }
-        let credential = GoogleAuthProvider.credential(withIDToken: authentication.idToken,
-                                                       accessToken: authentication.accessToken)
-        
-        Auth.auth().signIn(with: credential) { (authResult, error) in
-            if error != nil {
-                print("sign in error!")
-                return
-            } else {
-                self.setRootViewController()
+        } else {
+            // Perform any operations on signed in user here.
+            guard let authentication = user.authentication else { return }
+            let credential = GoogleAuthProvider.credential(withIDToken: authentication.idToken,
+                                                           accessToken: authentication.accessToken)
+            
+            Auth.auth().signIn(with: credential) { (authResult, error) in
+                if error != nil {
+                    print("sign in error!")
+                    return
+                } else {
+                    print("USERID: "+(authResult?.user.uid ?? "nil"))
+                    NetworkHelper.getUser(userId: (authResult?.user.uid)!, completion: { (dbuser, error) in
+                        if error != nil || dbuser == nil {
+                            print("writing user... "+(authResult?.user.uid)!)
+                            Loading.show()
+                            NetworkHelper.writeUser(user: UserStruct(userId: (authResult?.user.uid)!, displayName: user.profile.name, groupList: [], followList: [])) {
+                                print("done")
+                                Loading.hide()
+                                self.setRootViewController()
+                            }
+                        } else {
+                            self.setRootViewController()
+                        }
+                    })
+                }
             }
         }
     }

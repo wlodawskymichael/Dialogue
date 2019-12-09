@@ -21,10 +21,12 @@ class SigninViewController: UIViewController, LoginButtonDelegate {
 
     @IBOutlet weak var EmailTextField: UITextField!
     @IBOutlet weak var PasswordTextField: UITextField!
-    @IBOutlet weak var FacebookButton: FBLoginButton!
-    var window: UIWindow?
 
-    
+    @IBOutlet weak var FacebookButton: FBLoginButton!
+    @IBOutlet weak var loginButton: UIButton!
+    @IBOutlet weak var signUpButton: UIButton!
+    @IBOutlet weak var googleLoginButton: GIDSignInButton!
+
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -40,6 +42,13 @@ class SigninViewController: UIViewController, LoginButtonDelegate {
         FacebookButton.delegate = self
 
 
+    }
+    
+
+    override func viewWillAppear(_ animated: Bool) {
+        loginButton.layer.cornerRadius = 20
+        signUpButton.layer.cornerRadius = 20
+        googleLoginButton.layer.cornerRadius = 20
     }
     
     @IBAction func onGoogleSignin(_ sender: Any) {

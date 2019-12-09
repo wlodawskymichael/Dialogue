@@ -36,7 +36,7 @@ class FollowingDialoguesViewController: UIViewController, UITableViewDelegate, U
     
     func initTableView() {
         NetworkHelper.getUser(completion: { (user, error) in
-            self.following = user.followingList
+            self.following = user!.followingList
             if self.following.count < 1 {
                 let rect = CGRect(origin: CGPoint(x: 0,y :0), size: CGSize(width: self.view.bounds.size.width, height: self.view.bounds.size.height))
                 let messageLabel = UILabel(frame: rect)
@@ -69,7 +69,7 @@ class FollowingDialoguesViewController: UIViewController, UITableViewDelegate, U
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         NetworkHelper.getGroup(groupID: following[indexPath.row]) { (group, error) in
             NetworkHelper.getUser { (user, error) in
-                let vc = ChatViewController(user: user, group: group)
+                let vc = ChatViewController(user: user!, group: group)
                 self.navigationController?.pushViewController(vc, animated: true)
             }
         }

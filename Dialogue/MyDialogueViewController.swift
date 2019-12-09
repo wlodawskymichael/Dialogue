@@ -37,7 +37,7 @@ class MyDialogueViewController: UIViewController, UITableViewDelegate, UITableVi
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         NetworkHelper.getGroup(groupID: groups[indexPath.row]) { (group, error) in
             NetworkHelper.getUser { (user, error) in
-                let vc = ChatViewController(user: user, group: group)
+                let vc = ChatViewController(user: user!, group: group)
                 vc.nc = self.navigationController
                 self.navigationController?.pushViewController(vc, animated: true)
             }
@@ -57,7 +57,7 @@ class MyDialogueViewController: UIViewController, UITableViewDelegate, UITableVi
                 print("ERROR fetching user document for group listener")
                 return
             }
-            self.groups =  document.get("groupList") as! [String]
+            self.groups = document.get("groupList") as! [String]
             self.reloadTableView()
         }
     }

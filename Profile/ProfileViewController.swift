@@ -17,6 +17,7 @@ class ProfileViewController: UIViewController {
     @IBOutlet weak var profileImageView: UIImageView!
     @IBOutlet weak var displayNameLabel: UILabel!
     @IBOutlet weak var settingsButton: UIButton!
+    @IBOutlet weak var logoutButton: UIButton!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -32,20 +33,8 @@ class ProfileViewController: UIViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         settingsButton.layer.cornerRadius = 20
+        logoutButton.layer.cornerRadius = 20
     }
-    
-    @IBAction func onProfilePic(_ sender: Any) {
-        Alerts.notImplementedAlert(functionalityDescription: "This button will allow you to change your profile picture in future releases.", vc: self)
-    }
-    
-    @IBAction func onNotifications(_ sender: Any) {
-        Alerts.notImplementedAlert(functionalityDescription: "This button will allow you to toggle notification preferences in future releases", vc: self)
-    }
-
-    @IBAction func onDisplayName(_ sender: Any) {
-        Alerts.notImplementedAlert(functionalityDescription: "This button will allow you to change your display name in future releases", vc: self)
-    }
-
     
     @IBAction func onLogout(_ sender: Any) {
         do {

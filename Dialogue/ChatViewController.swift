@@ -153,7 +153,7 @@ class ChatViewController: MessagesViewController, MessagesDataSource, MessageCel
     @IBAction private func settingsTapped() {
         let storyBoard : UIStoryboard = UIStoryboard(name: "Main", bundle:nil)
         let resultViewController = storyBoard.instantiateViewController(withIdentifier: "settingsVC") as! DialogueSettingsViewController
-        resultViewController.setVariables(groupId: group.groupID, selectedContacts: group.speakers, followable: group.followable/*, userId: user.userId, userIsAdmin: self.userIsAdmin*/)
+        resultViewController.setVariables(groupId: group.groupID, followable: group.followable, userId: user.userId, userIsAdmin: self.userIsAdmin)
         resultViewController.delegate = self
         self.navigationController?.pushViewController(resultViewController, animated: true)
     }

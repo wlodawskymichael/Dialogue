@@ -9,6 +9,8 @@
 import UIKit
 import FirebaseAuth
 import GoogleSignIn
+import FacebookLogin
+import FBSDKLoginKit
 
 class ProfileViewController: UIViewController {
 
@@ -49,6 +51,7 @@ class ProfileViewController: UIViewController {
         do {
             try Auth.auth().signOut()
             try GIDSignIn.sharedInstance().signOut()
+            try LoginManager().logOut()
         } catch {
             print("Failed to sign-out user")
         }

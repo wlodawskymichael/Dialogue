@@ -9,11 +9,21 @@
 import UIKit
 import FirebaseAuth
 import GoogleSignIn
+import FacebookLogin
+import FacebookCore
+import FBSDKCoreKit
+import FBSDKLoginKit
+import FBSDKShareKit
 
-class SigninViewController: UIViewController {
+
+class SigninViewController: UIViewController, LoginButtonDelegate {
+    
 
     @IBOutlet weak var EmailTextField: UITextField!
     @IBOutlet weak var PasswordTextField: UITextField!
+    @IBOutlet weak var FacebookButton: FBLoginButton!
+    var window: UIWindow?
+
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -26,17 +36,66 @@ class SigninViewController: UIViewController {
 
         // Automatically sign in the user.
         GIDSignIn.sharedInstance()?.restorePreviousSignIn()
+        
+        FacebookButton.delegate = self
+
 
     }
+    
     @IBAction func onGoogleSignin(_ sender: Any) {
         GIDSignIn.sharedInstance()?.signIn()
     }
     
-    @IBAction func onFacebookSignin(_ sender: Any) {
-        Loading.mockLoading(wait: 3.5) {
-            Alerts.notImplementedAlert(functionalityDescription: "This button will signin the user with Facebook in future releases", vc: self)
+    func loginButton(_ loginButton: FBLoginButton, didCompleteWith result: LoginManagerLoginResult?, error: Error?) {
+        if error != nil {
+            Alerts.singleChoiceAlert(title: "Login Error", message: "There was an error logging in with Facebook", vc: self)
+            print("\(error!)")
+        } else if result?.isCancelled ?? false {
+            // Don't navigate to next view is cancelled
+        } else {
+            let credential = FacebookAuthProvider.credential(withAccessToken: AccessToken.current!.tokenString)
+            firebaseSignin(credentials: credential)
+        }
+        
+    }
+    
+    func firebaseSignin(credentials: AuthCredential) {
+        Auth.auth().signIn(with: credentials) { (result, error) in
+            if error == nil {
+                NetworkHelper.userWritten(userID: Auth.auth().currentUser!.uid) { (userExists, error) in
+                    if error != nil {
+                        print(error)
+                    } else {
+                        if userExists {
+                            // Set Your home view controller Here as root View Controller
+                            let storyboard = UIStoryboard(name: "Main", bundle: nil)
+
+                            // instantiate your desired ViewController
+                            let rootController = storyboard.instantiateViewController(withIdentifier: "DialogueTabBarController")
+
+                            self.present(rootController, animated: true, completion: nil)
+                        } else {
+                            NetworkHelper.writeUser(user: UserStruct(userId: NetworkHelper.getCurrentUser()!.uid, displayName: "Facebook User", groupList: [], followList: []), completion: {
+                               // Set Your home view controller Here as root View Controller
+                               let storyboard = UIStoryboard(name: "Main", bundle: nil)
+
+                               // instantiate your desired ViewController
+                               let rootController = storyboard.instantiateViewController(withIdentifier: "DialogueTabBarController")
+
+                               self.present(rootController, animated: true, completion: nil)
+                            })
+                        }
+                    }
+                }
+            } else {
+                print(error)
+            }
         }
     }
+    
+    func loginButtonDidLogOut(_ loginButton: FBLoginButton) {}
+
+    
     
     @IBAction func onSignin(_ sender: Any) {
         let vc = self

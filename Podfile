@@ -14,6 +14,9 @@ target 'Dialogue' do
   pod 'Firebase/Storage'
   pod 'Firebase/Messaging'
   pod 'GoogleSignIn'
+  pod 'FacebookCore'
+  pod 'FacebookLogin'
+  pod 'FacebookShare'
 
 
   target 'DialogueTests' do

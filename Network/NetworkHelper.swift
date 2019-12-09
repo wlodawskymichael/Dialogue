@@ -482,6 +482,20 @@ class NetworkHelper {
        }
     }
     
+    static func userWritten(userID: String, completion: ((Bool, Error?) -> Void)? = nil) {
+        dbRef.collection("users").document(userID).getDocument { (snapshot, error) in
+            if snapshot?.exists ?? false {
+                if completion != nil {
+                    completion!(true, nil)
+                }
+            } else {
+                if completion != nil {
+                    completion!(false, nil)
+                }
+            }
+        }
+    }
+    
     static func getUser(completion: ((UserStruct, Error?) -> Void)? = nil) {
         getUser(userId: getCurrentUser()!.uid, completion: completion)
     }

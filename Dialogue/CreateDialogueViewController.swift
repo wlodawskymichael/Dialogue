@@ -29,7 +29,7 @@ class CreateDialogueViewController: UIViewController, UITableViewDelegate, UITab
         searchBar.delegate = self
         filteredUsers = []
         nextBarButton.isEnabled = false
-        // Do any additional setup after loading the view.
+
         initTableView()
     }
 
@@ -65,7 +65,6 @@ class CreateDialogueViewController: UIViewController, UITableViewDelegate, UITab
                 cell.profilePicture.image = image
             }
         }
-        // TODO: Added icon and contact picture
         return cell
     }
 
@@ -111,11 +110,6 @@ class CreateDialogueViewController: UIViewController, UITableViewDelegate, UITab
     
     // This method updates filteredData based on the text in the Search Box
     func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
-        // When there is no text, filteredData is the same as the original data
-        // When user has entered text into the search box
-        // Use the filter method to iterate over all items in the data array
-        // For each item, return true if the item should be included and false if the
-        // item should NOT be included
         filteredUsers = searchText.isEmpty ? contacts : contacts.filter { (item: UserStruct) -> Bool in
             // If dataItem matches the searchText, return true to include it
             return item.displayName.range(of: searchText, options: .caseInsensitive, range: nil, locale: nil) != nil

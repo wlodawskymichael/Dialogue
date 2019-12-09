@@ -24,9 +24,7 @@ class FollowingDialoguesViewController: UIViewController, UITableViewDelegate, U
 
         tableView.delegate = self
         tableView.dataSource = self
-        NetworkHelper.updateCurrentInAppUser()
         
-        // Do any additional setup after loading the view.
         initTableView()
     }
     
@@ -35,8 +33,10 @@ class FollowingDialoguesViewController: UIViewController, UITableViewDelegate, U
     }
     
     func initTableView() {
+        NetworkHelper.updateCurrentInAppUser()
         NetworkHelper.getUser(completion: { (user, error) in
             self.following = user!.followingList
+            self.tableView.reloadData()
             if self.following.count < 1 {
                 let rect = CGRect(origin: CGPoint(x: 0,y :0), size: CGSize(width: self.view.bounds.size.width, height: self.view.bounds.size.height))
                 let messageLabel = UILabel(frame: rect)
@@ -48,8 +48,6 @@ class FollowingDialoguesViewController: UIViewController, UITableViewDelegate, U
                 
                 self.tableView.backgroundView = messageLabel
                 self.tableView.separatorStyle = .none
-            } else {
-                self.tableView.reloadData()
             }
         })
     }
@@ -60,8 +58,8 @@ class FollowingDialoguesViewController: UIViewController, UITableViewDelegate, U
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: DialogueTableViewCell.identifier, for: indexPath as IndexPath) as! DialogueTableViewCell
+        
         cell.titleLabel?.text = following[indexPath.row]
-        // TODO: In future show preview of conversation
         cell.subLabel?.text = "Tap to see messages!"
         return cell
     }
@@ -75,15 +73,6 @@ class FollowingDialoguesViewController: UIViewController, UITableViewDelegate, U
         }
     }
     
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destination.
-        // Pass the selected object to the new view controller.
-    }
-    */
     @IBAction func profileButtonPressed(_ sender: Any) {
         if let userEmail = NetworkHelper.getCurrentUserEmail() {
             Alerts.singleChoiceAlert(title: "Login Status", message: "\(userEmail) is logged in.", vc: self)

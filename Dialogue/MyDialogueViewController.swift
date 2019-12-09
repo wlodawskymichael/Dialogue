@@ -88,11 +88,6 @@ class MyDialogueViewController: UIViewController, UITableViewDelegate, UITableVi
     }
     
     @IBAction func profileButtonClicked(_ sender: Any) {
-//        do {
-//            try Auth.auth().signOut()
-//        } catch {
-//            print("Failed to sign-out user")
-//        }
         Loading.show()
         NetworkHelper.updateCurrentInAppUser() {
             Loading.hide()

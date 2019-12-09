@@ -49,6 +49,7 @@ class SigninViewController: UIViewController, LoginButtonDelegate {
         loginButton.layer.cornerRadius = 20
         signUpButton.layer.cornerRadius = 20
         googleLoginButton.layer.cornerRadius = 20
+        FacebookButton.layer.cornerRadius = 20
     }
     
     @IBAction func onGoogleSignin(_ sender: Any) {

@@ -105,6 +105,9 @@
                         <outlet property="EmailTextField" destination="Bk5-zH-UFZ" id="Amh-5S-3cu"/>
                         <outlet property="FacebookButton" destination="u70-GA-4Fc" id="gWP-Ow-1pR"/>
                         <outlet property="PasswordTextField" destination="r0S-BI-aXc" id="MSx-0n-arp"/>
+                        <outlet property="googleLoginButton" destination="r6r-q4-DVX" id="Vsm-uC-Rur"/>
+                        <outlet property="loginButton" destination="IYH-Xe-dEN" id="geW-c0-h7L"/>
+                        <outlet property="signUpButton" destination="A5z-sp-233" id="jAX-bz-OvN"/>
                         <segue destination="c2B-Ga-MF3" kind="show" identifier="signinToDialogue" id="U3F-ba-VJP"/>
                     </connections>
                 </viewController>
@@ -202,6 +205,7 @@
                         <outlet property="EmailTextField" destination="jSS-Zs-x9z" id="a3b-j4-opY"/>
                         <outlet property="FullNameTextField" destination="v9g-yA-ZjL" id="NfQ-eN-YxI"/>
                         <outlet property="PasswordTextField" destination="Gfs-wM-0nx" id="gg5-iY-Frw"/>
+                        <outlet property="signUpButton" destination="yIb-kM-2Gf" id="Pma-AR-qMZ"/>
                         <segue destination="c2B-Ga-MF3" kind="show" identifier="signupToDialogue" id="8q2-w5-9mC"/>
                     </connections>
                 </viewController>
@@ -493,6 +497,8 @@
                     </view>
                     <navigationItem key="navigationItem" title="Edit profile" id="mbq-5V-6g1"/>
                     <connections>
+                        <outlet property="changeDisplayNameButton" destination="d9s-9k-ZqS" id="3zr-Dv-HPS"/>
+                        <outlet property="changeProfilePictureButton" destination="S8d-RZ-Cs2" id="PUW-wb-Glt"/>
                         <outlet property="displayNameLabel" destination="cqY-Lz-xvG" id="Lk9-X0-v3N"/>
                         <outlet property="profilePictureImageView" destination="WIx-9Q-Kgc" id="iBP-Nl-jCr"/>
                     </connections>
@@ -584,6 +590,7 @@
                     </navigationItem>
                     <connections>
                         <outlet property="displayNameLabel" destination="JwC-7c-Qkk" id="ObI-X3-sqo"/>
+                        <outlet property="logoutButton" destination="DVB-mJ-J9p" id="Xly-mr-bMZ"/>
                         <outlet property="profileImageView" destination="EyV-UT-QYr" id="sAR-CJ-3L3"/>
                         <outlet property="settingsButton" destination="PmT-TG-8JC" id="AQR-IN-HYD"/>
                     </connections>

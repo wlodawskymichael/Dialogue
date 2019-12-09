@@ -114,7 +114,8 @@ class SigninViewController: UIViewController, LoginButtonDelegate {
                             
                             self.present(rootController, animated: true, completion: nil)
                         } else {
-                            NetworkHelper.writeUser(user: UserStruct(userId: NetworkHelper.getCurrentUser()!.uid, displayName: "Facebook User", groupList: [], followList: []), completion: {
+                            let facebookDisplayName: String = result?.additionalUserInfo!.profile?["name"] as? String ?? "Facebook User"
+                            NetworkHelper.writeUser(user: UserStruct(userId: NetworkHelper.getCurrentUser()!.uid, displayName: facebookDisplayName, groupList: [], followList: []), completion: {
                                 // Set Your home view controller Here as root View Controller
                                 let storyboard = UIStoryboard(name: "Main", bundle: nil)
                                 

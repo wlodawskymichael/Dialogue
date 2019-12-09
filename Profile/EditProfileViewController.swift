@@ -13,11 +13,13 @@ class EditProfileViewController: UIViewController, UIImagePickerControllerDelega
     
     @IBOutlet weak var displayNameLabel: UILabel!
     @IBOutlet weak var profilePictureImageView: UIImageView!
+    @IBOutlet weak var changeProfilePictureButton: UIButton!
+    @IBOutlet weak var changeDisplayNameButton: UIButton!
     let picker = UIImagePickerController()
     var changeNameAlertController: UIAlertController!
     var saveNameAction: UIAlertAction!
     var newNameTextField: UITextField!
-    
+
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
@@ -26,6 +28,11 @@ class EditProfileViewController: UIViewController, UIImagePickerControllerDelega
         if let profilePicture = NetworkHelper.currentInAppUserData?.profilePicture {
             self.profilePictureImageView.image = profilePicture
         }
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        changeProfilePictureButton.layer.cornerRadius = 20
+        changeDisplayNameButton.layer.cornerRadius = 20
     }
     
     func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {

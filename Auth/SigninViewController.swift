@@ -14,6 +14,10 @@ class SigninViewController: UIViewController {
 
     @IBOutlet weak var EmailTextField: UITextField!
     @IBOutlet weak var PasswordTextField: UITextField!
+    @IBOutlet weak var loginButton: UIButton!
+    @IBOutlet weak var signUpButton: UIButton!
+    @IBOutlet weak var facebookLogin: UIButton!
+    @IBOutlet weak var googleLoginButton: GIDSignInButton!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -27,6 +31,13 @@ class SigninViewController: UIViewController {
         // Automatically sign in the user.
         GIDSignIn.sharedInstance()?.restorePreviousSignIn()
 
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        loginButton.layer.cornerRadius = 20
+        signUpButton.layer.cornerRadius = 20
+        facebookLogin.layer.cornerRadius = 20
+        googleLoginButton.layer.cornerRadius = 20
     }
     @IBAction func onGoogleSignin(_ sender: Any) {
         GIDSignIn.sharedInstance()?.signIn()

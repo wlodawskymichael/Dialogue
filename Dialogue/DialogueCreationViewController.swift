@@ -86,8 +86,8 @@ class DialogueCreationViewController: UIViewController, UITableViewDataSource, U
                         print("HELLO +++>>>"+speaker.userId)
                         NetworkHelper.getUser(userId: speaker.userId, completion: { (user, error) in
                             var newUser = user
-                            newUser.groupList.append(self.groupNameTextField.text!)
-                            NetworkHelper.writeUser(user: newUser, completion: nil)
+                            newUser!.groupList.append(self.groupNameTextField.text!)
+                            NetworkHelper.writeUser(user: newUser!, completion: nil)
                         })
                     }
                 }

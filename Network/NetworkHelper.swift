@@ -635,25 +635,20 @@ class NetworkHelper {
             var userOptions: (hasProfilePicture: Bool, followingNotifications: Bool, myNotifications: Bool)?
             var profilePicture: UIImage?
             getUserDisplayName() { fetchedName, error in
-                print("got display name")
                 displayName = fetchedName
                 getUserOptions() { fetchedOptions, error in
-                    print("got user options")
                     userOptions = fetchedOptions
                     if userOptions!.hasProfilePicture {
                         getUserProfilePicture() { fetchedImage, error in
-                            print("fetched image")
                             profilePicture = fetchedImage
                             self.currentInAppUserData = InAppCurrentUser(displayName: displayName!, profilePicture: profilePicture, userOptions: userOptions!)
                             if completion != nil {
-                                print("about to do completion")
                                 completion!()
                             }
                         }
                     } else {
                         self.currentInAppUserData = InAppCurrentUser(displayName: displayName!, profilePicture: nil, userOptions: userOptions!)
                         if completion != nil {
-                            print("about to do completion")
                             completion!()
                         }
                     }

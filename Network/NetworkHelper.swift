@@ -235,11 +235,6 @@ class NetworkHelper {
         }
     }
     
-//    static func fillNotificationRecord() {
-//        let reference = dbRef.collection(["groups", "group", "thread"].joined(separator: "/"))
-//        reference.get
-//    }
-    
     static func startNotificationMonitor() {
         var groupIds: [String]!
         getUserGroupList() { groups, error in
@@ -386,26 +381,6 @@ class NetworkHelper {
             }
         }
     }
-    
-//    static func changeUserAdminStatus(groupID: String, speakers: [SpeakerStruct], userID: String, newStatus: Bool, completion: (() -> Void)? = nil) {
-//        for var speaker in speakers {
-//            if speaker.userID == userID {
-//                speaker.admin = newStatus
-//            }
-//        }
-//        
-//        dbRef.collection("groups").document(groupID).setData([
-//            "speakers": speakers
-//        ], merge: true) { (error) in
-//            if error != nil {
-//                print("***ERROR: \(error ?? "Couldn't print error" as! Error)")
-//            } else {
-//                if completion != nil {
-//                    completion!()
-//                }
-//            }
-//        }
-//    }
     
     static func changeUserDisplayName(newDisplayName: String, completion: (() -> Void)? = nil) {
         changeUserDisplayName(userId: getCurrentUser()!.uid, newDisplayName: newDisplayName, completion: completion)

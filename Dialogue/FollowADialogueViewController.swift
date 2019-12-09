@@ -35,7 +35,6 @@ class FollowADialogueViewController: UIViewController, UITableViewDelegate, UITa
             self.initTableView()
         }
 
-        // Do any additional setup after loading the view.
     }
     
     func initTableView() {
@@ -69,7 +68,6 @@ class FollowADialogueViewController: UIViewController, UITableViewDelegate, UITa
         if followingList.contains(groupID) {
             tableView.selectRow(at: indexPath, animated: false, scrollPosition: .none)
         }
-        // TODO: Added icon and group picture
         return cell
     }
     
@@ -83,6 +81,7 @@ class FollowADialogueViewController: UIViewController, UITableViewDelegate, UITa
                 self.followingList = newUser.followingList
                 group.spectators.append(newUser.userId)
                 NetworkHelper.writeGroup(group: GroupStruct(groupID: group.groupID, speakers: group.speakers, spectators: group.spectators, followable: group.followable))
+                NetworkHelper.writeUser(user: newUser)
             })
             
         }
@@ -99,6 +98,7 @@ class FollowADialogueViewController: UIViewController, UITableViewDelegate, UITa
                 self.followingList = newUser.followingList
                 group.spectators.removeAll {$0 == newUser.userId}
                 NetworkHelper.writeGroup(group: GroupStruct(groupID: group.groupID, speakers: group.speakers, spectators: group.spectators, followable: group.followable))
+                NetworkHelper.writeUser(user: newUser)
             })
             
         }
@@ -122,7 +122,6 @@ class FollowADialogueViewController: UIViewController, UITableViewDelegate, UITa
         // Use the filter method to iterate over all items in the data array
         // For each item, return true if the item should be included and false if the
         // item should NOT be included
-        print("in search bar method")
         filteredGroups = searchText.isEmpty ? groups : groups.filter { (item: GroupStruct) -> Bool in
             // If dataItem matches the searchText, return true to include it
             return item.groupID.range(of: searchText, options: .caseInsensitive, range: nil, locale: nil) != nil

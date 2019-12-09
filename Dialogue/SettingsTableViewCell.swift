@@ -14,6 +14,7 @@ class SettingsTableViewCell: UITableViewCell {
     let adminToggle = UISwitch()
     let userImage = UIImageView()
     let adminLabel = UILabel()
+    let kickButton = UIButton()
     
     static let identifier:String = "settingsCell"
     
@@ -24,6 +25,7 @@ class SettingsTableViewCell: UITableViewCell {
         contentView.addSubview(adminToggle)
         contentView.addSubview(userImage)
         contentView.addSubview(adminLabel)
+        contentView.addSubview(kickButton)
     }
     
     required init?(coder: NSCoder) {
@@ -43,6 +45,7 @@ class SettingsTableViewCell: UITableViewCell {
         adminToggle.translatesAutoresizingMaskIntoConstraints = false
         userImage.translatesAutoresizingMaskIntoConstraints = false
         adminLabel.translatesAutoresizingMaskIntoConstraints = false
+        kickButton.translatesAutoresizingMaskIntoConstraints = false
         
         NSLayoutConstraint.activate([
             userImage.leadingAnchor.constraint(equalTo: contentView.leadingAnchor),
@@ -52,10 +55,16 @@ class SettingsTableViewCell: UITableViewCell {
             userImage.widthAnchor.constraint(equalToConstant: 44.0),
             userImage.heightAnchor.constraint(equalToConstant: 44.0),
             
-            nameLabel.trailingAnchor.constraint(equalTo: contentView.trailingAnchor),
             nameLabel.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 5),
             nameLabel.bottomAnchor.constraint(equalTo: adminToggle.topAnchor, constant: -5),
             nameLabel.bottomAnchor.constraint(equalTo: adminLabel.topAnchor, constant: -5),
+            
+            kickButton.leadingAnchor.constraint(equalTo: nameLabel.trailingAnchor),
+            kickButton.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -5),
+            kickButton.bottomAnchor.constraint(equalTo: adminToggle.topAnchor, constant: -5),
+            kickButton.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 5),
+            kickButton.widthAnchor.constraint(equalToConstant: 44.0),
+            kickButton.heightAnchor.constraint(equalToConstant: 44.0),
             
             adminLabel.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 5),
             adminLabel.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -5),
@@ -66,6 +75,9 @@ class SettingsTableViewCell: UITableViewCell {
         ])
         
         adminLabel.text = "Admin access:"
+        
+        kickButton.setImage(UIImage(systemName: "xmark"), for: .normal)
+        kickButton.tintColor = .red
     }
 
 }

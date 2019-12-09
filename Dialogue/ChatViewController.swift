@@ -25,7 +25,8 @@ class ChatViewController: MessagesViewController, MessagesDataSource, MessageCel
     private var reference: CollectionReference?
     private var messageListener: ListenerRegistration?
     
-    private var userIsAdmin:Bool
+    private var userIsAdmin:Bool = false
+    private var userIsSpeaker:Bool = false
     
     let refreshControl = UIRefreshControl()
     
@@ -39,12 +40,12 @@ class ChatViewController: MessagesViewController, MessagesDataSource, MessageCel
         self.user = user
         self.group = group
         
-        userIsAdmin = false
         for speaker in group.speakers {
             if speaker.userId == user.userId {
                 if speaker.admin {
                     userIsAdmin = true
                 }
+                userIsSpeaker = true
             }
         }
         
@@ -78,7 +79,7 @@ class ChatViewController: MessagesViewController, MessagesDataSource, MessageCel
         configureMessageCollectionView()
         configureMessageInputBar()
 
-        if userIsAdmin {
+        if userIsSpeaker {
             navigationItem.rightBarButtonItem = UIBarButtonItem(image: UIImage(systemName: "ellipsis"), style: .plain, target: self, action: #selector(settingsTapped))
         }
     }
@@ -154,7 +155,6 @@ class ChatViewController: MessagesViewController, MessagesDataSource, MessageCel
         let storyBoard : UIStoryboard = UIStoryboard(name: "Main", bundle:nil)
         let resultViewController = storyBoard.instantiateViewController(withIdentifier: "settingsVC") as! DialogueSettingsViewController
         resultViewController.setVariables(groupId: group.groupID, followable: group.followable, userId: user.userId, userIsAdmin: self.userIsAdmin)
-        resultViewController.delegate = self
         self.navigationController?.pushViewController(resultViewController, animated: true)
     }
     

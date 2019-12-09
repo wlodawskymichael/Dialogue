@@ -79,5 +79,4 @@ class SettingsTableViewCell: UITableViewCell {
         kickButton.setImage(UIImage(systemName: "xmark"), for: .normal)
         kickButton.tintColor = .red
     }
-
 }

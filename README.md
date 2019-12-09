@@ -1,6 +1,7 @@
 # Dialogue
 The better way to message.
 
+<img src="https://github.com/wlodawskymichael/Dialogue/blob/master/dialogue_home.png" width=30%> <img src="https://github.com/wlodawskymichael/Dialogue/blob/master/following_dialogues.png" width=30%> <img src="https://github.com/wlodawskymichael/Dialogue/blob/master/messaging.png" width=30%>
 
 ## For Developers
 

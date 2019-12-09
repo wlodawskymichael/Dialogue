@@ -82,10 +82,12 @@ class AppDelegate: UIResponder, UIApplicationDelegate, GIDSignInDelegate {
                     NetworkHelper.getUser(userId: (authResult?.user.uid)!, completion: { (dbuser, error) in
                         if error != nil || dbuser == nil {
                             print("writing user... "+(authResult?.user.uid)!)
-                            NetworkHelper.writeUser(user: UserStruct(userId: (authResult?.user.uid)!, displayName: user.profile.name, groupList: [], followList: []), completion: {
+                            Loading.show()
+                            NetworkHelper.writeUser(user: UserStruct(userId: (authResult?.user.uid)!, displayName: user.profile.name, groupList: [], followList: [])) {
                                 print("done")
+                                Loading.hide()
                                 self.setRootViewController()
-                            })
+                            }
                         } else {
                             self.setRootViewController()
                         }

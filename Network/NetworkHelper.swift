@@ -497,12 +497,13 @@ class NetworkHelper {
                 if !(snapshot?.exists ?? false) && completion != nil {
                     let error_str:[String: Any] = ["User not in database":userId]
                     completion!(nil, NSError.init(domain: "", code: 401, userInfo: error_str))
-                }
-                let displayName: String = snapshot?.get("displayName") as? String ?? userId
-                let groups: [String] = snapshot?.get("groupList") as? [String] ?? []
-                let following: [String] = snapshot?.get("followingList") as? [String] ?? []
-                if completion != nil {
-                    completion!(UserStruct(userId: userId, displayName: displayName, groupList: groups, followList: following), nil)
+                } else {
+                    let displayName: String = snapshot?.get("displayName") as? String ?? userId
+                    let groups: [String] = snapshot?.get("groupList") as? [String] ?? []
+                    let following: [String] = snapshot?.get("followingList") as? [String] ?? []
+                    if completion != nil {
+                        completion!(UserStruct(userId: userId, displayName: displayName, groupList: groups, followList: following), nil)
+                    }
                 }
             }
         }

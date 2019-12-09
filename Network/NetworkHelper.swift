@@ -185,7 +185,6 @@ class NetworkHelper {
         userImageRef.getData(maxSize: 5 * 1024 * 1024) { data, error in
             if completion != nil {
                 if let error = error {
-                    print("Error downloading profile image")
                     completion!(nil, error)
                 }
                 else {

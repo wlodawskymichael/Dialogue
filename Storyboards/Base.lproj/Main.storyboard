@@ -739,7 +739,22 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="eaY-5s-Uer" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="6499" y="-708"/>
+            <point key="canvasLocation" x="6271" y="-585"/>
+        </scene>
+        <!--Add Members View Controller-->
+        <scene sceneID="T92-Ja-0wK">
+            <objects>
+                <viewController storyboardIdentifier="addMembersVC" id="YMf-Op-Guq" customClass="AddMembersViewController" customModule="Dialogue" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="p72-kG-YiD">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="736"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                        <viewLayoutGuide key="safeArea" id="UUj-Va-wSE"/>
+                    </view>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="nk0-oK-vGp" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="7071" y="-585"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="n1E-ZV-8PI">
@@ -1110,6 +1125,7 @@
         <image name="plus" catalog="system" width="64" height="56"/>
     </resources>
     <inferredMetricsTieBreakers>
+        <segue reference="al3-wz-yrv"/>
         <segue reference="8q2-w5-9mC"/>
         <segue reference="hkb-hK-h4D"/>
         <segue reference="YWD-Xt-4fO"/>

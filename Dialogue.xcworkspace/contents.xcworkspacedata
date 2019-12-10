@@ -2,6 +2,9 @@
 <Workspace
    version = "1.0">
    <FileRef
+      location = "group:/Users/williamlemens/Documents/School/iOS/Dialogue/Dialogue/AddMembersViewController.swift">
+   </FileRef>
+   <FileRef
       location = "group:Dialogue.xcodeproj">
    </FileRef>
    <FileRef

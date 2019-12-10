@@ -1,46 +1,84 @@
 //
-//  CreateDialogueViewController.swift
-//  Dialogue
+//  AddMembersViewController.swift
+//  
 //
-//  Created by Dylan Ramage on 10/24/19.
-//  Copyright © 2019 CS371L. All rights reserved.
+//  Created by William Lemens on 12/9/19.
 //
 
 import UIKit
-import FirebaseAuth
-import FirebaseFirestore
+import Firebase
 
-class CreateDialogueViewController: UIViewController, UITableViewDelegate, UITableViewDataSource, UISearchBarDelegate {
-
-    @IBOutlet weak var searchBar: UISearchBar!
-    @IBOutlet weak var tableView: UITableView!
+class AddMembersViewController: UIViewController, UITableViewDelegate, UITableViewDataSource, UISearchBarDelegate {
+    
+    private var searchBar = UISearchBar()
+    private var tableView = UITableView()
     private let db = Firestore.firestore()
     private var contacts:[UserStruct] = []
     private var selected:[UserStruct] = []
-    @IBOutlet weak var nextBarButton: UIBarButtonItem!
+    
+    var delegate:DialogueSettingsViewController!
     
     var filteredUsers: [UserStruct]!
-
+    
+    var userId:String = ""
+    var groupId:String = ""
+    var followable: Bool = true
+    
+    override func viewWillDisappear(_ animated: Bool) {
+        var speakers:[SpeakerStruct] = []
+        for user in self.selected {
+            speakers.append(SpeakerStruct(userId: user.userId, admin: true))
+        }
+        delegate.addContacts = speakers
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
         tableView.register(ContactTableViewCell.self, forCellReuseIdentifier: ContactTableViewCell.identifier)
         
+        tableView.allowsMultipleSelection = true
+        tableView.allowsMultipleSelectionDuringEditing = true
         tableView.delegate = self
         tableView.dataSource = self
         searchBar.delegate = self
         filteredUsers = []
-        nextBarButton.isEnabled = false
-
+        
+        setUpUI()
         initTableView()
     }
-
+    
+    func setUpUI() {
+        let margins = view.layoutMarginsGuide
+        let guide = view.safeAreaLayoutGuide
+        
+        view.addSubview(searchBar)
+        view.addSubview(tableView)
+        
+        searchBar.translatesAutoresizingMaskIntoConstraints = false
+        tableView.translatesAutoresizingMaskIntoConstraints = false
+        
+        NSLayoutConstraint.activate([
+            searchBar.leadingAnchor.constraint(equalTo: margins.leadingAnchor),
+            searchBar.trailingAnchor.constraint(equalTo: margins.trailingAnchor),
+            searchBar.topAnchor.constraint(equalTo: guide.topAnchor, constant: 5),
+            searchBar.bottomAnchor.constraint(equalTo: tableView.topAnchor, constant: -5),
+            
+            tableView.leadingAnchor.constraint(equalTo: margins.leadingAnchor),
+            tableView.trailingAnchor.constraint(equalTo: margins.trailingAnchor),
+            tableView.bottomAnchor.constraint(equalTo: guide.bottomAnchor)
+        ])
+        
+        tableView.rowHeight = CGFloat(70)
+        
+    }
+    
     func initTableView() {
         NetworkHelper.getAllUsers { (users, error) in
             self.contacts = users
             self.filteredUsers = self.contacts
             if self.contacts.count < 1 {
-                let frame = CGRect(origin: CGPoint(x: 0,y :0), size: CGSize(width: self.view.bounds.size.width, height: self.view.bounds.size.height))
+                let frame = CGRect(origin: CGPoint(x: 0, y :0), size: CGSize(width: self.view.bounds.size.width, height: self.view.bounds.size.height))
                 let messageLabel = UILabel(frame: frame)
                 messageLabel.textColor = UIColor.black
                 messageLabel.numberOfLines = 0
@@ -54,11 +92,17 @@ class CreateDialogueViewController: UIViewController, UITableViewDelegate, UITab
             }
         }
     }
-
+    
+    func setVariables(groupId:String, followable:Bool, userId:String) {
+        self.groupId = groupId
+        self.followable = followable
+        self.userId = userId
+    }
+    
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return filteredUsers.count
     }
-
+    
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: ContactTableViewCell.identifier, for: indexPath as IndexPath) as! ContactTableViewCell
         cell.titleLabel.text = filteredUsers[indexPath.row].displayName
@@ -69,22 +113,18 @@ class CreateDialogueViewController: UIViewController, UITableViewDelegate, UITab
         }
         return cell
     }
-
+    
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let contact = filteredUsers[indexPath.row]
         if !selected.contains(contact) {
             selected.append(filteredUsers[indexPath.row])
         }
-        nextBarButton.isEnabled = true
     }
     
     func tableView(_ tableView: UITableView, didDeselectRowAt indexPath: IndexPath) {
         let contact = filteredUsers[indexPath.row]
         if selected.contains(contact) {
             selected.removeAll {$0 == contact}
-        }
-        if selected.isEmpty {
-            nextBarButton.isEnabled = false
         }
     }
     
@@ -99,26 +139,15 @@ class CreateDialogueViewController: UIViewController, UITableViewDelegate, UITab
         }
     }
     
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        print(selected)
-        if let vc = segue.destination as? DialogueCreationViewController {
-            var speakers:[SpeakerStruct] = []
-            for user in self.selected {
-                speakers.append(SpeakerStruct(userId: user.userId, admin: true))
-            }
-            vc.selectedContacts = speakers
-        }
-    }
-    
     // This method updates filteredData based on the text in the Search Box
     func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
         filteredUsers = searchText.isEmpty ? contacts : contacts.filter { (item: UserStruct) -> Bool in
             // If dataItem matches the searchText, return true to include it
             return item.displayName.range(of: searchText, options: .caseInsensitive, range: nil, locale: nil) != nil
         }
-
+        
         tableView.reloadData()
         updateSelectedStates()
     }
-
+    
 }

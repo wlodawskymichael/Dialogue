@@ -25,8 +25,10 @@ class DialogueSettingsViewController:  UIViewController, UITableViewDataSource, 
     var userId:String = ""
     var userIsAdmin:Bool = false
     var groupId:String = ""
-    var selectedContacts:[SpeakerStruct] = []
     var followable: Bool = true
+    
+    var addContacts:[SpeakerStruct] = []
+    var selectedContacts:[SpeakerStruct] = []
     
     required init?(coder: NSCoder) {
         super.init(coder: coder)
@@ -34,6 +36,10 @@ class DialogueSettingsViewController:  UIViewController, UITableViewDataSource, 
     
     deinit {
         memberListener?.remove()
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        addNewContacts()
     }
     
     override func viewDidLoad() {
@@ -51,11 +57,9 @@ class DialogueSettingsViewController:  UIViewController, UITableViewDataSource, 
     }
     
     private func setUpUI() {
-        
         let margins = view.layoutMarginsGuide
         let guide = view.safeAreaLayoutGuide
         
-
         view.addSubview(groupNameLabel)
         view.addSubview(leaveButton)
         
@@ -217,9 +221,32 @@ class DialogueSettingsViewController:  UIViewController, UITableViewDataSource, 
         }
     }
     
+    private func addNewContacts() {
+        // write group with these users in their speakers list
+        NetworkHelper.getGroup(groupID: groupId, completion: { (group, error) in
+            if error == nil {
+                let newSpeakers = group.speakers + self.addContacts
+                NetworkHelper.writeGroup(group: GroupStruct(groupID: group.groupID, speakers: newSpeakers, spectators: group.spectators, followable: group.followable))
+            }
+        })
+        for speaker in addContacts {
+            // write users with this group in their group list
+            NetworkHelper.getUser(userId: speaker.userId, completion: { (user, error) in
+                if let user = user {
+                    var newGroups: [String] = user.groupList
+                    newGroups.append(self.groupId)
+                    NetworkHelper.writeUser(user: UserStruct(userId: user.userId, displayName: user.displayName, groupList: newGroups, followList: user.followingList))
+                }
+            })
+        }
+    }
+    
     @IBAction func addTapped() {
-        print("add tapped")
-        
+        let storyBoard : UIStoryboard = UIStoryboard(name: "Main", bundle:nil)
+        let resultViewController = storyBoard.instantiateViewController(withIdentifier: "addMembersVC") as! AddMembersViewController
+        resultViewController.setVariables(groupId: groupId, followable: followable, userId: userId)
+        resultViewController.delegate = self
+        self.navigationController?.pushViewController(resultViewController, animated: true)
     }
     
     @IBAction func leaveTapped() {

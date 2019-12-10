@@ -203,7 +203,7 @@ class NetworkHelper {
         let data = image.pngData()
         userImageRef.putData(data!, metadata: nil) { (metadata, error) in
             guard metadata != nil else {
-                print("error in upload")
+                print("error in upload, error is \(error)")
                 return
             }
             NetworkHelper.setNewUserOption((field: "hasProfilePicture", value: true)) {

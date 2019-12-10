@@ -31,7 +31,6 @@
 		572DBF0B239593F200DA7408 /* SettingsTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 572DBF0A239593F200DA7408 /* SettingsTableViewCell.swift */; };
 		572DBF0D2395BE6C00DA7408 /* credentials.plist in Resources */ = {isa = PBXBuildFile; fileRef = 572DBF0C2395BE6C00DA7408 /* credentials.plist */; };
 		5775B209239F168E00BB1BA7 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 5775B208239F168E00BB1BA7 /* GoogleService-Info.plist */; };
-		5775B20D239F27D700BB1BA7 /* AddMembersViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5775B20C239F27D700BB1BA7 /* AddMembersViewController.swift */; };
 		79179D25B707C29E181E1E8C /* Pods_DialogueTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 48228F2CE385DD55C1150BD9 /* Pods_DialogueTests.framework */; };
 		B8A390A92374E39100FB706B /* ContactTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8A390A82374E39100FB706B /* ContactTableViewCell.swift */; };
 		B8B81CCF236207340058056E /* CreateDialogueViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8B81CCE236207340058056E /* CreateDialogueViewController.swift */; };
@@ -43,6 +42,7 @@
 		C35B7242238B810E0044B956 /* GroupMemberSettingTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C35B7241238B810E0044B956 /* GroupMemberSettingTableViewCell.swift */; };
 		C38B7E06238F9538003D0698 /* NotificationSettingsTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C38B7E05238F9538003D0698 /* NotificationSettingsTableViewController.swift */; };
 		C3A5C3AB238F2AF20031766C /* EditProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3A5C3AA238F2AF20031766C /* EditProfileViewController.swift */; };
+		C3CC7ECC239F479D00AEC9D1 /* AddMembersViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3CC7ECB239F479D00AEC9D1 /* AddMembersViewController.swift */; };
 		C3CFB2E22360FF3D001D0FA3 /* Loading.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3CFB2E12360FF3C001D0FA3 /* Loading.swift */; };
 /* End PBXBuildFile section */
 
@@ -97,7 +97,6 @@
 		572DBF0A239593F200DA7408 /* SettingsTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsTableViewCell.swift; sourceTree = "<group>"; };
 		572DBF0C2395BE6C00DA7408 /* credentials.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = credentials.plist; sourceTree = "<group>"; };
 		5775B208239F168E00BB1BA7 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
-		5775B20C239F27D700BB1BA7 /* AddMembersViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = AddMembersViewController.swift; path = /Users/williamlemens/Documents/School/iOS/Dialogue/Dialogue/AddMembersViewController.swift; sourceTree = "<absolute>"; };
 		6213E28C63618210CE64CE87 /* Pods-Dialogue.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Dialogue.debug.xcconfig"; path = "Target Support Files/Pods-Dialogue/Pods-Dialogue.debug.xcconfig"; sourceTree = "<group>"; };
 		A85DF578BB82003BADB74BF8 /* Pods-DialogueTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-DialogueTests.debug.xcconfig"; path = "Target Support Files/Pods-DialogueTests/Pods-DialogueTests.debug.xcconfig"; sourceTree = "<group>"; };
 		B8A390A82374E39100FB706B /* ContactTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContactTableViewCell.swift; sourceTree = "<group>"; };
@@ -109,6 +108,7 @@
 		C35B7241238B810E0044B956 /* GroupMemberSettingTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GroupMemberSettingTableViewCell.swift; sourceTree = "<group>"; };
 		C38B7E05238F9538003D0698 /* NotificationSettingsTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationSettingsTableViewController.swift; sourceTree = "<group>"; };
 		C3A5C3AA238F2AF20031766C /* EditProfileViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditProfileViewController.swift; sourceTree = "<group>"; };
+		C3CC7ECB239F479D00AEC9D1 /* AddMembersViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AddMembersViewController.swift; sourceTree = "<group>"; };
 		C3CFB2E12360FF3C001D0FA3 /* Loading.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Loading.swift; sourceTree = "<group>"; };
 		D3C922888D594B4BE0FE60B8 /* Pods_Dialogue.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Dialogue.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
@@ -224,8 +224,8 @@
 				3DF0B00F23413F4D00F99848 /* ViewController.swift */,
 				572DBF082394BE3B00DA7408 /* DialogueSettingsViewController.swift */,
 				572DBF0A239593F200DA7408 /* SettingsTableViewCell.swift */,
-				5775B20C239F27D700BB1BA7 /* AddMembersViewController.swift */,
 				5706F1EB237251500080C689 /* ChatViewController.swift */,
+				C3CC7ECB239F479D00AEC9D1 /* AddMembersViewController.swift */,
 				3DCA9F09235F80600078FD21 /* MyDialogueViewController.swift */,
 				5706F1F323725FB30080C689 /* DialogueTableViewCell.swift */,
 				B8B81CD0236216860058056E /* FollowADialogueViewController.swift */,
@@ -590,7 +590,7 @@
 				5706F1F423725FB30080C689 /* DialogueTableViewCell.swift in Sources */,
 				3D7A8E752373589700F16F22 /* ProfileViewController.swift in Sources */,
 				C3CFB2E22360FF3D001D0FA3 /* Loading.swift in Sources */,
-				5775B20D239F27D700BB1BA7 /* AddMembersViewController.swift in Sources */,
+				C3CC7ECC239F479D00AEC9D1 /* AddMembersViewController.swift in Sources */,
 				572DBF0B239593F200DA7408 /* SettingsTableViewCell.swift in Sources */,
 				C35B7242238B810E0044B956 /* GroupMemberSettingTableViewCell.swift in Sources */,
 				3DF163F32358E27E00A49BAC /* SigninViewController.swift in Sources */,
